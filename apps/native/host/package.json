@@ -14,14 +14,14 @@
     "expo": "~52.0.35",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
-    "react-dom": "^19.0.0",
+    "react-dom": "^18.3.1",
     "react-native": "0.76.7"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@repo/typescript-config": "workspace:*",
     "@types/react": "~18.3.12",
-    "@types/react-dom": "^19",
+    "@types/react-dom": "~18.3.1",
     "@types/react-native": "0.73.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.3.3"
