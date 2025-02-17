@@ -97,32 +97,6 @@ List all the tasks that can be run in the monorepo. Each task also includes app 
 
 `rn-web` branch: I will try using "react-native-web" for ui package.
 
-### 02.14.25
-
-I learned an important lesson.
-Nativewind is not working well with Expo. It's not compatible with Tailwind V4 and recent Expo versions.
-It crashes too much when using Nativewind with Expo.
-
-So I decided to adopt "React-Native-Web".
-
-Until now, I separate UI library component into "native.tsx", "web.tsx", and "styles.css".
-So the "styles.css" contains single tailwind css code for both native and web.
-
-But from now on, I will combine "native.tsx" and "web.tsx" into a single component file.
-And apply StyleSheet.create() for native styles on "styles.ts" file.
-Web app with transpile Native code to JS with react-native-web.
-
-### Starting guides
-
-- need to install pnpm globally first
-- I think using rimraf is a good idea for cleaning up the dist folder completely.
-
 ### Tool & Dependency Versions
 
 - pnpm: 10.2.1
-
-### To-Do
-
-- turbo generate으로 적절한 셋업을 갖춘 기본 next js application 생성하는 코드 작성
-  -> 이때, test-web에 설치된 패키지들 주의 깊게 확인. react-native-web이 있어야함.
-- expo app에서 되는지 확인: 다시 시작. nativewind가 복잡한 문제가 있음 (nativewind는 tailwind v3과만 호환됨)
