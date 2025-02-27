@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "name": "root-mobile",
+  "version": "1.0.0",
+  "description": "Root package for KISA mobile apps (React Native), defining useful scripts",
+  "author": "Jioh In <ekkicb71@gmail.com>",
+  "scripts": {
+    "start:pocha": "cd pocha && pnpm start",
+    "start:host": "cd host && pnpm start",
+    "bundle:ios": "cd host && pnpm bundle:ios",
+    "bundle:android": "cd host && pnpm bundle:android",
+    "dev": "concurrently -P 'pnpm:start:*(!standalone) {1}'",
+    "dev:ios": "../../devops/dev-scripts/dev-mobile-ios.sh",
+    "dev:android": "../../devops/dev-scripts/dev-mobile-android.sh",
+    "clean": "find ./ -type d -name 'node_modules' -exec rm -rf '{}' +"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

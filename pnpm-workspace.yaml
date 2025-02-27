@@ -1,7 +1,7 @@
 packages:
   - "apps/*"
   - "apps/web/*"
-  - "apps/native/*"
+  - "apps/mobile/*"
   - "packages/*"
   - "tooling/*"
   - "devops/*"
