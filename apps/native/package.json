@@ -1,0 +1,19 @@
+{
+  "name": "root-native",
+  "private": true,
+  "scripts": {
+    "start:host": "cd host && pnpm start",
+    "start:pocha": "cd pocha && pnpm start",
+    "bundle:ios": "cd host && pnpm bundle:ios",
+    "bundle:android": "cd host && pnpm bundle:android",
+    "dev": "concurrently -P 'pnpm:start:*(!standalone) {1}'",
+    "dev:pocha": "cd pocha && pnpm start:standalone",
+    "dev:pocha:ios": "cd pocha && pnpm ios",
+    "dev:pocha:android": "cd pocha && pnpm android",
+    "clean": "find ./ -type d -name 'node_modules' -exec rm -rf '{}' +"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "rimraf": "^6.0.1"
+  }
+}

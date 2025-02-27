@@ -88,8 +88,90 @@ export default function generator(plop) {
     },
   });
 
-  // expo react native application generator
+  // bare react native application generator
   plop.setGenerator("react-native", {
+    description: "Generate a new React Native app with monorepo support",
+    prompts: [
+      {
+        type: "confirm",
+        name: "isHost",
+        message: "Is this app a host?",
+        default: false,
+      },
+      {
+        type: "input",
+        name: "appName",
+        message: "What should we call this app?",
+        validate: (input, answers) => {
+          if (!input.trim()) return "App name cannot be empty";
+          if (answers.isHost && input !== "host") {
+            return "App name must be 'host' if it is a host";
+          }
+          return true;
+        },
+      },
+    ],
+    actions(answers) {
+      if (!answers) return [];
+
+      const { appName, isHost } = answers;
+      const nativeAppsPath = "./apps/native";
+      const appPath = `${nativeAppsPath}/${appName}`;
+
+      // Preliminary checks ---------------------------------------------------
+      // Ensure the native folder exists
+      if (!fs.existsSync(nativeAppsPath)) {
+        fs.mkdirSync(nativeAppsPath);
+      }
+
+      // Enforce uniqueness for host app
+      const nativeHostAppPath = `${nativeAppsPath}/host`;
+      if (isHost && fs.existsSync(nativeHostAppPath)) {
+        throw new Error("Host app already exists");
+      }
+
+      // Prevent duplicate app creation
+      if (fs.existsSync(appPath)) {
+        throw new Error("App already exists");
+      }
+
+      // Actions ----------------------------------------------------------------
+      const actions = [];
+      // 1. run `npx @react-native-community/cli`
+      actions.push({
+        type: "runCommand",
+        command: `cd ./apps/native && npx @react-native-community/cli@latest init ${appName} --skip-install 2>/dev/null`,
+      });
+
+      // 2. convert the project to use Repack
+      actions.push({
+        type: "runCommand",
+        command: `cd ${appPath} && npx @callstack/repack-init`,
+        description: `Converting project to use Repack...`,
+      });
+
+      // 3. install project cocoapods dependencies
+      actions.push({
+        type: "runCommand",
+        command: `cd ${appPath} && bundle install && bundle exec pod repo update && cd ios && bundle exec pod install`,
+        description: `Installing project cocoapods dependencies...`,
+      });
+
+      // [TODO] add template to enable internal package sharing
+
+      // 4. run `pnpm install`
+      actions.push({
+        type: "runCommand",
+        command: `cd ${appPath} && pnpm install --silent`,
+        description: `Running install to install dependencies for ${appName}...`,
+      });
+
+      return actions;
+    },
+  });
+
+  // expo react native application generator
+  plop.setGenerator("expo", {
     description: "Generate a new Expo React Native app with monorepo support",
     prompts: [
       {

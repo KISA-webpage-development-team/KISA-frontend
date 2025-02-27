@@ -1,22 +1,17 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { Button } from "@repo/ui/button";
+import {Federated} from '@callstack/repack/client';
+import React, {lazy, Suspense} from 'react';
+import {Text, SafeAreaView} from 'react-native';
+import Loading from './Loading';
+
+const Pocha = lazy(() => Federated.importModule('pocha', './App'));
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!!!!!!!</Text>
-      <StatusBar style="auto" />
-      <Button text="Click me" onClick={() => console.log("Hello")} />
-    </View>
+    <SafeAreaView>
+      <Text>Host App</Text>
+      <Suspense fallback={<Loading />}>
+        <Pocha />
+      </Suspense>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

@@ -1,12 +1,3 @@
 {
-  "extends": "@repo/typescript-config/expo-rn",
-  "compilerOptions": {
-    "strict": true,
-    "moduleResolution": "bundler",
-    "paths": {
-      "@repo/ui/*": ["./node_modules/@repo/ui/src/*"]
-    }
-  },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "extends": "@react-native/typescript-config/tsconfig.json"
 }
