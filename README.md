@@ -152,4 +152,12 @@ Dependencies are strictly managed with pnpm. To ensure the compatibility between
 - [Project Deletion](./docs/project-deletion.md)
   : When you want to delete a modular (mini) project
 
+## Future Works
+
+- web module federation with next.js multi zones
+- web automation scripts
+- mobile app deployment & bundling
+
+---
+
 author: ![Jioh In](https://github.com/retz8)
