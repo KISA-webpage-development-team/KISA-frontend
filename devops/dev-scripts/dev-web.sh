@@ -9,7 +9,7 @@ Usage: pnpm dev:web [app]
 Examples:
   pnpm dev:web
     Runs the host web app via:
-      turbo run dev:web --filter=root-web
+      turbo run dev:web --filter=web-host
 
   pnpm dev:web course-eval
     Runs the "course-eval" app in standalone mode via:
@@ -28,16 +28,16 @@ for arg in "$@"; do
   fi
 done
 
-# No positional argument: run host app (root-web)
+# No positional argument: run host app (web-host)
 if [ "$#" -eq 0 ]; then
   # Verify that the host app exists as a directory
-  if [ ! -d "apps/web/root-web" ]; then
-    echo "Error: Host app (root-web) does not exist in apps/web."
+  if [ ! -d "apps/web/host" ]; then
+    echo "Error: Host app (web-host) does not exist in apps/web."
     exit 1
   fi
 
-  echo "No app specified. Running host app (root-web)..."
-  turbo run dev:web --filter=root-web
+  echo "No app specified. Running host app (web-host)..."
+  turbo run dev --filter=web-host
   exit $?
 fi
 
