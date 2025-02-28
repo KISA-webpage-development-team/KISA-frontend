@@ -1,5 +1,7 @@
 # Delete a Modular Project
 
+Follow the steps below when you want to delete a modular (mini) project. DO NOT DELETE the app with "rm -rf", please use the command below. This deletion command is synchronized with the [Project Creation](./docs/project-creation.md) to keep the monorepo clean and easy to manage.
+
 ## Delete a mobile project
 
 ```bash
