@@ -92,7 +92,9 @@ After opening the repository on your code editor, run the following command to i
 pnpm setup:monorepo
 ```
 
-> [!NOTE] > `pnpm setup:monorepo` is equivalent to running `pnpm install` in the root directory and running `pod install` in the `apps/mobile/<app>/ios` directory. For more information, please refer to the [setup-monorepo.sh](./devops/setup-scripts/setup-monorepo.sh) script.
+> [!NOTE]
+
+> `pnpm setup:monorepo` is equivalent to running `pnpm install` in the root directory and running `pod install` in the `apps/mobile/<app>/ios` directory. For more information, please refer to the [setup-monorepo.sh](./devops/setup-scripts/setup-monorepo.sh) script.
 
 ### 3. Run the development server
 
