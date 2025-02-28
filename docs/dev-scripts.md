@@ -88,7 +88,7 @@ This command will run the "host" web app in local server.
 
 This command is still under development, so if you add more web modular apps, this command will run all the web apps, not just the "host" web app.
 
-## Most Common Scenario: Working on the Modular Mobile App
+## ⭐ Most Common Scenario: Working on the Modular Mobile App ⭐
 
 Here, we will assume you are working on the `pocha` modular mobile app.
 
