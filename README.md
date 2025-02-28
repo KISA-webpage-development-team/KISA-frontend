@@ -97,7 +97,7 @@ pnpm setup:monorepo
 ### 3. Run the development server
 
 > [!IMPORTANT]
-> This command doesn't directly run the mobile app on the simulator. For more information please refer to the [Dev Scripts](./docs/dev-scripts.md).
+> This command doesn't directly run the mobile app on the simulator. For more information, **you must read the [Dev Scripts](./docs/dev-scripts.md)**.
 
 #### Running all apps (web, mobile, packages)
 
@@ -117,7 +117,9 @@ pnpm dev:mobile
 pnpm dev:web
 ```
 
-## Create New Modular Projects
+## Create a New Modular Project
+
+Follow the steps below when you start a new mini project (mobile or web) under the monorepo + micro-frontend architecture.
 
 ### Generate a new mobile project (React Native)
 
@@ -171,6 +173,14 @@ export default function App() {
 pnpm create:web
 ```
 
+This command will generate a new next.js application in the `apps/web` folder.
+
+All the setup for the new web project is done automatically.
+
+#### How to load the new web project at the host app
+
+WIP
+
 #### How to use the internal packages at the new web project
 
 ```ts
@@ -184,3 +194,36 @@ export default function Home() {
   )
 }
 ```
+
+## Delete a Modular Project
+
+### Delete a mobile project
+
+```bash
+pnpm delete:mobile <project-name>
+```
+
+This command will remove the project from the host app and the monorepo.
+But make sure the remove the import statement of the deleted project in the host app.
+
+For example, after running the command above to delete "pocha" project, remove any related codes about "pocha" in the "host/App.tsx".
+
+```ts
+// apps/mobile/host/App.tsx
+
+// DELETE THIS CODE
+const Pocha = lazy(() => Federated.importModule('pocha', './App'));
+
+// rest of the code...
+
+// DELETE THIS CODE
+<Suspense fallback={<Loading />}>
+  <Pocha />
+</Suspense>
+
+// ...
+```
+
+### Delete a web project
+
+WIP
