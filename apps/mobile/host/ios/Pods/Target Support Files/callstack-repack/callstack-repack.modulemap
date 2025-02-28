@@ -1,0 +1,6 @@
+module callstack_repack {
+  umbrella header "callstack-repack-umbrella.h"
+
+  export *
+  module * { export * }
+}

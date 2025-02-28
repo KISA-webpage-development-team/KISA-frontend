@@ -1,0 +1,6 @@
+module Pods_host {
+  umbrella header "Pods-host-umbrella.h"
+
+  export *
+  module * { export * }
+}

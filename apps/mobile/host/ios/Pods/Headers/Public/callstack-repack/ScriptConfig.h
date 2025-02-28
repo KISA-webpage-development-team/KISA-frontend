@@ -1,0 +1,1 @@
+../../../../../node_modules/@callstack/repack/ios/ScriptConfig.h
