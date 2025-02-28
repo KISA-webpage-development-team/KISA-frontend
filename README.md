@@ -1,4 +1,4 @@
-# KISA Frontend
+# KISA Frontend · ![pnpm](https://img.shields.io/badge/pnpm-v10-yellow) ![Next.js](https://img.shields.io/badge/Next.js-v14.2.14-blue) ![React Native](https://img.shields.io/badge/ReactNative-v0.78.0-skyblue)
 
 **KISA Frontend Repository** is a Monorepo for the KISA Dev Team, managing all frontend code in one place.  
 It contains two deployed applications (Web, Mobile) and includes modular subprojects along with shared packages for reusable components and utilities.
