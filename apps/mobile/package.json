@@ -5,7 +5,6 @@
   "description": "Root package for KISA mobile apps (React Native), defining useful scripts",
   "author": "Jioh In <ekkicb71@gmail.com>",
   "scripts": {
-    "start:pocha": "cd pocha && pnpm start",
     "start:host": "cd host && pnpm start",
     "bundle:ios": "cd host && pnpm bundle:ios",
     "bundle:android": "cd host && pnpm bundle:android",
