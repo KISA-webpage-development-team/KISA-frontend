@@ -75,6 +75,48 @@ Try following this youtube video to install android studio.
 
 https://www.youtube.com/watch?v=i356Lxb9gEk
 
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/KISA-webpage-development-team/KISA-frontend.git
+cd KISA-frontend
+```
+
+### 2. Setup the monorepo
+
+After opening the repository on your code editor, run the following command to install the dependencies.
+
+```bash
+pnpm setup:monorepo
+```
+
+> **Note** > `pnpm setup:monorepo` is equivalent to running `pnpm install` in the root directory and running `pod install` in the `apps/mobile/<app>/ios` directory. For more information, please refer to the [setup-monorepo.sh](./devops/setup-scripts/setup-monorepo.sh) script.
+
+### 3. Run the development server
+
+> [!IMPORTANT]
+> This command doesn't directly run the mobile app on the simulator. For more information please refer to the [Dev Scripts](./docs/dev-scripts.md).
+
+#### Running all apps (web, mobile, packages)
+
+```bash
+pnpm dev
+```
+
+#### Running a mobile app (mobile host app)
+
+```bash
+pnpm dev:mobile
+```
+
+#### Running a web app (web host app)
+
+```bash
+pnpm dev:web
+```
+
 ## Create a New Mobile App Project (React Native)
 
 ```bash
