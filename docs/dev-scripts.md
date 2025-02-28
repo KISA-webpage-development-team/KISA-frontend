@@ -1,6 +1,6 @@
 # Dev Scripts
 
-You must be familiar with the commands here. Understanding the dev commands is the key for seamless development with the KISA frontend repository.
+**You must be familiar with the commands here.** Understanding the dev commands is the key for seamless development with the KISA frontend repository.
 
 ## Install Mobile App on Simulator
 
@@ -46,9 +46,7 @@ This command will run all the apps in parallel using `turbo run dev`. For more i
 > [!IMPORTANT]
 > This command **doesn't directly run the mobile app on the simulator.** Instead, it runs the mobile app's metro bundler in local server. This means if you have a running simulator with a "host" app installed, you can simply open the "host" app on the simulator and start developing the mobile app.
 
-### To run only the mobile app
-
-#### Case 1. Running Host App
+### To run only the Host Mobile App
 
 ```bash
 pnpm dev:mobile
@@ -72,15 +70,55 @@ Now, you can **open the "host" mobile app on the simulator** and start developin
 > [!NOTE]
 > While running "host" mobile app on the simulator, you can edit modular apps as well, but it won't support HMR (hot reloading) yet. So if there's a code change on modular app, you need to manually reload the "host" app on the simulator.
 
-### To run only the web app
+### To run only the Modular Mobile App
 
-````
+```bash
+pnpm dev:mobile <app-name>
+```
 
-### To run only the web app
+This command will run the modular mobile app (e.g. `pocha`) in local server with standalone mode. Here, the entry point of the app is `./apps/mobile/<app-name>/App.tsx`. And the exported module is `./apps/mobile/<app-name>/src/App.tsx`. Make sure you are aware of this when you are developing the modular app.
+
+### To run only the Host Web App
 
 ```bash
 pnpm dev:web
-````
+```
 
 This command will run the "host" web app in local server.
+
 This command is still under development, so if you add more web modular apps, this command will run all the web apps, not just the "host" web app.
+
+## Most Common Scenario: Working on the Modular Mobile App
+
+Here, we will assume you are working on the `pocha` modular mobile app.
+
+### 1. Open the "pocha" app with your favorite IDE
+
+or You can just work on the root directory of the repository with [Root Directory Commands](#root-directory-commands)
+
+### 2. Run the "host" mobile app on the simulator
+
+```bash
+pnpm start:standalone
+```
+
+> [!NOTE]
+> This command is different from `pnpm dev:mobile` command. `pnpm dev:mobile` command only works when you run at the root directory. It's basically the same as running `cd ./apps/mobile/pocha && pnpm start:standalone`. So if you open the "pocha" app independently, you need to run `pnpm start:standalone` instead.
+
+### 3. Open the "pocha" app on the simulator
+
+If nothing appears, try reloading the app with `Cmd + R` or `R` on either terminal or simulator.
+
+### 4. Make changes to the "pocha" app
+
+Make changes to the `./apps/mobile/pocha` directory's codes.
+
+### 5. See the changes on the "pocha" app
+
+If you see the changes on the "pocha" app (simulator), you can be sure that your changes are applied correctly.
+
+### 6. Happy Coding~
+
+## Notes
+
+To know more about how `pnpm dev:mobile` and `pnpm dev:web` work, please refer to scripts: [dev:mobile](./devops/scripts/dev-mobile.sh) and [dev:web](./devops/scripts/dev-web.sh).
