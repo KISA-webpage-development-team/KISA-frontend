@@ -121,4 +121,4 @@ If you see the changes on the "pocha" app (simulator), you can be sure that your
 
 ## Notes
 
-To know more about how `pnpm dev:mobile` and `pnpm dev:web` work, please refer to scripts: [dev:mobile](./devops/scripts/dev-mobile.sh) and [dev:web](./devops/scripts/dev-web.sh).
+To know more about how `pnpm dev:mobile` and `pnpm dev:web` work, please refer to scripts: [dev:mobile](./devops/dev-scripts/dev-mobile.sh) and [dev:web](./devops/dev-scripts/dev-web.sh).
