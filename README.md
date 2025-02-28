@@ -1,4 +1,14 @@
-# KISA Frontend Monorepo
+# KISA Frontend
+
+**KISA Frontend Repository** is a Monorepo for the KISA Dev Team, managing all frontend code in one place.  
+It contains two deployed applications (Web, Mobile) and includes modular subprojects along with shared packages for reusable components and utilities.
+
+- **Web App** ([`apps/web/host`](./apps/web/host)) – The main **Next.js** application (deployed)
+- **Mobile App** ([`apps/mobile/host`](./apps/mobile/host)) – The main **React Native** application (deployed)
+- **Modular subprojects**:
+  - [`apps/web/*`](./apps/web) – Independent Next.js modules integrated into the web app
+  - [`apps/mobile/*`](./apps/mobile) – Independent React Native modules integrated into the mobile app
+- **Shared Packages** ([`packages/`](./packages)) – Common UI components, utilities, and shared logic
 
 ## Create a New Mobile App Project (React Native)
 
