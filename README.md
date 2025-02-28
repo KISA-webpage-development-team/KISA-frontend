@@ -151,6 +151,8 @@ Dependencies are strictly managed with pnpm. To ensure the compatibility between
   : When you want to create a new modular (mini) project
 - [Project Deletion](./docs/project-deletion.md)
   : When you want to delete a modular (mini) project
+- [Turborepo](./docs/turborepo.md)
+  : When you want to know more about how to use turborepo
 
 ## Future Works
 
