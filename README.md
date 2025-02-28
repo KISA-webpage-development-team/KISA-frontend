@@ -21,7 +21,7 @@ https://nodejs.org/en/download
 > **About migration**:
 > We are no longer using npm as our package manager. We are using pnpm instead.
 
-> **Important**:
+> [!IMPORTANT]
 > Highly recommend to use corepack to install pnpm.
 
 https://pnpm.io/installation#using-corepack
@@ -68,7 +68,7 @@ Or download it from [App Store](https://apps.apple.com/app/xcode/id497799835).
 
 ### 6. Install Android Studio
 
-> **Note**
+> [!NOTE]
 > You can skip this step if you don't want to run the react native project on an android device or simulator.
 
 Try following this youtube video to install android studio.
@@ -92,7 +92,7 @@ After opening the repository on your code editor, run the following command to i
 pnpm setup:monorepo
 ```
 
-> **Note** > `pnpm setup:monorepo` is equivalent to running `pnpm install` in the root directory and running `pod install` in the `apps/mobile/<app>/ios` directory. For more information, please refer to the [setup-monorepo.sh](./devops/setup-scripts/setup-monorepo.sh) script.
+> [!NOTE] > `pnpm setup:monorepo` is equivalent to running `pnpm install` in the root directory and running `pod install` in the `apps/mobile/<app>/ios` directory. For more information, please refer to the [setup-monorepo.sh](./devops/setup-scripts/setup-monorepo.sh) script.
 
 ### 3. Run the development server
 
