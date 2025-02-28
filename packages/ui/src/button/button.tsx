@@ -37,6 +37,9 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     fontSize: 15,
     backgroundColor: "#2f80ed",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
     color: "pink",

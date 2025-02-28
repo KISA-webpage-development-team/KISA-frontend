@@ -49,9 +49,9 @@ export default env => {
    * to check its value to avoid accessing undefined value,
    * otherwise an error might occur.
    */
-  if (devServer) {
-    devServer.hmr = false;
-  }
+  // if (devServer) {
+  //   devServer.hmr = false;
+  // }
 
   /**
    * Depending on your Babel configuration you might want to keep it.
@@ -96,9 +96,10 @@ export default env => {
        * dependency. You might need it when using workspaces/monorepos or unconventional project
        * structure. For simple/typical project you won't need it.
        */
-      // alias: {
-      //   'react-native': reactNativePath,
-      // },
+      alias: {
+        'react-native': reactNativePath,
+        '@repo/ui/*': path.resolve(dirname, './node_modules/@repo/ui/src/*'),
+      },
     },
     /**
      * Configures output.

@@ -162,7 +162,7 @@ export default function generator(plop) {
       // Convert the project to use Repack
       actions.push({
         type: "runCommand",
-        command: `cd ${appPath} && npx @callstack/repack-init`,
+        command: `cd ${appPath} && pnpm dlx @callstack/repack-init`,
         description: `Converting project to use Repack...`,
       });
 
