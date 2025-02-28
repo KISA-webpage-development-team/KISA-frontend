@@ -131,6 +131,18 @@ pnpm dev:web
 
 ![Turborepo](https://img.shields.io/badge/Turborepo-0C0606?style=for-the-badge&logo=turborepo&logoColor=EF4444) ![pnpm](https://img.shields.io/badge/pnpm-yellow?style=for-the-badge&logo=pnpm&logoColor=white) ![Re.pack](https://img.shields.io/badge/Re.pack-purple?style=for-the-badge&logo=repack&logoColor=EF4444)
 
+## Dependencies
+
+Dependencies are strictly managed with pnpm. To ensure the compatibility between different apps, following versions are determined.
+
+- Node.js: 20.x
+- pnpm: 10.x
+- React Native: 0.78.x
+- Next.js: 14.2.14
+- React: 19
+- React Native Web: 0.19
+- TailwindCSS: 3.4.11
+
 ## Appendix
 
 - [Dev Scripts](./docs/dev-scripts.md)
@@ -139,3 +151,5 @@ pnpm dev:web
   : When you want to create a new modular (mini) project
 - [Project Deletion](./docs/project-deletion.md)
   : When you want to delete a modular (mini) project
+
+author: ![Jioh In](https://github.com/retz8)
