@@ -1,5 +1,3 @@
-
-![KISA logo only (1)](https://github.com/user-attachments/assets/e57b3b34-b3af-4e8b-9b14-cca2fe6f2b65)
 # KISA Frontend Monorepo
 
 ## Create a New Mobile App Project (React Native)
