@@ -18,10 +18,10 @@ https://nodejs.org/en/download
 
 ### 2. Install pnpm
 
-> **About migration**
+> **About migration**:
 > We are no longer using npm as our package manager. We are using pnpm instead.
 
-> **Important**
+> **Important**:
 > Highly recommend to use corepack to install pnpm.
 
 https://pnpm.io/installation#using-corepack
