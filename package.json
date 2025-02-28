@@ -14,7 +14,9 @@
     "delete:mobile": "./devops/delete-scripts/delete-mobile.sh",
     "test": "turbo run test",
     "clean": "turbo run clean",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore"
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\" --ignore-path .gitignore",
+    "setup:monorepo": "./devops/setup-scripts/setup-monorepo.sh",
+    "setup:mobile": "./devops/setup-scripts/setup-mobile.sh"
   },
   "devDependencies": {
     "@turbo/gen": "2.4.2",

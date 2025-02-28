@@ -10,6 +10,71 @@ It contains two deployed applications (Web, Mobile) and includes modular subproj
   - [`apps/mobile/*`](./apps/mobile) – Independent React Native modules integrated into the mobile app
 - **Shared Packages** ([`packages/`](./packages)) – Common UI components, utilities, and shared logic
 
+## Prerequisites
+
+### 1. Install node.js
+
+https://nodejs.org/en/download
+
+### 2. Install pnpm
+
+> **About migration**
+> We are no longer using npm as our package manager. We are using pnpm instead.
+
+> **Important**
+> Highly recommend to use corepack to install pnpm.
+
+https://pnpm.io/installation#using-corepack
+
+```bash
+pnpm --version # check if pnpm is installed (should be >=10)
+```
+
+### 3. Install rvm & ruby
+
+Ruby Version Manager (RVM) is necessary to install ruby.
+Ruby is used to install cocoapods for react native applications.
+
+```bash
+curl -sSL https://get.rvm.io | bash -s stable
+```
+
+If a command above doesn't work, try to install ruby manually.
+
+```bash
+ruby -v # check if ruby is installed (should be >= 3.0.0)
+```
+
+### 4. Install CocoaPods
+
+CocoaPods is a dependency manager for Swift and Objective-C Cocoa projects.
+This is necessary to convert the react native project to a native iOS project to run on a ios device or simulator.
+
+```bash
+sudo gem install cocoapods
+```
+
+### 5. Install XCode
+
+XCode is necessary to run the react native project on a ios device or simulator.
+
+Try using this command to install xcode.
+
+```bash
+brew install --cask xcode
+```
+
+Or download it from [App Store](https://apps.apple.com/app/xcode/id497799835).
+
+### 6. Install Android Studio
+
+> **Note**
+> You can skip this step if you don't want to run the react native project on an android device or simulator.
+
+Try following this youtube video to install android studio.
+
+https://www.youtube.com/watch?v=i356Lxb9gEk
+
 ## Create a New Mobile App Project (React Native)
 
 ```bash
