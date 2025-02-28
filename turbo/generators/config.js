@@ -156,7 +156,7 @@ export default function generator(plop) {
       // Run `npx @react-native-community/cli` to initialize the project
       actions.push({
         type: "runCommand",
-        command: `cd ./apps/mobile && npx @react-native-community/cli@latest init ${appName} --skip-install 2>/dev/null`,
+        command: `cd ./apps/mobile && npx @react-native-community/cli@latest init ${appName} --skip-git-init --skip-install 2>/dev/null`,
       });
 
       // Convert the project to use Repack

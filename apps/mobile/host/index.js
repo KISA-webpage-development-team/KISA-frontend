@@ -9,6 +9,7 @@ import App from './App';
 
 const resolveURL = Federated.createURLResolver({
   containers: {
+    pocha: "http://localhost:9000/[name][ext]",
     // more containers can be added here
   },
 });
