@@ -97,7 +97,7 @@ pnpm setup:monorepo
 ### 3. Run the development server
 
 > [!IMPORTANT]
-> This command doesn't directly run the mobile app on the simulator. For more information, **you must read the [Dev Scripts](./docs/dev-scripts.md)**.
+> This command doesn't directly run the mobile app on the simulator. At this point, **you must read the [Dev Scripts](./docs/dev-scripts.md)**, and then return to this page.
 
 #### Running all apps (web, mobile, packages)
 
