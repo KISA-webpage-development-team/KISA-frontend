@@ -57,7 +57,7 @@ Simply press `Ctrl + C` on the terminal where the development server is running,
 
 ## Web-to-Mobile Migration Guide: Folder Structure
 
-`/src/App.tsx` is an entry point of the pocha mobile application. All the migrated codes should be located under the `src` folder. This migration guide assumes that all the mobile folders are located under the `src` folder of the "pocha" project.
+All the migrated codes should be located under the `src` folder. This migration guide assumes that all the mobile folders are located under the `src` folder of the "pocha" project.
 
 #### 1. `app` folder (web) -> `screens` folder (mobile)
 
