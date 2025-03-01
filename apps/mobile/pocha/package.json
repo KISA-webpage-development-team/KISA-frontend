@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android --no-packager",
-    "ios": "react-native run-ios --simulator=\"iPhone 15 Pro\" --no-packager",
+    "ios": "react-native run-ios --no-packager",
     "start": "react-native webpack-start --port 9000",
     "start:standalone": "STANDALONE=1 react-native webpack-start",
     "test": "jest"
