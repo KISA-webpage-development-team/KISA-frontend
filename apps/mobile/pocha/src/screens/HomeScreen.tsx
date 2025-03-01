@@ -3,7 +3,7 @@
 import React, {useState} from 'react';
 
 // ui components
-import LoadingSpinner from '../shared/components/LoadingSpinner';
+import LoadingSpinner from '../shared/components/feedback/LoadingSpinner';
 import HomeHeading from '../components/home/HomeHeading';
 import HomeTabs from '../components/home/HomeTabs';
 import HomeTabContent from '../components/home/HomeTabContent';
