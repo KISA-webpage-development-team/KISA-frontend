@@ -87,7 +87,7 @@ Simply press `Ctrl + C` on the terminal where the development server is running,
 
 **Mobile**
 
-![스크린샷 2025-03-01 오후 1 27 01](https://github.com/user-attachments/assets/08002637-846b-49d6-8833-bd645d8392d5)
+![스크린샷 2025-03-01 오후 1 31 33](https://github.com/user-attachments/assets/2d2ca7c1-635f-4d39-8fb5-42c0eeaf3e94)
 
 ## Web-to-Mobile Migration Guide: UI
 
