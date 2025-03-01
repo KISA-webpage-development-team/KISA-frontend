@@ -59,19 +59,19 @@ Simply press `Ctrl + C` on the terminal where the development server is running,
 
 `/src/App.tsx` is an entry point of the pocha mobile application. All the migrated codes should be located under the `src` folder. This migration guide assumes that all the mobile folders are located under the `src` folder of the "pocha" project.
 
-### 1. `app` folder (web) -> `screens` folder (mobile)
+#### 1. `app` folder (web) -> `screens` folder (mobile)
 
-### 2. `features/pocha/components` folder (web) -> `components` folder (mobile)
+#### 2. `features/pocha/components` folder (web) -> `components` folder (mobile)
 
-### 3. `features/pocha/hooks` folder (web) -> `hooks` folder (mobile)
+#### 3. `features/pocha/hooks` folder (web) -> `hooks` folder (mobile)
 
-### 4. `features/pocha/utils` folder (web) -> `utils` folder (mobile)
+#### 4. `features/pocha/utils` folder (web) -> `utils` folder (mobile)
 
-### 5. `types/pocha.ts`(web) -> `types/pocha.ts` (mobile)
+#### 5. `types/pocha.ts`(web) -> `types/pocha.ts` (mobile)
 
-### 6. `apis/pocha` folder (web) -> `apis` (mobile)
+#### 6. `apis/pocha` folder (web) -> `apis` (mobile)
 
-### 7. Any other folders or codes not specified from #1 to #6 -> `shared` with same folder structure as web (mobile)
+#### 7. Any other folders or codes not specified from #1 to #6 -> `shared` with same folder structure as web (mobile)
 
 #### Example 1: `final_refactor_src/components/feedback/LoadingSpinners.tsx` (web) -> `shared/components/feedback/LoadingSpinners.tsx`
 
