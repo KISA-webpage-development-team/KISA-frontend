@@ -48,10 +48,10 @@ for app in "$MOBILE_APPS_DIR"/*; do
     IOS_DIR="$app/ios"
     
     if [[ -d "$IOS_DIR" ]]; then
-      # echo "Running `bundle install` in $IOS_DIR..."
-      # cd "$IOS_DIR"
-      # bundle install
-      # cd - > /dev/null
+      echo "Running `bundle install` in $IOS_DIR..."
+      cd "$IOS_DIR"
+      bundle install
+      cd - > /dev/null
       echo "📦 Running 'pod install' in $IOS_DIR..."
       cd "$IOS_DIR"
       pod install
