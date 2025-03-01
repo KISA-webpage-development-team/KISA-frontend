@@ -6,10 +6,11 @@ import PochaApp from './src/App';
 
 export default function App() {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'pink'}}>
       <Text>App Pcoha</Text>
-      <Button text="Click me" onClick={() => {}} />
+      {/* <Button text="Click me" onClick={() => {}} /> */}
       <PochaApp />
+      <Text>What the hell2</Text>
     </SafeAreaView>
   );
 }
