@@ -56,6 +56,7 @@ pnpm run android # for Android (Windows or Mac with Android Studio installed)
 Simply press `Ctrl + C` on the terminal where the development server is running, and close the simulator.
 
 ## Web-to-Mobile Migration Guide: Folder Structure
+
 `/src/App.tsx` is an entry point of the pocha mobile application. All the migrated codes should be located under the `src` folder. This migration guide assumes that all the mobile folders are located under the `src` folder of the "pocha" project.
 
 ### 1. `app` folder (web) -> `screens` folder (mobile)
@@ -71,7 +72,9 @@ Simply press `Ctrl + C` on the terminal where the development server is running,
 ### 6. `apis/pocha` folder (web) -> `apis` (mobile)
 
 ### 7. Any other folders or codes not specified from #1 to #6 -> `shared` with same folder structure as web (mobile)
+
 #### Example 1: `final_refactor_src/components/feedback/LoadingSpinners.tsx` (web) -> `shared/components/feedback/LoadingSpinners.tsx`
+
 **Web**
 
 ![스크린샷 2025-03-01 오후 1 24 50](https://github.com/user-attachments/assets/42db1fb6-998c-43a2-8f6a-60353dacdbb4)
@@ -81,6 +84,7 @@ Simply press `Ctrl + C` on the terminal where the development server is running,
 ![스크린샷 2025-03-01 오후 1 25 23](https://github.com/user-attachments/assets/4236231b-2415-4bde-aa00-802eaf1fadfb)
 
 #### Example 2: `lib/axios` folder (web) -> `shared/lib/axios` folder (mobile)
+
 **Web**
 
 ![스크린샷 2025-03-01 오후 1 26 23](https://github.com/user-attachments/assets/7aa684ca-2b6e-486b-b54f-93b3b3598a8d)
@@ -91,25 +95,157 @@ Simply press `Ctrl + C` on the terminal where the development server is running,
 
 ## Web-to-Mobile Migration Guide: UI
 
-### Converting HTML tags to Native tags
+> [!IMPORTANT]
+> While working on UI Migration, please ignore or comment any "logics" codes (useState, useEffect, API calls, etc)
+
+#### Logic codes example
+
 **Web**
 
-```ts
-{/* components/home/HomeHeading.tsx */}
-<div
-      className="flex flex-col items-center px-4 pt-2 gap-2"
-      id="pocha-heading"
-    >
-      {/* Title - pocha name */}
-      <h1 className={`${sejongHospitalBold.className} text-xl`}>
-        {pochaInfo?.title}
-      </h1>
+```tsx
+// /app/pocha/page.tsx
+const searchParams = useSearchParams();
+const [activeTab, setActiveTab] = useState<PochaTab>(
+  (searchParams.get('tab') as PochaTab) || 'menu',
+);
 
-      {/* Description - pocha description */}
-      <p className="text-center text-sm">{pochaInfo?.description}</p>
-    </div>
+// fetch pocha information (GET /pocha/status-info/)
+const {pochaInfo, status, error} = usePocha();
+
+if (status === 'loading') {
+  return <LoadingSpinner />;
+}
+
+// Error Handling using error.tsx,
+// just throw the error, and it will be handled by error.tsx
+if (status === 'error') {
+  throw new Error(error || 'Unexpected error occurred');
+}
+
+// [TODO] better UI
+// if pochaInfo === {}, then there is no scheduled pocha
+if (Object.keys(pochaInfo).length === 0) {
+  return (
+    <section className="flex justify-center items-center h-full">
+      <p className={`text-3xl ${sejongHospitalBold.className}`}>
+        No scheduled pocha
+      </p>
+    </section>
+  );
+}
 ```
 
 **Mobile**
 
+```tsx
+// /src/screens/HomeScreen.tsx: JUST COMMENT THE LOGIC CODES
 
+// const searchParams = useSearchParams();
+// const [activeTab, setActiveTab] = useState<PochaTab>(
+//   (searchParams.get('tab') as PochaTab) || 'menu',
+// );
+
+// // fetch pocha information (GET /pocha/status-info/)
+// const {pochaInfo, status, error} = usePocha();
+
+// if (status === 'loading') {
+//   return <LoadingSpinner />;
+// }
+
+// // Error Handling using error.tsx,
+// // just throw the error, and it will be handled by error.tsx
+// if (status === 'error') {
+//   throw new Error(error || 'Unexpected error occurred');
+// }
+
+// // [TODO] better UI
+// // if pochaInfo === {}, then there is no scheduled pocha
+// if (Object.keys(pochaInfo).length === 0) {
+//   return (
+//     <section className="flex justify-center items-center h-full">
+//       <p className={`text-3xl ${sejongHospitalBold.className}`}>
+//         No scheduled pocha
+//       </p>
+//     </section>
+//   );
+// }
+```
+
+### Converting HTML tags to Native tags
+
+**Web**
+
+```tsx
+// /features/pocha/components/home/HomeHeading.tsx
+
+<div className="flex flex-col items-center px-4 pt-2 gap-2" id="pocha-heading">
+  {/* Title - pocha name */}
+  <h1 className={`${sejongHospitalBold.className} text-xl`}>
+    {pochaInfo?.title}
+  </h1>
+
+  {/* Description - pocha description */}
+  <p className="text-center text-sm">{pochaInfo?.description}</p>
+</div>
+```
+
+**Mobile**
+
+```tsx
+// /src/components/home/HomeHeading.tsx
+<View style={styles.container} id="pocha-heading">
+  {/* Title - pocha name */}
+  <Text style={styles.title}>Halloween Pcoha</Text>
+
+  {/* Description - pocha description */}
+  <Text style={styles.description}>dasfdfasdf</Text>
+</View>
+```
+
+### Converting CSS classes to Native styles
+
+**Web**
+
+```tsx
+// /features/pocha/components/home/HomeHeading.tsx
+
+<div className="flex flex-col items-center px-4 pt-2 gap-2" id="pocha-heading">
+  {/* Title - pocha name */}
+  <h1 className={`${sejongHospitalBold.className} text-xl`}>
+    {pochaInfo?.title}
+  </h1>
+
+  {/* Description - pocha description */}
+  <p className="text-center text-sm">{pochaInfo?.description}</p>
+</div>
+```
+
+**Mobile**
+
+```tsx
+// /src/components/home/HomeHeading.tsx
+<View style={styles.container} id="pocha-heading">
+  {/* Title - pocha name */}
+  <Text style={styles.title}>Halloween Pcoha</Text>
+
+  {/* Description - pocha description */}
+  <Text style={styles.description}>dasfdfasdf</Text>
+</View>
+...
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 16,
+    gap: 8,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  description: {
+    fontSize: 16,
+  },
+});
+```
