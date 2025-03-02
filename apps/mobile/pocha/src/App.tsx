@@ -1,10 +1,13 @@
 import {View, Text} from 'react-native';
 import React from 'react';
+import HomeScreen from './screens/HomeScreen';
+import PaySuccessScreen from './screens/PaySuccessScreen';
 
-export default function pochaApp() {
+export default function PochaApp() {
   return (
-    <View>
-      <Text>This is exported pocha App</Text>
+    <View style={{flex: 1}}>
+      {/* <HomeScreen /> */}
+      <PaySuccessScreen />
     </View>
   );
 }
