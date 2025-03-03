@@ -23,7 +23,8 @@ export default function HomeScreen() {
     startDate: new Date(),
     endDate: new Date(new Date().getTime() + 4 * 60 * 60 * 1000),
     title: 'Halloween Pocha',
-    description: 'dasfdfasdf',
+    description:
+      '할로윈 포차 입니다. 한잔 포차에서 11월 2일 진행될 예정입니다! ^^',
     ongoing: true,
   };
   return (
