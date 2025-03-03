@@ -22,7 +22,7 @@ interface ViewCartButtonProps {
 export default function ViewCartButton({pochaID}: ViewCartButtonProps) {
   const handleViewCart = () => {
     // Leave these 2 comments below commented for now. --> navigate to cart page with pochaID
-    // const queryParams = `pochaid=${pochaID}`;
+    // const queryParams = `pochaid=${pochaID}`;;
     // window.location.href = `/pocha/cart?${queryParams}`;
     console.log('Navigate to Cart'); // temp. checking method
   };
