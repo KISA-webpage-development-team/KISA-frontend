@@ -11,13 +11,13 @@
 import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import MenuList from '../components/menu/MenuList';
-
+import OrderList from '../components/order/OrderList';
 export default function MenuScreenPage() {
   const pochaID = 123; // temporary for now
 
   return (
     <View style={styles.container}>
-      <MenuList />
+     <OrderList/>
     </View>
   );
 }

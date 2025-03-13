@@ -15,10 +15,16 @@ import PochaOrderItem from './PochaOrderItem';
 // interface OrderListProps {
 //   pochaID: number;
 // }
+export enum OrderStatus {
+  PENDING = 'pending',
+  PREPARING = 'preparing',
+  READY = 'ready',
+  CLOSED = 'closed',
+}
 
 interface OrderItem {
   orderItemID: number;
-  status: 'pending' | 'preparing' | 'ready' | 'closed';
+  status: OrderStatus;
   menu: {
     menuID: number;
     nameKor: string;
@@ -30,10 +36,11 @@ interface OrderItem {
   ordererEmail: string;
 }
 
+
 const pendingOrders: OrderItem[] = [
   {
     orderItemID: 1,
-    status: 'pending',
+    status: OrderStatus.PENDING,
     menu: {menuID: 101, nameKor: '김치찌개', nameEng: 'Kimchi Stew', price: 10},
     quantity: 1,
     ordererName: 'Alice',
@@ -43,11 +50,11 @@ const pendingOrders: OrderItem[] = [
 const preparingOrders: OrderItem[] = [
   {
     orderItemID: 2,
-    status: 'preparing',
+    status: OrderStatus.PREPARING,
     menu: {
       menuID: 102,
-      nameKor: '된장찌개',
-      nameEng: 'Soybean Paste Stew',
+      nameKor: '해물파전',
+      nameEng: 'Seafood Pancake',
       price: 12,
     },
     quantity: 2,
@@ -59,8 +66,8 @@ const preparingOrders: OrderItem[] = [
 const readyOrders: OrderItem[] = [
   {
     orderItemID: 3,
-    status: 'ready',
-    menu: {menuID: 103, nameKor: '비빔밥', nameEng: 'Bibimbap', price: 15},
+    status: OrderStatus.READY,
+    menu: {menuID: 103, nameKor: '육회', nameEng: 'Beef Tartare', price: 15},
     quantity: 1,
     ordererName: 'Charlie',
     ordererEmail: 'charlie@example.com',
@@ -70,7 +77,7 @@ const readyOrders: OrderItem[] = [
 const closedOrders: OrderItem[] = [
   {
     orderItemID: 4,
-    status: 'closed',
+    status: OrderStatus.CLOSED,
     menu: {menuID: 104, nameKor: '불고기', nameEng: 'Bulgogi', price: 20},
     quantity: 1,
     ordererName: 'Dave',
@@ -128,7 +135,41 @@ export default function OrderList() {
   } else if (activeTab === 'ready') {
     ordersToRender = readyOrders;
   }
-  return <View></View>;
+  return (
+    <View style={styles.container}>
+      <View style={styles.tabBar}>
+        {tabs.map(tab => (
+          <TouchableOpacity
+            key={tab}
+            style={[
+              styles.tabButton,
+              activeTab === tab && styles.activeTabButton,
+            ]}
+            onPress={() => setActiveTab(tab)}>
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === tab && styles.activeTabText,
+              ]}>
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+      {ordersToRender.length === 0 ? (
+        <Text style={styles.noOrdersText}>
+          You haven't placed any orders yet.
+        </Text>
+      ) : (
+        <FlatList
+          data={ordersToRender}
+          keyExtractor={item => item.orderItemID.toString()}
+          renderItem={({item}) => <PochaOrderItem orderItem={item} />}
+          contentContainerStyle={styles.ordersList}
+        />
+      )}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -1,10 +1,43 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import {OrderItem} from '../../types/pocha';
-import {getMenuImagePath} from '../../utils/getImagePath';
+import { getMenuImagePath } from '../../utils/getImagePath';
 import OrderTicketModal from './OrderTicketModal';
-import {STATUS_COLORS, STATUS_TEXT_COLORS} from '../../utils/statusToColor';
+//import OrderTicketModal from './OrderTicketModal';
+//import {STATUS_COLORS, STATUS_TEXT_COLORS} from '../../utils/statusToColor';
 
+export enum OrderStatus {
+  PENDING = 'pending',
+  PREPARING = 'preparing',
+  READY = 'ready',
+  CLOSED = 'closed',
+}
+
+interface OrderItem {
+  orderItemID: number;
+  status: OrderStatus;
+  menu: {
+    menuID: number;
+    nameKor: string;
+    nameEng: string;
+    price: number;
+  };
+  quantity: number;
+  ordererName: string;
+  ordererEmail: string;
+}
+export const STATUS_COLORS: Record<string, string> = {
+  [OrderStatus.PENDING]: '#F97316', // orange
+  [OrderStatus.PREPARING]: '#EAB308', // yellow
+  [OrderStatus.READY]: '#10B981', // green
+  [OrderStatus.CLOSED]: '#9CA3AF', // gray
+};
+
+export const STATUS_TEXT_COLORS: Record<string, string> = {
+  [OrderStatus.PENDING]: '#EA580C',
+  [OrderStatus.PREPARING]: '#CA8A04',
+  [OrderStatus.READY]: '#059669',
+  [OrderStatus.CLOSED]: '#6B7280',
+};
 interface PochaOrderItemProps {
   orderItem: OrderItem;
   setSelectedOrder?: (orderItem: OrderItem) => void;
@@ -24,7 +57,6 @@ export default function PochaOrderItem({orderItem}: PochaOrderItemProps) {
 
   return (
     <>
-      {/* Conditionally render your modal if needed */}
       {isOpenModal && (
         <OrderTicketModal
           orderItem={orderItem}
@@ -46,17 +78,20 @@ export default function PochaOrderItem({orderItem}: PochaOrderItemProps) {
 
         <View style={styles.imageContainer}>
           <Image
-            source={{uri: getMenuImagePath(menu?.menuID)}}
+            source={{uri: 'https://via.placeholder.com/64'}} // Replace with real image URL later
             style={styles.image}
-            resizeMode="cover"
           />
         </View>
 
         <View style={styles.infoContainer}>
           {/* Menu name */}
-          <Text style={[styles.menuName, styles.boldText]}>
-            {menu?.nameKor} {menu?.nameEng}
-          </Text>
+          <View style={styles.nameRow}>
+            <Text
+              style={[styles.menuName, styles.boldText]}
+              numberOfLines={2}>
+              {menu?.nameKor} {menu?.nameEng}
+            </Text>
+          </View>
           {/* Quantity and total price */}
           <Text style={styles.priceText}>
             {`x ${quantity}`} | {`$${menu?.price * quantity}`}
@@ -85,8 +120,14 @@ export default function PochaOrderItem({orderItem}: PochaOrderItemProps) {
                 onPress={handleViewTicket}
                 style={styles.viewTicketButton}>
                 {/*should add a ticket icon here later */}
-
-                <Text style={styles.viewTicketButtonText}>View Ticket</Text>
+                <Text style = {styles.ticketIcon}>t</Text>
+                <Text
+                  style={[
+                    styles.statusText,
+                    {color: STATUS_TEXT_COLORS[status]},
+                  ]}>
+                  View Ticket
+                </Text>
               </TouchableOpacity>
             </View>
           ) : (
@@ -108,15 +149,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 8,
     paddingVertical: 16,
-    paddingHorizontal: 16,
-    marginBottom: 8,
-
+    paddingHorizontal: 12,
+    marginBottom: 16,
+    elevation: 2,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    // Elevation for Android
-    elevation: 2,
   },
   // For "ready" status, thicker green border
   readyBorder: {
@@ -133,27 +172,46 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    marginRight: 16,
+    marginRight: 8,
   },
   // Image container
   imageContainer: {
-    width: 64, // ~4rem
-    height: 64, // ~4rem
+    width: 64,
+    height: 64,
+    borderRadius: 8,
+    overflow: 'hidden',
+    backgroundColor: '#f5f5f5',
+    borderColor: '#D1D5DB',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
     marginRight: 16,
   },
   image: {
     width: '100%',
     height: '100%',
-    borderRadius: 8,
+    resizeMode: 'cover',
   },
+
   // Info container (menu name, quantity, etc.)
   infoContainer: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
+  },
+
+  nameRow: {
+    // flex items-center gap-[0.25rem]
+    flexDirection: 'row',
+    alignItems: 'center',
+
+    marginBottom: 2,
   },
   menuName: {
     fontSize: 16,
-    marginBottom: 4,
+    lineHeight: 24,
   },
   priceText: {
     fontSize: 14,
@@ -166,18 +224,25 @@ const styles = StyleSheet.create({
   },
   // ID container (displayed if status === "ready")
   orderIdContainer: {
-    backgroundColor: '#F5F5F5', // tailwind zinc-100
+    backgroundColor: '#F4F4F5',
     borderRadius: 9,
-    paddingVertical: 2,
-    paddingHorizontal: 8,
+    // flex items-center justify-center
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     alignSelf: 'flex-start',
+    // px-2 py-[0.25rem]
+    paddingHorizontal: 8, // ~ 2 * 4px
+    paddingVertical: 4, // 0.25rem ~
   },
   orderIdText: {
     fontSize: 14,
     color: '#000',
+    fontWeight: 'bold',
   },
   // Status container on the right side
   statusContainer: {
+  justifyContent: 'center',
     alignItems: 'flex-end',
   },
   statusReadyContainer: {
@@ -196,16 +261,16 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(28,130,65,0.5)', // #1c8241/50
     borderWidth: 1,
     borderRadius: 5,
-    width: 128, // ~8rem
+    width: 128,
     height: 32, // ~2rem
     marginTop: 8,
   },
   ticketIcon: {
-    marginRight: 4,
+    marginRight: 8,
   },
   viewTicketButtonText: {
     fontSize: 14,
-    lineHeight: 20, // ~150% for fontSize 14
+    lineHeight: 21, // ~150% for fontSize 14
     color: '#000',
   },
 });
