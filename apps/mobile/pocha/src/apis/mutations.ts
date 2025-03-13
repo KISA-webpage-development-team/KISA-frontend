@@ -1,5 +1,5 @@
-import client from "@/lib/axios/client";
-import { AddItemToCartBody } from "@/types/pocha";
+import client from '@/shared/lib/axios/client';
+import {AddItemToCartBody} from '@/types/pocha';
 
 interface ChangeItemCartResponse {
   isStocked: boolean;
@@ -16,7 +16,7 @@ interface ChangeItemCartResponse {
 export async function changeItemInCart(
   email: string,
   pochaid: number,
-  body: AddItemToCartBody
+  body: AddItemToCartBody,
 ): Promise<ChangeItemCartResponse | undefined> {
   const url = `/pocha/cart/${email}/${pochaid}/`;
 
@@ -40,7 +40,7 @@ export async function changeItemInCart(
 export async function notifyPayResult(
   email: string,
   pochaid: number,
-  body: { result: "success" | "failure" }
+  body: {result: 'success' | 'failure'},
 ) {
   const url = `/pocha/payment/${email}/${pochaid}/pay-result/`;
   try {
@@ -73,8 +73,8 @@ export async function changeOrderItemStatus(orderItemId: number) {
  */
 export async function checkCartStock(
   email: string,
-  pochaid: number
-): Promise<{ isStocked: boolean } | undefined> {
+  pochaid: number,
+): Promise<{isStocked: boolean} | undefined> {
   const url = `/pocha/payment/${email}/${pochaid}/check-stock/`;
   try {
     const response = await client.put(url);
@@ -88,7 +88,7 @@ export async function checkCartStock(
 
 export async function checkCartStockMock(
   email: string,
-  pochaid: number
+  pochaid: number,
 ): Promise<boolean | undefined> {
   return true;
 }
