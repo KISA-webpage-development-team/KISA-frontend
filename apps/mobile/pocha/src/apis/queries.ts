@@ -1,4 +1,4 @@
-// import client from '../shared/lib/axios/client';
+import client from '@/shared/lib/axios/client';
 import {
   MenuByCategory,
   PochaInfo,
@@ -77,20 +77,20 @@ export async function getPochaInfoMock(date: Date) {
  * @desc Fetch user's cart
  * @route GET /pocha/cart/${email}/${pochaid}
  */
-// export async function getUserCart(
-//   email: string,
-//   pochaid: number,
-// ): Promise<Cart | undefined> {
-//   const url = `/pocha/cart/${email}/${pochaid}/`;
-//   try {
-//     const response = await client.get(url);
+export async function getUserCart(
+  email: string,
+  pochaid: number,
+): Promise<Cart | undefined> {
+  const url = `/pocha/cart/${email}/${pochaid}/`;
+  try {
+    const response = await client.get(url);
 
-//     return response?.data;
-//   } catch (error) {
-//     console.log(error);
-//     return undefined;
-//   }
-// }
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
+}
 
 /**
  * @desc Fetch active orders of user from pocha

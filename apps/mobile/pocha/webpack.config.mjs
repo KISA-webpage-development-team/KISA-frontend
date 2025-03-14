@@ -99,6 +99,7 @@ export default env => {
       alias: {
         'react-native': reactNativePath,
         '@repo/ui/*': path.resolve(dirname, './node_modules/@repo/ui/src/*'),
+        '@': path.resolve(dirname, 'src'),
       },
     },
     /**
