@@ -1,5 +1,7 @@
 'use client';
 
+import React from 'react';
+
 // UI
 import PochaBackHeading from '@/shared/components/feedback/PochaBackHeading';
 import EmptyCartAlert from '@/components/cart/EmptyCartAlert';
