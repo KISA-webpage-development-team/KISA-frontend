@@ -3,41 +3,9 @@ import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import { getMenuImagePath } from '../../utils/getImagePath';
 import OrderTicketModal from './OrderTicketModal';
 //import OrderTicketModal from './OrderTicketModal';
-//import {STATUS_COLORS, STATUS_TEXT_COLORS} from '../../utils/statusToColor';
+import {STATUS_COLORS, STATUS_TEXT_COLORS} from '../../utils/statusToColor';
+import { OrderStatus, MenuItem, OrderItem } from '../../types/pocha';
 
-export enum OrderStatus {
-  PENDING = 'pending',
-  PREPARING = 'preparing',
-  READY = 'ready',
-  CLOSED = 'closed',
-}
-
-interface OrderItem {
-  orderItemID: number;
-  status: OrderStatus;
-  menu: {
-    menuID: number;
-    nameKor: string;
-    nameEng: string;
-    price: number;
-  };
-  quantity: number;
-  ordererName: string;
-  ordererEmail: string;
-}
-export const STATUS_COLORS: Record<string, string> = {
-  [OrderStatus.PENDING]: '#F97316', // orange
-  [OrderStatus.PREPARING]: '#EAB308', // yellow
-  [OrderStatus.READY]: '#10B981', // green
-  [OrderStatus.CLOSED]: '#9CA3AF', // gray
-};
-
-export const STATUS_TEXT_COLORS: Record<string, string> = {
-  [OrderStatus.PENDING]: '#EA580C',
-  [OrderStatus.PREPARING]: '#CA8A04',
-  [OrderStatus.READY]: '#059669',
-  [OrderStatus.CLOSED]: '#6B7280',
-};
 interface PochaOrderItemProps {
   orderItem: OrderItem;
   setSelectedOrder?: (orderItem: OrderItem) => void;
@@ -124,7 +92,7 @@ export default function PochaOrderItem({orderItem}: PochaOrderItemProps) {
                 <Text
                   style={[
                     styles.statusText,
-                    {color: STATUS_TEXT_COLORS[status]},
+                    { color: STATUS_TEXT_COLORS[status] },
                   ]}>
                   View Ticket
                 </Text>

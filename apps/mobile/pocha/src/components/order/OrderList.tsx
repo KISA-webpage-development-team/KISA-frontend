@@ -11,42 +11,39 @@
 import React, {useState} from 'react';
 import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import PochaOrderItem from './PochaOrderItem';
-
+import { OrderStatus } from '../../types/pocha';
+import { OrderItem } from '../../types/pocha';
 // interface OrderListProps {
 //   pochaID: number;
 // }
-export enum OrderStatus {
-  PENDING = 'pending',
-  PREPARING = 'preparing',
-  READY = 'ready',
-  CLOSED = 'closed',
-}
-
-interface OrderItem {
-  orderItemID: number;
-  status: OrderStatus;
-  menu: {
-    menuID: number;
-    nameKor: string;
-    nameEng: string;
-    price: number;
-  };
-  quantity: number;
-  ordererName: string;
-  ordererEmail: string;
-}
-
 
 const pendingOrders: OrderItem[] = [
   {
     orderItemID: 1,
     status: OrderStatus.PENDING,
-    menu: {menuID: 101, nameKor: '김치찌개', nameEng: 'Kimchi Stew', price: 10},
+    menu: {
+      menuID: 101,
+      nameKor: '김치찌개',
+      nameEng: 'Kimchi Stew',
+      price: 10,
+      stock: 100,
+      isImmediatePrep: false,
+      parentPochaId: 20,
+      ageCheckRequired: false,
+    },
     quantity: 1,
     ordererName: 'Alice',
     ordererEmail: 'alice@example.com',
   },
 ];
+// menuID: number;
+// nameKor: string;
+// nameEng: string;
+// price: number;
+// stock: number;
+// isImmediatePrep: boolean;
+// parentPochaId: number;
+// ageCheckRequired: boolean;
 const preparingOrders: OrderItem[] = [
   {
     orderItemID: 2,
@@ -56,6 +53,10 @@ const preparingOrders: OrderItem[] = [
       nameKor: '해물파전',
       nameEng: 'Seafood Pancake',
       price: 12,
+      stock: 100,
+      isImmediatePrep: false,
+      parentPochaId: 21,
+      ageCheckRequired: false,
     },
     quantity: 2,
     ordererName: 'Bob',
@@ -67,7 +68,16 @@ const readyOrders: OrderItem[] = [
   {
     orderItemID: 3,
     status: OrderStatus.READY,
-    menu: {menuID: 103, nameKor: '육회', nameEng: 'Beef Tartare', price: 15},
+    menu: {
+      menuID: 103,
+      nameKor: '육회',
+      nameEng: 'Beef Tartare',
+      price: 15,
+      stock: 100,
+      isImmediatePrep: false,
+      parentPochaId: 22,
+      ageCheckRequired: false,
+    },
     quantity: 1,
     ordererName: 'Charlie',
     ordererEmail: 'charlie@example.com',
@@ -78,7 +88,16 @@ const closedOrders: OrderItem[] = [
   {
     orderItemID: 4,
     status: OrderStatus.CLOSED,
-    menu: {menuID: 104, nameKor: '불고기', nameEng: 'Bulgogi', price: 20},
+    menu: {
+      menuID: 104,
+      nameKor: '불고기',
+      nameEng: 'Bulgogi',
+      price: 20,
+      stock: 100,
+      isImmediatePrep: false,
+      parentPochaId: 23,
+      ageCheckRequired: false,
+    },
     quantity: 1,
     ordererName: 'Dave',
     ordererEmail: 'dave@example.com',

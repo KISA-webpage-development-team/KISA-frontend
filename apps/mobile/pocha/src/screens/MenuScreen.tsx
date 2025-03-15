@@ -17,7 +17,7 @@ export default function MenuScreenPage() {
 
   return (
     <View style={styles.container}>
-     <OrderList/>
+    <OrderList/>
     </View>
   );
 }

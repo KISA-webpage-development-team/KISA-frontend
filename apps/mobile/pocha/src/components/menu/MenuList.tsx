@@ -31,15 +31,8 @@ import {FlatList, Text, View, StyleSheet} from 'react-native';
 import MenuListItem from './MenuListItem';
 import MenuItemDetail from './MenuItemDetail';
 import ViewCartButton from './ViewCartButton';
+import { MenuItem } from '../../types/pocha';
 
-interface MenuItem {
-  menuID: number;
-  nameKor: string;
-  nameEng: string;
-  price: number;
-  stock: number;
-  ageCheckRequired: boolean;
-}
 
 // Mock Data — Instead of fetching with API
 // Checks for: age restriction, stock availability
@@ -53,6 +46,8 @@ const mockMenuList = [
         nameEng: 'Kimchi Pancake',
         price: 9.99,
         stock: 10,
+        isImmediatePrep: false,
+        parentPochaId: 30,
         ageCheckRequired: false,
       },
       {
@@ -61,6 +56,8 @@ const mockMenuList = [
         nameEng: 'Bulgogi',
         price: 15.99,
         stock: 3,
+        isImmediatePrep: false,
+        parentPochaId: 31,
         ageCheckRequired: false,
       },
       {
@@ -69,6 +66,8 @@ const mockMenuList = [
         nameEng: 'Sundae',
         price: 8.99,
         stock: 0,
+        isImmediatePrep: false,
+        parentPochaId: 32,
         ageCheckRequired: false,
       },
       {
@@ -77,6 +76,8 @@ const mockMenuList = [
         nameEng: 'Tteokbokki',
         price: 7.99,
         stock: 5,
+        isImmediatePrep: false,
+        parentPochaId: 33,
         ageCheckRequired: false,
       },
     ],
@@ -90,6 +91,8 @@ const mockMenuList = [
         nameEng: 'Pork Feet',
         price: 24.99,
         stock: 0,
+        isImmediatePrep: false,
+        parentPochaId: 34,
         ageCheckRequired: false,
       },
       {
@@ -98,6 +101,8 @@ const mockMenuList = [
         nameEng: 'Pig Belly',
         price: 20.99,
         stock: 3,
+        isImmediatePrep: false,
+        parentPochaId: 35,
         ageCheckRequired: false,
       },
     ],
@@ -111,6 +116,8 @@ const mockMenuList = [
         nameEng: 'Chamesul Soju',
         price: 12.99,
         stock: 5,
+        isImmediatePrep: true,
+        parentPochaId: 36,
         ageCheckRequired: true,
       },
       {
@@ -119,6 +126,8 @@ const mockMenuList = [
         nameEng: 'Cass Beer',
         price: 5.99,
         stock: 0,
+        isImmediatePrep: true,
+        parentPochaId: 37,
         ageCheckRequired: true,
       },
       {
@@ -127,6 +136,8 @@ const mockMenuList = [
         nameEng: 'Makgeolli',
         price: 6.99,
         stock: 2,
+        isImmediatePrep: true,
+        parentPochaId: 38,
         ageCheckRequired: true,
       },
     ],
@@ -182,11 +193,9 @@ export default function MenuList() {
               keyExtractor={menu => `menu-${menu.menuID}`}
               renderItem={({item: menu}) => (
                 <MenuListItem
-                  // key={`${menu.menuID}-${menuIdx}`} - CHECK w/ DS
                   menu={menu}
                   underAge={underAge}
                   setSelectedMenu={setSelectedMenu}
-                  // isPriority={categoryIdx === 0 && menuIdx < 3} - CHECK w/ DS
                 />
               )}
               ItemSeparatorComponent={() => <View style={styles.menuDivider} />}

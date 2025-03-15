@@ -4,38 +4,19 @@
 // import {sejongHospitalLight} from '@/utils/fonts/textFonts';
 import React from 'react';
 import {Modal, View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import { OrderStatus, MenuItem, OrderItem } from '../../types/pocha';
 
-export enum OrderStatus {
-  PENDING = 'pending',
-  PREPARING = 'preparing',
-  READY = 'ready',
-  CLOSED = 'closed',
-}
-
-interface OrderItem {
-  orderItemID: number;
-  status: OrderStatus;
-  menu: {
-    menuID: number;
-    nameKor: string;
-    nameEng: string;
-    price: number;
-  };
-  quantity: number;
-  ordererName: string;
-  ordererEmail: string;
-}
  export default function OrderTicketModal({
    orderItem,
   setIsOpenModal,
 }: {
-   orderItem: OrderItem;
-   setIsOpenModal: (isOpen: boolean) => void;
+  orderItem: OrderItem;
+  setIsOpenModal: (isOpen: boolean) => void;
  }) {
    const {orderItemID, menu} = orderItem;
 
    const handleCloseModal = () => {
-     setIsOpenModal(false);
+  setIsOpenModal(false);
    };
 
 //   return (

@@ -27,15 +27,7 @@ import {
 import {getMenuImagePath} from '../../utils/getImagePath';
 import PochaErrorMsg from '../../shared/components/feedback/PochaErrorMsg';
 import LoadingSpinner from '../../shared/components/feedback/LoadingSpinner';
-
-interface MenuItem {
-  menuID: number;
-  nameKor: string;
-  nameEng: string;
-  price: number;
-  stock: number;
-  ageCheckRequired: boolean;
-}
+import { MenuItem } from '../../types/pocha';
 
 interface MenuItemDetailProps {
   // session: UserSession | undefined;

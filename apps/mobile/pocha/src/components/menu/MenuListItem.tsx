@@ -14,35 +14,25 @@
 
 import React from 'react';
 import {Image, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-
-interface MenuItem {
-  menuID: number;
-  nameKor: string;
-  nameEng: string;
-  price: number;
-  stock: number;
-  ageCheckRequired: boolean;
-}
+import { MenuItem } from '../../types/pocha';
 
 interface MenuItemCardProps {
   menu: MenuItem;
   underAge: boolean;
   setSelectedMenu: (menu: MenuItem) => void;
-  isPriority?: boolean;
 }
 
 // Renders the age restriction overlay for underage users (drinks)
 const AGE_RESTRICTION_MESSAGE = 'Only for 21+';
 
 function AgeRestrictionOverlay() {
-  return <View style={styles.overlay}></View>;
+  return <View style={styles.overlay} />;
 }
 
 export default function MenuListItem({
   menu,
   underAge,
   setSelectedMenu,
-  isPriority = false,
 }: MenuItemCardProps) {
   const {menuID, nameEng, nameKor, price, ageCheckRequired, stock} = menu;
   const notForUnderAge = ageCheckRequired && underAge;
