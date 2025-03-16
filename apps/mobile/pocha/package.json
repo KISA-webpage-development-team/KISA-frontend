@@ -18,6 +18,7 @@
     "lodash": "^4.17.21",
     "react": "19.0.0",
     "react-native": "0.78.0",
+    "react-native-dotenv": "3.4.11",
     "react-native-pager-view": "6.7.0",
     "react-native-safe-area-context": "5.3.0",
     "react-native-screens": "4.9.2"
@@ -38,6 +39,7 @@
     "@types/jest": "^29.5.13",
     "@types/lodash": "^4.17.16",
     "@types/react": "^19.0.0",
+    "@types/react-native-dotenv": "0.2.2",
     "@types/react-test-renderer": "^19.0.0",
     "babel-loader": "9.2.1",
     "eslint": "^8.19.0",

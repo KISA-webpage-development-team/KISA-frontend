@@ -11,6 +11,7 @@ import HomeHeading from '@/components/home/HomeHeading';
 import usePocha from '../hooks/usePocha';
 
 import {SafeAreaView, StyleSheet} from 'react-native';
+import {BACKEND_URL} from '@env';
 
 // navigations
 import HomeTabNavigator from '@/navigations/HomeTabNavigator';
@@ -25,6 +26,10 @@ export default function HomeScreen() {
       '할로윈 포차 입니다. 한잔 포차에서 11월 2일 진행될 예정입니다! ^^',
     ongoing: true,
   };
+
+  // [NOTE] Sample Usage of env variables
+  console.log('Backend URL: ', BACKEND_URL);
+
   return (
     <SafeAreaView style={styles.container}>
       {/* PochaHeading (at the top, disappear when scrolling) */}

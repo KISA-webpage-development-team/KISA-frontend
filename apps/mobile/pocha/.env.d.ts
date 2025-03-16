@@ -1,0 +1,17 @@
+declare module '@env' {
+  export const GOOGLE_ID: string;
+  export const GOOGLE_SECRET: string;
+  export const JWT_SECRET_KEY: string;
+  export const KISA_EMAIL: string;
+  export const KISA_PASSWORD: string;
+  export const BACKEND_URL: string;
+  export const LOCAL_BACKEND_URL: string;
+  export const USE_LOCAL_BACKEND: string;
+  export const WEBSOCKET_URL: string;
+  export const LOCAL_WEBSOCKET_URL: string;
+  export const USE_LOCAL_WEBSOCKET: string;
+  export const STRIPE_PUBLIC_KEY_LIVE: string;
+  export const STRIPE_SECRET_KEY_LIVE: string;
+  export const STRIPE_PUBLIC_KEY: string;
+  export const STRIPE_SECRET_KEY: string;
+}
