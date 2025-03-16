@@ -49,9 +49,8 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>AntDesign.ttf</string>
-		<string>antfill.ttf</string>
-		<string>antoutline.ttf</string>
+		<string>Sejonghospital-Bold.ttf</string>
+		<string>Sejonghospital-Light.ttf</string>
 	</array>
 </dict>
 </plist>

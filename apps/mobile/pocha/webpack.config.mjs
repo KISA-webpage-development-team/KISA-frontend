@@ -202,7 +202,11 @@ export default env => {
          * ```
          */
         {
-          test: Repack.getAssetExtensionsRegExp(Repack.ASSET_EXTENSIONS),
+          test: Repack.getAssetExtensionsRegExp([
+            ...Repack.ASSET_EXTENSIONS,
+            'ttf',
+          ]),
+          // include: [path.resolve(dirname, 'src/assets')],
           use: {
             loader: '@callstack/repack/assets-loader',
             options: {

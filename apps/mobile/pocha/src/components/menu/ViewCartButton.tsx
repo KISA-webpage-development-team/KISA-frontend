@@ -12,7 +12,6 @@
 
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-import PochaCartIcon from '../../assets/icon/pochaCartIcon.tsx';
 import {TouchableOpacity} from 'react-native';
 import {useMainNavigation} from '@/navigations/useMainNavigation.ts';
 

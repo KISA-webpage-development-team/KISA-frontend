@@ -8,7 +8,7 @@ interface HomeHeadingProps {
 
 export default function HomeHeading({pochaInfo}: HomeHeadingProps) {
   return (
-    <View style={styles.container} id="pocha-heading">
+    <View style={styles.container}>
       {/* Title - pocha name */}
       <Text style={styles.title}>{pochaInfo?.title}</Text>
 
