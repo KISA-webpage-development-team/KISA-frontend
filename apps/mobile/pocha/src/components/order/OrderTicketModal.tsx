@@ -4,72 +4,68 @@
 // import {sejongHospitalLight} from '@/utils/fonts/textFonts';
 import React from 'react';
 import {Modal, View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import { OrderStatus, MenuItem, OrderItem } from '../../types/pocha';
+import {OrderStatus, MenuItem, OrderItem} from '@/types/pocha';
 
- export default function OrderTicketModal({
-   orderItem,
+export default function OrderTicketModal({
+  orderItem,
   setIsOpenModal,
 }: {
   orderItem: OrderItem;
   setIsOpenModal: (isOpen: boolean) => void;
- }) {
-   const {orderItemID, menu} = orderItem;
+}) {
+  const {orderItemID, menu} = orderItem;
 
-   const handleCloseModal = () => {
-  setIsOpenModal(false);
-   };
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
 
-//   return (
-//     < className="fixed inset-0 z-[99999] bg-black/30">
-//       <div className="relative z-[100000] w-full h-full flex items-center justify-center">
-//         <div
-//           className="relative flex flex-col items-center justify-center
-//          space-y-4 bg-white rounded-lg shadow-md text-black
-//          border-2 border-[#71717A] h-[30%] aspect-[8/5]">
-//           <button
-//             className="absolute top-[1rem] right-[1rem]"
-//             onClick={handleCloseModal}>
-//             <PochaCloseIcon size="extra-large" />
-//           </button>
-//           <span className={`text-lg ${sejongHospitalBold.className}`}>
-//             Order Ready!
-//           </span>
-//           <span
-//             className={`text-4xl ${sejongHospitalBold.className}`}>{`#${orderItemID}`}</span>
-//           <span className={`text-lg font-medium`}>
-//             {menu.nameKor} is ready for pickup
-//           </span>
-//         </div>
-//       </div>
-    return (
+  //   return (
+  //     < className="fixed inset-0 z-[99999] bg-black/30">
+  //       <div className="relative z-[100000] w-full h-full flex items-center justify-center">
+  //         <div
+  //           className="relative flex flex-col items-center justify-center
+  //          space-y-4 bg-white rounded-lg shadow-md text-black
+  //          border-2 border-[#71717A] h-[30%] aspect-[8/5]">
+  //           <button
+  //             className="absolute top-[1rem] right-[1rem]"
+  //             onClick={handleCloseModal}>
+  //             <PochaCloseIcon size="extra-large" />
+  //           </button>
+  //           <span className={`text-lg ${sejongHospitalBold.className}`}>
+  //             Order Ready!
+  //           </span>
+  //           <span
+  //             className={`text-4xl ${sejongHospitalBold.className}`}>{`#${orderItemID}`}</span>
+  //           <span className={`text-lg font-medium`}>
+  //             {menu.nameKor} is ready for pickup
+  //           </span>
+  //         </div>
+  //       </div>
+  return (
     <Modal
-        visible={true}
-        transparent
-        animationType="fade"
-        onRequestClose={handleCloseModal}>
-        <View style={styles.overlay}>
+      visible={true}
+      transparent
+      animationType="fade"
+      onRequestClose={handleCloseModal}>
+      <View style={styles.overlay}>
         <View style={styles.centerContainer}>
-            <View style={styles.modalContent}>
+          <View style={styles.modalContent}>
             <TouchableOpacity
-                style={styles.closeButton}
-                onPress={handleCloseModal}>
-                {/*should be replaced with an icon later*/}            
+              style={styles.closeButton}
+              onPress={handleCloseModal}>
+              {/*should be replaced with an icon later*/}
               <Text>X</Text>
             </TouchableOpacity>
-            <Text style={[styles.orderReadyText]}>
-                Order Ready!
-            </Text>
-            <Text style={[styles.orderItemId]}>
-                {`#${orderItemID}`}
-            </Text>
+            <Text style={[styles.orderReadyText]}>Order Ready!</Text>
+            <Text style={[styles.orderItemId]}>{`#${orderItemID}`}</Text>
             <Text style={[styles.pickupText]}>
-            {menu.nameKor} is ready for pickup
+              {menu.nameKor} is ready for pickup
             </Text>
-            </View>
+          </View>
         </View>
-        </View>
+      </View>
     </Modal>
-    );
+  );
 }
 
 const styles = StyleSheet.create({

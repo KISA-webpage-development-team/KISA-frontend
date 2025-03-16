@@ -24,10 +24,10 @@ import {
   ScrollView,
 } from 'react-native';
 
-import {getMenuImagePath} from '../../utils/getImagePath';
-import PochaErrorMsg from '../shared/PochaErrorMsg';
-import LoadingSpinner from '../../shared/components/feedback/LoadingSpinner';
-import {MenuItem} from '../../types/pocha';
+import {getMenuImagePath} from '@/utils/getImagePath';
+import PochaErrorMsg from '@/components/shared/PochaErrorMsg';
+import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
+import {MenuItem} from '@/types/pocha';
 
 interface MenuItemDetailProps {
   // session: UserSession | undefined;

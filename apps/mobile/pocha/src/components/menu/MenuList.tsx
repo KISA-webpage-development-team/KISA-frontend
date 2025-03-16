@@ -31,8 +31,7 @@ import {FlatList, Text, View, StyleSheet} from 'react-native';
 import MenuListItem from './MenuListItem';
 import MenuItemDetail from './MenuItemDetail';
 import ViewCartButton from './ViewCartButton';
-import { MenuItem } from '../../types/pocha';
-
+import {MenuItem} from '@/types/pocha';
 
 // Mock Data — Instead of fetching with API
 // Checks for: age restriction, stock availability

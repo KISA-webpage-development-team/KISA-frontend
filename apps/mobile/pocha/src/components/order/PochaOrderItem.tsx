@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import { getMenuImagePath } from '../../utils/getImagePath';
+import {getMenuImagePath} from '@/utils/getImagePath';
 import OrderTicketModal from './OrderTicketModal';
 //import OrderTicketModal from './OrderTicketModal';
-import {STATUS_COLORS, STATUS_TEXT_COLORS} from '../../utils/statusToColor';
-import { OrderStatus, MenuItem, OrderItem } from '../../types/pocha';
+import {STATUS_COLORS, STATUS_TEXT_COLORS} from '@/utils/statusToColor';
+import {OrderStatus, MenuItem, OrderItem} from '@/types/pocha';
 
 interface PochaOrderItemProps {
   orderItem: OrderItem;
@@ -54,9 +54,7 @@ export default function PochaOrderItem({orderItem}: PochaOrderItemProps) {
         <View style={styles.infoContainer}>
           {/* Menu name */}
           <View style={styles.nameRow}>
-            <Text
-              style={[styles.menuName, styles.boldText]}
-              numberOfLines={2}>
+            <Text style={[styles.menuName, styles.boldText]} numberOfLines={2}>
               {menu?.nameKor} {menu?.nameEng}
             </Text>
           </View>
@@ -88,11 +86,11 @@ export default function PochaOrderItem({orderItem}: PochaOrderItemProps) {
                 onPress={handleViewTicket}
                 style={styles.viewTicketButton}>
                 {/*should add a ticket icon here later */}
-                <Text style = {styles.ticketIcon}>t</Text>
+                <Text style={styles.ticketIcon}>t</Text>
                 <Text
                   style={[
                     styles.statusText,
-                    { color: STATUS_TEXT_COLORS[status] },
+                    {color: STATUS_TEXT_COLORS[status]},
                   ]}>
                   View Ticket
                 </Text>
@@ -210,7 +208,7 @@ const styles = StyleSheet.create({
   },
   // Status container on the right side
   statusContainer: {
-  justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'flex-end',
   },
   statusReadyContainer: {

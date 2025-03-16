@@ -3,7 +3,6 @@
 import React from 'react';
 
 // UI
-import PochaBackHeading from '@/components/shared/PochaBackHeading';
 import EmptyCartAlert from '@/components/cart/EmptyCartAlert';
 import CartList from '@/components/cart/CartList';
 import CartTotalSummary from '@/components/cart/CartTotalSummary';
@@ -76,8 +75,7 @@ export default function CartScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <PochaBackHeading title="Cart" />
-      <View style={styles.divider}></View>
+      <View style={styles.divider} />
       {Object.keys(fakeCart).length === 0 ? (
         <EmptyCartAlert />
       ) : (

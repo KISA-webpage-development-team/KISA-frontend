@@ -1,4 +1,4 @@
-import {OrderItem} from '../../types/pocha';
+import {OrderItem} from '@/types/pocha';
 import React from 'react';
 import {View} from 'react-native';
 interface OrderTicketProps {

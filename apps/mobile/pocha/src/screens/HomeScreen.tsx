@@ -4,18 +4,13 @@ import React, {useState} from 'react';
 
 // ui components
 import LoadingSpinner from '../shared/components/feedback/LoadingSpinner';
-import HomeHeading from '../components/home/HomeHeading';
-import HomeTabs from '../components/home/HomeTabs';
-import HomeTabContent from '../components/home/HomeTabContent';
+import HomeHeading from '@/components/home/HomeHeading';
 
 // hooks
 // import {useSearchParams} from 'next/navigation';
 import usePocha from '../hooks/usePocha';
 
-// types
-import {PochaTab} from '../types/pocha';
-// import {sejongHospitalBold} from '../utils/fonts/textFonts';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 
 // navigations
 import HomeTabNavigator from '@/navigations/HomeTabNavigator';
