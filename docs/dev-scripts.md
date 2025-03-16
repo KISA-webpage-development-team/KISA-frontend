@@ -96,7 +96,7 @@ Here, we will assume you are working on the `pocha` modular mobile app.
 
 or You can just work on the root directory of the repository with [Root Directory Commands](#root-directory-commands)
 
-### 2. Run the "host" mobile app on the simulator
+### 2. Run the "pocha" mobile app on the simulator
 
 ```bash
 pnpm start:standalone

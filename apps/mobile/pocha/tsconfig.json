@@ -1,3 +1,10 @@
 {
-  "extends": "@repo/typescript-config/react-native"
+  "extends": "@repo/typescript-config/react-native",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@env": [".env.d.ts"]
+    }
+  }
 }

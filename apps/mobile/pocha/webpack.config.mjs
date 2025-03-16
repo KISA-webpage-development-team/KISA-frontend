@@ -90,6 +90,7 @@ export default env => {
        * in their `package.json` might not work correctly.
        */
       ...Repack.getResolveOptions(platform),
+      conditionNames: ['default'],
 
       /**
        * Uncomment this to ensure all `react-native*` imports will resolve to the same React Native
@@ -99,7 +100,17 @@ export default env => {
       alias: {
         'react-native': reactNativePath,
         '@repo/ui/*': path.resolve(dirname, './node_modules/@repo/ui/src/*'),
+        '@': path.resolve(dirname, 'src'),
+        axios: path.join(dirname, 'node_modules/axios/dist/axios.js'),
       },
+      // fallback: {
+      //   url: require.resolve('url/'),
+      //   http: require.resolve('stream-http'),
+      //   https: require.resolve('https-browserify'),
+      //   stream: require.resolve('stream-browserify'),
+      //   assert: require.resolve('assert/'),
+      //   zlib: require.resolve('browserify-zlib'),
+      // },
     },
     /**
      * Configures output.
@@ -163,6 +174,11 @@ export default env => {
             /node_modules(.*[/\\])+metro/,
             /node_modules(.*[/\\])+abort-controller/,
             /node_modules(.*[/\\])+@callstack[/\\]repack/,
+            /node_modules(.*[/\\])+react-freeze/,
+            /node_modules(.*[/\\])+react-native-safe-area-context/,
+            /node_modules(.*[/\\])+color/,
+            /node_modules(.*[/\\])+react-native-pager-view/,
+            /node_modules(.*[/\\])+axios/,
           ],
           use: 'babel-loader',
         },
@@ -173,16 +189,32 @@ export default env => {
          * https://github.com/babel/babel-loader#options
          */
         {
-          test: /\.[jt]sx?$/,
+          test: /\.(js|jsx|ts|tsx|cjs)$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
               /** Add React Refresh transform only when HMR is enabled. */
+
               plugins:
                 devServer && devServer.hmr
                   ? ['module:react-refresh/babel']
                   : undefined,
+            },
+          },
+        },
+        {
+          test: /\.[jt]sx?$/,
+          include: [/node_modules(.*[/\\])+axios\//],
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  'module:metro-react-native-babel-preset',
+                  {disableImportExportTransform: true},
+                ],
+              ],
             },
           },
         },
@@ -197,7 +229,11 @@ export default env => {
          * ```
          */
         {
-          test: Repack.getAssetExtensionsRegExp(Repack.ASSET_EXTENSIONS),
+          test: Repack.getAssetExtensionsRegExp([
+            ...Repack.ASSET_EXTENSIONS,
+            'ttf',
+          ]),
+          // include: [path.resolve(dirname, 'src/assets')],
           use: {
             loader: '@callstack/repack/assets-loader',
             options: {
@@ -253,6 +289,36 @@ export default env => {
           'react-native': {
             ...Repack.Federated.SHARED_REACT_NATIVE,
             eager: STANDALONE,
+          },
+          'react-native-safe-area-context': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '5.3.0',
+          },
+          '@react-navigation/native': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '7.0.15',
+          },
+          '@react-navigation/native-stack': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '7.2.1',
+          },
+          '@react-navigation/material-top-tabs': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '7.1.1',
+          },
+          'react-native-pager-view': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '6.7.0',
+          },
+          'react-native-screens': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '4.9.2',
           },
         },
       }),

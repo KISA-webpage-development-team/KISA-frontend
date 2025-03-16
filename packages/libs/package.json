@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "@repo/libs",
+  "version": "0.1.0",
+  "description": "Collection of Third Party Libraries used within the repo",
+  "author": "Jioh In <ekkicb71@gmail.com>",
+  "license": "MIT",
+  "exports": {}
+}
