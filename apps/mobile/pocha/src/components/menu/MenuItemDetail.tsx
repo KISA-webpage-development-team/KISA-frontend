@@ -25,9 +25,9 @@ import {
 } from 'react-native';
 
 import {getMenuImagePath} from '../../utils/getImagePath';
-import PochaErrorMsg from '../../shared/components/feedback/PochaErrorMsg';
+import PochaErrorMsg from '../shared/PochaErrorMsg';
 import LoadingSpinner from '../../shared/components/feedback/LoadingSpinner';
-import { MenuItem } from '../../types/pocha';
+import {MenuItem} from '../../types/pocha';
 
 interface MenuItemDetailProps {
   // session: UserSession | undefined;

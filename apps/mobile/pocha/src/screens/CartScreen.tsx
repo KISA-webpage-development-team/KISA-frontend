@@ -3,7 +3,7 @@
 import React from 'react';
 
 // UI
-import PochaBackHeading from '@/shared/components/feedback/PochaBackHeading';
+import PochaBackHeading from '@/components/shared/PochaBackHeading';
 import EmptyCartAlert from '@/components/cart/EmptyCartAlert';
 import CartList from '@/components/cart/CartList';
 import CartTotalSummary from '@/components/cart/CartTotalSummary';
