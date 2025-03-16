@@ -12,7 +12,7 @@ Make sure you have followed "Install Mobile App on Simulator" section in [Dev Sc
 ### 2. Install depedencies (if needed, you can skip this step if you have already installed the dependencies)
 
 ```bash
-pnpm install
+pnpm install && npx pod-install ios
 ```
 
 ### 3-1. Open iOS simulator (for Mac)
