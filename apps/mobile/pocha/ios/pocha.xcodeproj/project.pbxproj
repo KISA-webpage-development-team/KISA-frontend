@@ -9,27 +9,27 @@
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		3F8F28EEBB9D263FBE5ECECF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		4E8050969DE94CDF95AFE907 /* Sejonghospital-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B106EFF6344C3391583EDE /* Sejonghospital-Bold.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D48A1780412E0787635F2FCC /* libPods-pocha.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2691474BDF7EDF72A019D540 /* libPods-pocha.a */; };
 		DE2DE295B7F6439B8381D019 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		4E8050969DE94CDF95AFE907 /* Sejonghospital-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B106EFF6344C3391583EDE /* Sejonghospital-Bold.ttf */; };
 		F71A0BE540B749478D50B298 /* Sejonghospital-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C28F6F002F04C83868858E9 /* Sejonghospital-Light.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C28F6F002F04C83868858E9 /* Sejonghospital-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Sejonghospital-Light.ttf"; path = "../src/assets/fonts/Sejonghospital-Light.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* pocha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pocha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = pocha/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = pocha/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = pocha/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		1A7FFF52E7608518D9C3594C /* Pods-pocha.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pocha.debug.xcconfig"; path = "Target Support Files/Pods-pocha/Pods-pocha.debug.xcconfig"; sourceTree = "<group>"; };
 		2691474BDF7EDF72A019D540 /* libPods-pocha.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pocha.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		39B106EFF6344C3391583EDE /* Sejonghospital-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Sejonghospital-Bold.ttf"; path = "../src/assets/fonts/Sejonghospital-Bold.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = pocha/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = pocha/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A558A045F96E07553366DD9A /* Pods-pocha.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pocha.release.xcconfig"; path = "Target Support Files/Pods-pocha/Pods-pocha.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		39B106EFF6344C3391583EDE /* Sejonghospital-Bold.ttf */ = {isa = PBXFileReference; name = "Sejonghospital-Bold.ttf"; path = "../src/assets/fonts/Sejonghospital-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0C28F6F002F04C83868858E9 /* Sejonghospital-Light.ttf */ = {isa = PBXFileReference; name = "Sejonghospital-Light.ttf"; path = "../src/assets/fonts/Sejonghospital-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

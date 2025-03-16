@@ -90,6 +90,7 @@ export default env => {
        * in their `package.json` might not work correctly.
        */
       ...Repack.getResolveOptions(platform),
+      conditionNames: ['default'],
 
       /**
        * Uncomment this to ensure all `react-native*` imports will resolve to the same React Native
@@ -100,7 +101,16 @@ export default env => {
         'react-native': reactNativePath,
         '@repo/ui/*': path.resolve(dirname, './node_modules/@repo/ui/src/*'),
         '@': path.resolve(dirname, 'src'),
+        axios: path.join(dirname, 'node_modules/axios/dist/axios.js'),
       },
+      // fallback: {
+      //   url: require.resolve('url/'),
+      //   http: require.resolve('stream-http'),
+      //   https: require.resolve('https-browserify'),
+      //   stream: require.resolve('stream-browserify'),
+      //   assert: require.resolve('assert/'),
+      //   zlib: require.resolve('browserify-zlib'),
+      // },
     },
     /**
      * Configures output.
@@ -168,6 +178,7 @@ export default env => {
             /node_modules(.*[/\\])+react-native-safe-area-context/,
             /node_modules(.*[/\\])+color/,
             /node_modules(.*[/\\])+react-native-pager-view/,
+            /node_modules(.*[/\\])+axios/,
           ],
           use: 'babel-loader',
         },
@@ -178,16 +189,32 @@ export default env => {
          * https://github.com/babel/babel-loader#options
          */
         {
-          test: /\.[jt]sx?$/,
+          test: /\.(js|jsx|ts|tsx|cjs)$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
               /** Add React Refresh transform only when HMR is enabled. */
+
               plugins:
                 devServer && devServer.hmr
                   ? ['module:react-refresh/babel']
                   : undefined,
+            },
+          },
+        },
+        {
+          test: /\.[jt]sx?$/,
+          include: [/node_modules(.*[/\\])+axios\//],
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  'module:metro-react-native-babel-preset',
+                  {disableImportExportTransform: true},
+                ],
+              ],
             },
           },
         },

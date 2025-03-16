@@ -249,3 +249,8 @@ const styles = StyleSheet.create({
   },
 });
 ```
+
+### Note about Axios
+
+Axios 1.x version is causing "created" undefined error even with proper re.pack setup.
+So we are using axios 0.x version, which works well. This will be fine because we are not too much features that are only available in axios 1.x.

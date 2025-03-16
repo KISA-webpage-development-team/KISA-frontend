@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
-import {getPochaInfoMock} from '../apis/queries';
+import {getPochaInfo} from '@/apis/queries';
 
 // types
-import {PochaInfo} from '../types/pocha';
+import {PochaInfo} from '@/types/pocha';
 import {HookStatus} from './types';
 
 /**
@@ -16,7 +16,7 @@ const usePocha = () => {
   useEffect(() => {
     const fetchPochaInfo = async () => {
       try {
-        const res = await getPochaInfoMock(new Date());
+        const res = await getPochaInfo(new Date());
         setPochaInfo(res);
         setStatus('success');
       } catch (error) {
