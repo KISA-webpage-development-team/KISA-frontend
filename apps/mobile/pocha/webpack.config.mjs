@@ -164,6 +164,8 @@ export default env => {
             /node_modules(.*[/\\])+metro/,
             /node_modules(.*[/\\])+abort-controller/,
             /node_modules(.*[/\\])+@callstack[/\\]repack/,
+            /node_modules(.*[/\\])+react-freeze/,
+            /node_modules(.*[/\\])+react-native-safe-area-context/,
           ],
           use: 'babel-loader',
         },
@@ -254,6 +256,21 @@ export default env => {
           'react-native': {
             ...Repack.Federated.SHARED_REACT_NATIVE,
             eager: STANDALONE,
+          },
+          'react-native-safe-area-context': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '5.3.0',
+          },
+          '@react-navigation/native': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '7.0.15',
+          },
+          '@react-navigation/native-stack': {
+            singleton: true,
+            eager: STANDALONE,
+            requiredVersion: '7.2.1',
           },
         },
       }),

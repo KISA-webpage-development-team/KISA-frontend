@@ -1,7 +1,13 @@
-import React from 'react';
-import HomeScreen from './screens/HomeScreen';
-import CartScreen from './screens/CartScreen';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import MainNavigator from './navigations/MainNavigator';
+import {NavigationContainer} from '@react-navigation/native';
 
 export default function PochaApp() {
-  return <CartScreen />;
+  return (
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <MainNavigator />
+      </NavigationContainer>
+    </SafeAreaProvider>
+  );
 }
