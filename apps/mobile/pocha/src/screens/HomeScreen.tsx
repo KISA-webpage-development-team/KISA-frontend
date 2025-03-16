@@ -17,6 +17,9 @@ import {PochaTab} from '../types/pocha';
 // import {sejongHospitalBold} from '../utils/fonts/textFonts';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
 
+// navigations
+import HomeTabNavigator from '@/navigations/HomeTabNavigator';
+
 export default function HomeScreen() {
   const pochaInfo = {
     pochaID: 1,
@@ -42,6 +45,7 @@ export default function HomeScreen() {
       {/* <div className="flex-1"> */}
       {/* <HomeTabContent activeTab={activeTab} pochaID={pochaInfo?.pochaID} /> */}
       {/* </div> */}
+      <HomeTabNavigator />
     </SafeAreaView>
   );
 }

@@ -18,9 +18,7 @@ export default function HomeHeading({pochaInfo}: HomeHeadingProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: {},
   title: {
     fontSize: 20,
     fontWeight: 'bold',
