@@ -1,17 +1,17 @@
 import React from 'react';
 import {View} from 'react-native';
 import PochaButton from '../shared/PochaButton';
-// import {useNavigation} from '@react-navigation/native';
+import {useMainNavigation} from '@/navigations/useMainNavigation';
 
 type PaymentProps = {
   pochaid: number;
 };
 
 export default function ProceedToPaymentButton({pochaid}: PaymentProps) {
-  // const navigation = useNavigation();
+  const navigation = useMainNavigation();
 
   const handlePaymentClick = () => {
-    // navigation.navigate('PochaPay', {pochaid});
+    navigation.navigate('PayScreen', {pochaid});
   };
 
   return (

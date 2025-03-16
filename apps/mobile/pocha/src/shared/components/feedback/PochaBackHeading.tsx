@@ -1,3 +1,4 @@
+import {useMainNavigation} from '@/navigations/useMainNavigation';
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 
@@ -6,10 +7,17 @@ interface PochaBackHeadingProps {
 }
 
 export default function PochaBackHeading({title}: PochaBackHeadingProps) {
+  const navigation = useMainNavigation();
+
+  const handleGoBack = () => {
+    console.log('Go Back');
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.backbutton}>{'<'}</Text>
+      <TouchableOpacity style={styles.button} onPress={handleGoBack}>
+        <Text style={styles.backbutton}>Back</Text>
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
     </View>
@@ -25,6 +33,7 @@ const styles = StyleSheet.create({
   },
   button: {
     position: 'absolute',
+    zIndex: 100,
     left: 12, // Equivalent to left-3
   },
   backbutton: {

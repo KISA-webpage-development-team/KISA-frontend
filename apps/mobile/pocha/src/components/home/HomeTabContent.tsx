@@ -4,12 +4,13 @@
  * - Displays the cart button if the active tab is menu
  */
 
+import {View, Text, Image, StyleSheet} from 'react-native';
 import {MenuItem, PochaTab} from '@/types/pocha';
-import MenuList from '@/features/pocha/components/menu/MenuList';
-import OrderList from '@/features/pocha/components/order/OrderList';
-import ViewCartButton from '../menu/ViewCartButton';
+import MenuList from '../menu/MenuList';
+import ViewCartButton from '../menu/ViewCartButton'; // Ensure this path is correct or update it to the correct path
+// import OrderList from '../order/OrderList';
+
 import {memo} from 'react';
-import {View} from 'react-native';
 interface HomeTabContentProps {
   activeTab: PochaTab;
   pochaID: number | undefined;
@@ -17,18 +18,27 @@ interface HomeTabContentProps {
 
 function HomeTabContent({activeTab, pochaID}: HomeTabContentProps) {
   return (
-    <div className="flex flex-col justify-between w-full relative">
+    <View style={styles.container}>
       {/* Content Area with Scrollable Section */}
       {activeTab === 'menu' ? (
-        <View>
+        <>
           <MenuList pochaid={pochaID} />
           <ViewCartButton pochaID={pochaID} />
-        </View>
+        </>
       ) : activeTab === 'orders' ? (
         <OrderList pochaID={pochaID} />
       ) : null}
-    </div>
+    </View>
   );
 }
 
 export default memo(HomeTabContent);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+});
