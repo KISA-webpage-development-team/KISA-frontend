@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   },
   categoryTitle: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontFamily: 'Sejonghospital-Bold',
     marginBottom: 4,
   },
   menuDivider: {
