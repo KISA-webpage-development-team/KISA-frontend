@@ -117,6 +117,10 @@ import HomeIcon from '@/assets/icons/test_home.svg';
 <HomeIcon width={50} height={50} style={{color: 'blue'}} />;
 ```
 
+### Fonts [WIP]
+
+It supposed to work correctly with the current setup, but it's not working due to re.pack config. Will figure it out later.
+
 ## Web-to-Mobile Migration Guide: UI
 
 > [!IMPORTANT]
