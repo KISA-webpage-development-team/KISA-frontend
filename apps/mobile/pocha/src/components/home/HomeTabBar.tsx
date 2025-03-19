@@ -29,7 +29,7 @@ export default function HomeTabBar({
   position,
 }: HomeTabBarProps) {
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={tabBarStyles.container}>
       {state.routes.map((route: any, index: number) => {
         const {options} = descriptors[route.key];
         const label =
@@ -75,8 +75,16 @@ export default function HomeTabBar({
             testID={options.tabBarButtonTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{flex: 1}}>
-            <Animated.Text style={{opacity, color: 'black'}}>
+            style={[
+              tabBarStyles.tabItem,
+              isFocused && tabBarStyles.activeTabItem,
+            ]}
+          >
+            <Animated.Text style={[
+              tabBarStyles.tabLabel,
+              { opacity },
+              isFocused && tabBarStyles.activeTabLabel,
+            ]}>
               {label}
             </Animated.Text>
           </TouchableOpacity>
@@ -86,4 +94,31 @@ export default function HomeTabBar({
   );
 }
 
-const tabBarStyles = StyleSheet.create({});
+const tabBarStyles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    paddingVertical: 12,
+    borderBottomWidth: 3,
+    borderBottomColor: 'darkgrey',
+  },
+  activeTabItem: {
+    borderBottomWidth: 3,
+    borderBottomColor: 'black',
+  },
+  tabLabel: {
+    fontSize: 18,
+    color: 'darkgrey',
+    fontWeight: 'bold',
+  },
+  activeTabLabel: {
+    fontSize: 18,
+    color: 'darkslategray',
+    fontWeight: 'bold',
+  },
+});

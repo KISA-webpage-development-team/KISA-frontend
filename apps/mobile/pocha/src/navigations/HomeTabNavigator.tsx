@@ -10,8 +10,8 @@ const Tab = createMaterialTopTabNavigator();
 export default function HomeTabNavigator() {
   return (
     <Tab.Navigator tabBar={props => <HomeTabBar {...props} />}>
-      <Tab.Screen name="MenuTab" component={MenuTab} />
-      <Tab.Screen name="OrderTab" component={OrderTab} />
+      <Tab.Screen name="Menu" component={MenuTab} />
+      <Tab.Screen name="Order" component={OrderTab} />
     </Tab.Navigator>
   );
 }
