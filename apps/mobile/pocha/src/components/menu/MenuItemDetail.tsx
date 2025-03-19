@@ -113,12 +113,13 @@ export default function MenuItemDetail({
     // }
   };
 
+  // TODO: replace text to icons
   return (
     <ScrollView style={styles.container}>
       {/* Header with Back Button */}
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBackButton}>
-          <Text>Back</Text> {/* Replace with back icon */}
+          <Text>Back</Text>
         </TouchableOpacity>
       </View>
 
@@ -146,11 +147,11 @@ export default function MenuItemDetail({
             <TouchableOpacity
               onPress={decrementQuantity}
               disabled={quantity === 1}>
-              <Text>-</Text> {/* Replace with minus icon */}
+              <Text>-</Text>
             </TouchableOpacity>
             <Text style={styles.quantity}>{quantity}</Text>
             <TouchableOpacity onPress={incrementQuantity}>
-              <Text>+</Text> {/* Replace with minus icon */}
+              <Text>+</Text>
             </TouchableOpacity>
           </View>
         </View>
