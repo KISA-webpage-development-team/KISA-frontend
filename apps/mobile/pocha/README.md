@@ -93,6 +93,25 @@ All the migrated codes should be located under the `src` folder. This migration 
 
 ![스크린샷 2025-03-01 오후 1 31 33](https://github.com/user-attachments/assets/2d2ca7c1-635f-4d39-8fb5-42c0eeaf3e94)
 
+## Troubleshooting with reinstallation
+
+After pulling the latest changes from the pocha branch, you might need to reinstall the dependencies.
+
+````bash
+pnpm install
+
+cd ios
+rm -rf Pods
+rm -rf build
+pod cache clean --all
+pod deintegrate
+pod setup
+pod install # reinstall pods with clear cache
+cd ..
+pnpm run ios # new build
+pnpm start:standalone # start the development server
+```
+
 ## Assets
 
 ### Icons
@@ -115,7 +134,7 @@ You must use svg files and save them in the `src/assets/icons` folder.
 import HomeIcon from '@/assets/icons/test_home.svg';
 
 <HomeIcon width={50} height={50} style={{color: 'blue'}} />;
-```
+````
 
 ### Fonts [WIP]
 
