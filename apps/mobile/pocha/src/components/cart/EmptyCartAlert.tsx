@@ -4,7 +4,7 @@ export default function EmptyCartAlert() {
   return (
     <View style={styles.container}>
       <Image
-        source={require('@/assets/icon/empty_cart.png')}
+        source={require('@/assets/images/empty_cart.png')}
         style={styles.image}
       />
       <Text style={[styles.alertText]}>Your Cart is Empty</Text>

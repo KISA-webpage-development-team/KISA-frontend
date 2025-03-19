@@ -179,6 +179,7 @@ export default env => {
             /node_modules(.*[/\\])+color/,
             /node_modules(.*[/\\])+react-native-pager-view/,
             /node_modules(.*[/\\])+axios/,
+            /node_modules(.*[/\\])+react-native-svg/,
           ],
           use: 'babel-loader',
         },
@@ -229,7 +230,9 @@ export default env => {
          * ```
          */
         {
-          test: Repack.getAssetExtensionsRegExp([...Repack.ASSET_EXTENSIONS]),
+          test: Repack.getAssetExtensionsRegExp(
+            [...Repack.ASSET_EXTENSIONS].filter(ext => ext !== 'svg'),
+          ),
           // include: [path.resolve(dirname, 'src/assets')],
           use: {
             loader: '@callstack/repack/assets-loader',
@@ -244,6 +247,21 @@ export default env => {
               scalableAssetExtensions: Repack.SCALABLE_ASSETS,
             },
           },
+        },
+        // svg loader
+        {
+          test: /\.svg$/,
+          use: [
+            {
+              loader: '@svgr/webpack',
+              options: {
+                native: true,
+                // You might want to uncomment the following line.
+                // More info: https://react-svgr.com/docs/options/#dimensions
+                // dimensions: false,
+              },
+            },
+          ],
         },
       ],
     },

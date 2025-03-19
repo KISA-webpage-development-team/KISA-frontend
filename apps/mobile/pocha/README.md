@@ -93,6 +93,30 @@ All the migrated codes should be located under the `src` folder. This migration 
 
 ![스크린샷 2025-03-01 오후 1 31 33](https://github.com/user-attachments/assets/2d2ca7c1-635f-4d39-8fb5-42c0eeaf3e94)
 
+## Assets
+
+### Icons
+
+We are using **react-native-svg** and **@svgr/webpack** to convert SVG icons to React components.
+You must use svg files and save them in the `src/assets/icons` folder.
+
+> [!IMPORTANT]
+> YOU MUST USE SVG ICONS FROM [https://www.svgrepo.com/](https://www.svgrepo.com/)
+
+> [!NOTE]
+> Colors might not be applied properly with raw svg files. To fix this, go to a raw svg file and change `fill` attribute to `currentColor`. (sample is given in `src/assets/icons/test_home.svg`)
+
+> [!NOTE]
+> You can use other svg icons from different websites, but you must be careful about the svg file format. Width and height might not be applied properly with raw svg files.
+
+#### Example
+
+```tsx
+import HomeIcon from '@/assets/icons/test_home.svg';
+
+<HomeIcon width={50} height={50} style={{color: 'blue'}} />;
+```
+
 ## Web-to-Mobile Migration Guide: UI
 
 > [!IMPORTANT]
