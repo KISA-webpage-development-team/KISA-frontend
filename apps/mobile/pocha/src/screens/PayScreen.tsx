@@ -4,11 +4,20 @@ import PaySummaryCard from '@/components/pay/PaySummaryCard';
 import PayButton from '@/components/pay/PayButton';
 
 export default function PayScreen() {
+
+  const amount = 500;
+  const fee = 10;
+  const totalPrice = 50000000.25;
+
+  const handlePayPress = () => {
+    console.log('Click!');
+  };
+
   return (
     <View>
       {/* [TODO] PaymentSubmitForm will go here... */}
-      <PaySummaryCard />
-      <PayButton />
+      <PaySummaryCard amount={amount} fee={fee} totalPrice={totalPrice}/>
+      <PayButton loading={false} totalPrice={totalPrice} onPress={handlePayPress}/>
     </View>
   );
 }
