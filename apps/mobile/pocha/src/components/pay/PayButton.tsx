@@ -6,13 +6,14 @@ import {
   ActivityIndicator, 
   GestureResponderEvent,
 } from 'react-native';
-
 import React from 'react';
+import PochaButton from '@/components/shared/PochaButton';
+
 
 interface PayButtonProps {
   loading?: boolean;
   totalPrice: number;
-  onPress?: (event: GestureResponderEvent) => void;
+  onPress?: () => void;
 }
 
 export default function PayButton({
@@ -20,33 +21,15 @@ export default function PayButton({
   totalPrice,
   onPress,
 }: PayButtonProps) {
-  return (
-    <TouchableOpacity style={[styles.button, loading && styles.buttonDisabled]} onPress={onPress} disabled={loading}>
-      {loading ? (
-        <ActivityIndicator color="white" />
-      ) : (
-        <Text style={styles.buttonText}>Pay ${totalPrice}</Text>
-      )}
-    </TouchableOpacity>
+  return(
+    <View style={{padding: 16, alignItems: 'center'}}>
+      <PochaButton
+        label={loading ? '' : `Pay $${totalPrice}`}
+        onClick={onPress}
+        disabled={loading}
+        icon={loading ? <ActivityIndicator color = "white" /> :undefined}
+        />
+    </View>
   );
+  
 }
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: 'cornflowerblue',
-    padding: 16,
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 16,
-  },
-  buttonDisabled: {
-    backgroundColor: 'gray',
-    opacity: 0.5,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});

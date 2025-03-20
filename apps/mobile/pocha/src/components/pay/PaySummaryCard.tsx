@@ -18,7 +18,7 @@ export default function PaySummaryCard({
 
       <View style={styles.row}>
         <Text style={styles.label}>Subtotal</Text>
-        <Text style={styles.value}>{amount}</Text>
+        <Text style={styles.value}>${amount}</Text>
       </View>
 
       <View style={styles.row}>
