@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   termContainer: {
     borderWidth: 1,
-    borderColor: "#D1D5DB", // gray-300 from Tailwind
+    borderColor: "#D1D5DB", // gray-300 from Tailwinds
     borderRadius: 8,
     padding: 12,
     marginVertical: 8,
