@@ -118,7 +118,7 @@ const tabBarStyles = StyleSheet.create({
   },
   activeTabLabel: {
     fontSize: 18,
-    color: 'darkslategray',
+    color: '#00274C',
     fontWeight: 'bold',
   },
 });
