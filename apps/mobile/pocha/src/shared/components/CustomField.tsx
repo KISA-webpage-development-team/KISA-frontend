@@ -2,26 +2,26 @@ import React from 'react';
 import {View, Text, StyleSheet, KeyboardTypeOptions} from 'react-native';
 import CustomLabel from './CustomLabel';
 import CustomInput from './CustomInput';
-import ErrorDisplay from './ErrorDisplay'; // Uncomment if you have this component
+import ErrorDisplay from './ErrorDisplay';
 
 export default function CustomField({
+  // Define the types for your props
   value,
   setValue,
   label,
   placeholder = 'Enter something here...',
   type = 'text',
   required = false,
-  isError = false,
+  error = false,
   errorState = 'none',
   errorMsg = 'Error',
 }) {
-  // Mapping input types to React Native `keyboardType`
+  // Mapping input types to React Native "keyboardType"
   const keyboardTypeMap: Record<string, KeyboardTypeOptions> = {
     text: 'default',
     number: 'numeric',
     email: 'email-address',
     year: 'numeric',
-    date: 'default', // React Native does not have a date type, use a DatePicker instead
   };
 
   return (
@@ -32,16 +32,16 @@ export default function CustomField({
         value={value}
         onChangeText={setValue} // Corrected for React Native
         placeholder={placeholder}
-        // required={required}
       />
-      {isError && <ErrorDisplay state={errorState} text={errorMsg} />}
+      {error && <ErrorDisplay state={errorState} message={errorMsg} />}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 12,
+    marginBottom: 8,
+    width: '100%',
   },
   alert: {
     color: 'orange',

@@ -6,11 +6,10 @@ interface FieldProps {
   value: string;
   setValue: (text: string) => void;
   label: string;
-  type?: 'text' | 'number' | 'email' | 'year' | 'date';
   placeholder?: string;
-  isError?: boolean;
+  error?: boolean;
   errorMsg?: string;
-  errorState?: 'none' | 'alert' | 'error';
+  errorState?: string;
 }
 
 interface OptionalFieldsProps {
@@ -22,27 +21,16 @@ export default function OptionalFields({fields}: OptionalFieldsProps) {
     <View style={styles.container}>
       {fields.map(
         (
-          {
-            value,
-            setValue,
-            label,
-            type,
-            placeholder,
-            isError,
-            errorMsg,
-            errorState,
-          },
+          {value, setValue, label, placeholder, errorMsg, errorState},
           index,
         ) => (
-          <View key={index} style={styles.fieldContainer}>
+          <View key={index} style={styles.fieldWrapper}>
             <CustomField
               value={value}
               setValue={setValue}
               label={label}
               required={false}
-              type={type}
               placeholder={placeholder}
-              isError={isError}
               errorMsg={errorMsg}
               errorState={errorState}
             />
@@ -55,11 +43,9 @@ export default function OptionalFields({fields}: OptionalFieldsProps) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    gap: 24,
-    width: '100%',
+    gap: 8,
   },
-  fieldContainer: {
-    width: '100%',
+  fieldWrapper: {
+    marginBottom: 16,
   },
 });

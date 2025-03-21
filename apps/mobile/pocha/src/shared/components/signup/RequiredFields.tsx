@@ -6,11 +6,10 @@ interface FieldProps {
   value: string;
   setValue: (text: string) => void;
   label: string;
-  type?: 'text' | 'number' | 'email' | 'year' | 'date';
   placeholder?: string;
-  isError?: boolean;
+  error?: boolean;
   errorMsg?: string;
-  errorState?: 'none' | 'alert' | 'error';
+  errorState?: string;
 }
 
 interface RequiredFieldsProps {
@@ -22,27 +21,17 @@ export default function RequiredFields({fields}: RequiredFieldsProps) {
     <View style={styles.container}>
       {fields.map(
         (
-          {
-            value,
-            setValue,
-            label,
-            type,
-            placeholder,
-            isError,
-            errorMsg,
-            errorState,
-          },
+          {value, setValue, label, placeholder, error, errorMsg, errorState},
           index,
         ) => (
-          <View key={index} style={styles.fieldContainer}>
+          <View key={index} style={styles.fieldWrapper}>
             <CustomField
               value={value}
               setValue={setValue}
               label={label}
               required={true}
-              type={type}
               placeholder={placeholder}
-              isError={isError}
+              error={error}
               errorMsg={errorMsg}
               errorState={errorState}
             />
@@ -55,11 +44,9 @@ export default function RequiredFields({fields}: RequiredFieldsProps) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    gap: 24,
-    width: '100%',
+    gap: 8,
   },
-  fieldContainer: {
-    width: '100%',
+  fieldWrapper: {
+    marginBottom: 16,
   },
 });

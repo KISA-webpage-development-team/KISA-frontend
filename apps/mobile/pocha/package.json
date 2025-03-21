@@ -10,7 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@react-native-community/checkbox": "^0.5.17",
     "@react-native-masked-view/masked-view": "0.3.2",
     "@react-navigation/material-top-tabs": "7.1.1",
     "@react-navigation/native": "7.0.15",
@@ -18,14 +17,18 @@
     "@repo/ui": "workspace:*",
     "axios": "^0.x",
     "babel-plugin-module-resolver": "^5.0.2",
+    "date-fns": "^4.1.0",
+    "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
     "react": "19.0.0",
     "react-native": "0.78.0",
+    "react-native-check-box": "^2.1.7",
     "react-native-dotenv": "3.4.11",
     "react-native-pager-view": "6.7.0",
     "react-native-safe-area-context": "5.3.0",
     "react-native-screens": "4.9.2",
-    "react-native-svg": "15.11.2"
+    "react-native-svg": "15.11.2",
+    "react-native-ui-datepicker": "^3.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -44,6 +47,7 @@
     "@types/jest": "^29.5.13",
     "@types/lodash": "^4.17.16",
     "@types/react": "^19.0.0",
+    "@types/react-native-check-box": "^2.1.6",
     "@types/react-native-dotenv": "0.2.2",
     "@types/react-test-renderer": "^19.0.0",
     "babel-loader": "9.2.1",

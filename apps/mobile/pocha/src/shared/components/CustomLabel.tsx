@@ -1,8 +1,7 @@
 import React from 'react';
-{
-  /*sejongHospital 글꼴 나중에 추가 */
-}
-//import { sejongHospitalBold } from "@/utils/fonts/textFonts";
+// sejongHospital 글꼴 나중에 추가
+// import { sejongHospitalBold } from "@/utils/fonts/textFonts";
+
 import {View, Text, StyleSheet} from 'react-native';
 type CustomLabelProps = {
   text?: string;
@@ -30,6 +29,7 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontSize: 16,
+    fontWeight: 'bold',
     color: '#000',
   },
   required: {

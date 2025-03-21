@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   divider: {
     width: '100%',
     height: 4,
-    borderRadius: 8, // for rounded edges
+    borderRadius: 8,
+    marginVertical: 14,
   },
 });

@@ -4,5 +4,5 @@ import PochaApp from './src/App';
 import SignUpScreen from '@/screens/SignUpScreen';
 
 export default function App() {
-  return <SignUpScreen />;
+  return <SignUpScreen />; // TESTING SIGNUP SCREEN!
 }

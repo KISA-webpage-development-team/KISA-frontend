@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useMemo} from 'react';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -6,27 +7,46 @@ import {
   Text,
   Alert,
   Button,
+  StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
+// https://github.com/farhoudshapouran/react-native-ui-datepicker
+import DateTimePicker from 'react-native-ui-datepicker';
+import dayjs from 'dayjs';
+import 'dayjs/locale/fr'; // or 'ko' for Korean
+
 import CustomInput from '@/shared/components/CustomInput';
 import ErrorDisplay from '@/shared/components/ErrorDisplay';
 import CustomLabel from '@/shared/components/CustomLabel';
 import HorizontalDivider from '@/shared/components/HorizontalDivider';
-import RequiredFields from '@/shared/components/signup/RequiredFields'
+import RequiredFields from '@/shared/components/signup/RequiredFields';
+import TermConditions from '@/shared/components/signup/TermConditions';
+import {
+  personalInfoTerm,
+  websiteInfoTerm,
+} from '@/shared/components/config/TermCondition';
 import axios from 'axios';
 // import { BACKEND_URL } from '@/constants/env';
 
-export default function SignUpScreen({navigation}) {
+export default function SignUpScreen({}) {
+  // add "navigation" into the parameter here
   // Form States
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [major, setMajor] = useState('');
-  const [bornDate, setBornDate] = useState('');
+  const [birthDate, setBirthDate] = useState(new Date()); // Default to current date
   const [gradYear, setGradYear] = useState('');
   const [linkedIn, setLinkedIn] = useState('');
 
+  // Date Picker Modal Visibility
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const toggleDatePicker = () => setShowDatePicker(!showDatePicker);
+
   // Terms & Conditions
+  const [personTermScroll, setPersonTermScroll] = useState(false); // 개인정보 수집 약관 스크롤 [boolean]
   const [personTermChecked, setPersonTermChecked] = useState(false);
   const [websiteTermChecked, setWebsiteTermChecked] = useState(false);
+  const [websiteTermScroll, setWebsiteTermScroll] = useState(false); // 웹사이트 이용 약관 스크롤 [boolean]
 
   // Form validation state
   const [disabled, setDisabled] = useState(true);
@@ -60,15 +80,15 @@ export default function SignUpScreen({navigation}) {
         errorMsg: '전공을 입력해주세요.',
         errorState: 'error',
       },
-      {
-        value: bornDate,
-        setValue: setBornDate,
-        label: '생년월일',
-        placeholder: 'YYYY-MM-DD',
-        error: bornDate.length !== 10,
-        errorMsg: '출생년도를 입력해주세요.',
-        errorState: 'error',
-      },
+      // {
+      //   value: bornDate,
+      //   setValue: setBornDate,
+      //   label: '생년월일',
+      //   placeholder: 'YYYY-MM-DD',
+      //   error: bornDate.length !== 10,
+      //   errorMsg: '출생년도를 입력해주세요.',
+      //   errorState: 'error',
+      // },
       {
         value: gradYear,
         setValue: setGradYear,
@@ -79,7 +99,7 @@ export default function SignUpScreen({navigation}) {
         errorState: 'error',
       },
     ],
-    [name, email, major, bornDate, gradYear],
+    [name, email, major, gradYear],
   );
 
   useEffect(() => {
@@ -148,61 +168,91 @@ export default function SignUpScreen({navigation}) {
     <SafeAreaView style={{flex: 1, padding: 16}}>
       <ScrollView>
         {/* Header */}
-        <Text style={{fontSize: 24, fontWeight: 'bold', textAlign: 'center'}}>
+        <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
           키사에 처음 오신걸 환영합니다!
         </Text>
-        <Text style={{fontSize: 16, textAlign: 'center', marginBottom: 20}}>
+        <Text style={{fontSize: 15, textAlign: 'center', marginBottom: 20}}>
           회원가입을 위해 아래 정보를 입력해주세요.
         </Text>
 
         {/* Required Fields */}
-        <RequiredFields fields={requiredFields} />
-         {/* {requiredFields.map((field, index) => (
-          <View key={index} style={{marginBottom: 10}}>
-            <CustomLabel text={field.label} required={true} />{' '}
-            <CustomInput
-              value={field.value}
-              onChangeText={field.setValue}
-              placeholder={field.placeholder}
-            />
-            {field.error && (
-              <ErrorDisplay message={field.errorMsg} state={field.errorState} />
+        <View style={styles.container}>
+          <RequiredFields fields={requiredFields} />
+
+          {/* Birthdate Input with Date Picker
+          Although implemented for now, will need to check
+          how they are parsed and stored in DB, to make adjustments. */}
+          <View style={styles.calendarStyle}>
+            <View style={styles.calendarStyleOuter}>
+              <Text style={styles.label}>생년월일</Text>
+              <Text style={styles.required}>*</Text>
+            </View>
+
+            <TouchableOpacity
+              onPress={toggleDatePicker}
+              style={styles.inputBox}>
+              <Text style={styles.dateText}>
+                {dayjs(birthDate).locale('fr').format('YYYY-MM-DD')}
+              </Text>
+            </TouchableOpacity>
+
+            {showDatePicker && (
+              <DateTimePicker
+                mode="single"
+                locale="en"
+                date={birthDate}
+                firstDayOfWeek={1}
+                onChange={response => {
+                  const selected = response?.date;
+                  if (!selected) return;
+
+                  if (dayjs.isDayjs(selected)) {
+                    setBirthDate(selected.toDate()); // Dayjs -> Date
+                  } else {
+                    setBirthDate(new Date(selected)); // string/number/Date -> Date
+                  }
+
+                  toggleDatePicker();
+                }}
+              />
             )}
           </View>
-        ))}  */}
 
-        <HorizontalDivider color={'dark'} />
+          <View style={styles.dividerSpacingOne}>
+            <HorizontalDivider color={'dark'} />
+          </View>
 
-        {/* Optional Fields */}
-        <View style={{marginBottom: 10}}>
+          {/* Optional Fields */}
           <CustomLabel text={'LinkedIn URL'} required={false} />
           <CustomInput
             value={linkedIn}
             onChangeText={setLinkedIn}
             placeholder="예) https://linkedin.com/in/yourname"
           />
-        </View>
 
-        <HorizontalDivider color={'dark'} />
+          <View style={styles.dividerSpacingTwo}>
+            <HorizontalDivider color={'dark'} />
+          </View>
 
-        {/* Terms & Conditions */}
-        <View style={{marginBottom: 20}}>
-          <Text style={{fontWeight: 'bold'}}>개인정보 수집 약관</Text>
-          <Text>약관 내용을 스크롤하여 확인하세요.</Text>
-          <Button
-            title="동의합니다"
-            onPress={() => setPersonTermChecked(!personTermChecked)}
-            color={personTermChecked ? 'green' : 'gray'}
+          {/* Terms & Conditions */}
+          <TermConditions
+            isScrolledToBottom={personTermScroll}
+            setIsScrolledToBottom={setPersonTermScroll}
+            termChecked={personTermChecked}
+            setTermChecked={setPersonTermChecked}
+            label={personalInfoTerm.label}
+            text={personalInfoTerm.text}
+            checkboxLabel={personalInfoTerm.checkboxLabel}
           />
-        </View>
-
-        <View style={{marginBottom: 20}}>
-          <Text style={{fontWeight: 'bold'}}>웹사이트 이용 약관</Text>
-          <Text>약관 내용을 스크롤하여 확인하세요.</Text>
-          <Button
-            title="동의합니다"
-            onPress={() => setWebsiteTermChecked(!websiteTermChecked)}
-            color={websiteTermChecked ? 'green' : 'gray'}
+          {/* Website Conditions */}
+          <TermConditions
+            isScrolledToBottom={websiteTermScroll}
+            setIsScrolledToBottom={setWebsiteTermScroll}
+            termChecked={websiteTermChecked}
+            setTermChecked={setWebsiteTermChecked}
+            label={websiteInfoTerm.label}
+            text={websiteInfoTerm.text}
+            checkboxLabel={websiteInfoTerm.checkboxLabel}
           />
         </View>
 
@@ -210,6 +260,7 @@ export default function SignUpScreen({navigation}) {
         <Button
           title="회원가입 제출"
           // onPress={handleSubmit}
+          onPress={() => Alert.alert('앙 지오쨩 상랑행 뀨우~~ 잘해찌이이?')}
           disabled={disabled}
           color={disabled ? 'gray' : 'blue'}
         />
@@ -217,3 +268,48 @@ export default function SignUpScreen({navigation}) {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 20, // title to the first bar
+    paddingHorizontal: 40, // equal horizontal padding for all
+    width: '100%',
+  },
+  dividerSpacingOne: {
+    marginBottom: 14,
+  },
+  dividerSpacingTwo: {
+    marginTop: 16,
+    marginBottom: 2,
+  },
+  datePickerContainer: {
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    marginTop: 8,
+  },
+  inputBox: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 12,
+    borderRadius: 10,
+    backgroundColor: '#f9f9f9',
+  },
+  dateText: {
+    fontSize: 14,
+  },
+  calendarStyle: {
+    marginBottom: 16,
+  },
+  required: {
+    color: 'red',
+    fontSize: 16,
+  },
+  calendarStyleOuter: {
+    flexDirection: 'row',
+    gap: 4,
+  },
+});

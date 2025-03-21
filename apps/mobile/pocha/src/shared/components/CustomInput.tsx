@@ -1,11 +1,19 @@
 import React from 'react';
-import {TextInput, StyleSheet, KeyboardTypeOptions} from 'react-native';
+import {
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  KeyboardTypeOptions,
+  View,
+} from 'react-native';
 
 interface CustomInputProps {
   keyboardType?: KeyboardTypeOptions;
   value: string;
   onChangeText: (text: string) => void; // Ensure onChangeText is correctly typed
   placeholder?: string;
+  editable?: boolean;
+  onPress?: () => void;
 }
 
 export default function CustomInput({
@@ -13,6 +21,8 @@ export default function CustomInput({
   value,
   onChangeText,
   placeholder = 'Enter input!',
+  editable = true,
+  onPress,
 }: CustomInputProps) {
   return (
     <TextInput
@@ -22,6 +32,7 @@ export default function CustomInput({
       keyboardType={keyboardType}
       style={styles.input}
       autoCapitalize="none"
+      editable={editable}
     />
   );
 }
@@ -35,5 +46,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 8,
     fontSize: 14,
+    alignSelf: 'center',
   },
 });
