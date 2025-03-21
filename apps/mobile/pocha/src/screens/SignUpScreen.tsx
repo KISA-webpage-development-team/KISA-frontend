@@ -11,7 +11,7 @@ import CustomInput from '@/shared/components/CustomInput';
 import ErrorDisplay from '@/shared/components/ErrorDisplay';
 import CustomLabel from '@/shared/components/CustomLabel';
 import HorizontalDivider from '@/shared/components/HorizontalDivider';
-
+import RequiredFields from '@/shared/components/signup/RequiredFields'
 import axios from 'axios';
 // import { BACKEND_URL } from '@/constants/env';
 
@@ -156,7 +156,8 @@ export default function SignUpScreen({navigation}) {
         </Text>
 
         {/* Required Fields */}
-        {requiredFields.map((field, index) => (
+        <RequiredFields fields={requiredFields} />
+         {/* {requiredFields.map((field, index) => (
           <View key={index} style={{marginBottom: 10}}>
             <CustomLabel text={field.label} required={true} />{' '}
             <CustomInput
@@ -168,7 +169,7 @@ export default function SignUpScreen({navigation}) {
               <ErrorDisplay message={field.errorMsg} state={field.errorState} />
             )}
           </View>
-        ))}
+        ))}  */}
 
         <HorizontalDivider color={'dark'} />
 

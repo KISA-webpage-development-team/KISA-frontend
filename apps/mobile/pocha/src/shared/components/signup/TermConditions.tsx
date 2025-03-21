@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 // import {
 //   sejongHospitalBold,
 //   sejongHospitalLight,
@@ -59,33 +60,37 @@ export default function TermConditions({
   // }, [divRef, setIsScrolledToBottom, lastScrollTop]);
 
   return (
-    <div className="flex flex-col gap-2 w-full">
-      <span className={`${sejongHospitalBold.className} text-base md:text-lg`}>
+    <View style={styles.container}>
+      {/*add sejong hospital bold later here */}
+      <Text style={[styles.label]}>
         {label}
-        <span className="text-red-500 ml-2">*</span>
-      </span>
-      <div
-        ref={divRef}
-        className="border border-gray-300 rounded-lg p-3
-      max-h-72 overflow-y-auto">
-        {text}
-      </div>
+        <Text style={styles.required}>*</Text>
+      </Text>
 
-      <div className="flex items-center gap-2 mt-2">
-        <input
-          type="checkbox"
+      <ScrollView
+        style={styles.scrollContainer}
+        onScroll={handleScroll}
+        scrollEventThrottle={16} // ~60fps
+      >
+        <Text style={styles.text}>{text}</Text>
+      </ScrollView>
+
+      <View style={styles.checkboxContainer}>
+        <CheckBox
           disabled={!isScrolledToBottom}
           value={termChecked}
-          onChange={e => setTermChecked(e.target.checked)}
+          onValueChange={newValue => setTermChecked(newValue)}
         />
-        <span
-          className={` ${sejongHospitalLight.className} text-sm ${
-            isScrolledToBottom ? 'text-black' : 'text-gray-400'
-          }`}>
+        {/*add sejong hospital light later here */}
+        <Text
+          style={[
+            styles.checkboxLabel,
+            {color: isScrolledToBottom ? '#000' : '#9ca3af'},
+          ]}>
           {checkboxLabel}
-        </span>
-      </div>
-    </div>
+        </Text>
+      </View>
+    </View>
   );
 }
 

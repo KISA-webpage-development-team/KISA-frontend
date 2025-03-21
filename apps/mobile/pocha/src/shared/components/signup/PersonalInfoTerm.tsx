@@ -3,29 +3,31 @@ import { View, Text, StyleSheet } from "react-native";
 
 export default function PersonalInfoTerm() {
   return (
-      <View style={styles.container}>
-          {/* add sejong hopital bold later here */}
+    <View style={styles.container}>
+      {/* add sejong hopital bold later here */}
       <Text style={styles.label}>
         개인 정보 수집 약관
         <Text style={styles.required}>*</Text>
       </Text>
       <View style={styles.termContainer}>
         <Text style={styles.termText}>
-          term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term term
+          term term term term term term term term term term term term term term
+          term term term term term term term term term term term term term term
+          term term term term term term term term term term term term term term
         </Text>
       </View>
 
-      <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
+      <View style={styles.checkboxContainer}>
+        <CheckBox
           value={termChecked}
-          onChange={(e) => setTermChecked(e.target.checked)}
+          onValueChange={newValue => setTermChecked(newValue)}
         />
-        <span className={` ${sejongHospitalLight.className} text-sm`}>
+        {/*add sejong hopital bold later*/}
+        <Text style={[styles.checkboxLabel]}>
           개인 정보 수집 약관에 동의합니다.
-        </span>
-      </div>
-    </div>
+        </Text>
+      </View>
+    </View>
   );
 }
 
