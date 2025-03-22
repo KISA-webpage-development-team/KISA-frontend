@@ -1,4 +1,6 @@
 # Pocha Mobile App Module
+> [!NOTE]
+> This is a legacy documentation. We've decided to deploy Pocha App without module federation for faster shipping.
 
 ## Getting Started
 
