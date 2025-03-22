@@ -5,8 +5,8 @@
   "scripts": {
     "android": "react-native run-android --no-packager",
     "ios": "react-native run-ios --no-packager",
-    "start": "react-native webpack-start --port 9000",
-    "start:standalone": "STANDALONE=1 react-native webpack-start",
+    "start": "react-native start --port 9000",
+    "start:standalone": "STANDALONE=1 react-native start",
     "test": "jest"
   },
   "dependencies": {
