@@ -13,7 +13,6 @@ interface CustomInputProps {
   onChangeText: (text: string) => void; // Ensure onChangeText is correctly typed
   placeholder?: string;
   editable?: boolean;
-  onPress?: () => void;
 }
 
 export default function CustomInput({
@@ -22,7 +21,6 @@ export default function CustomInput({
   onChangeText,
   placeholder = 'Enter input!',
   editable = true,
-  onPress,
 }: CustomInputProps) {
   return (
     <TextInput
@@ -41,10 +39,9 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     borderWidth: 1,
-    borderColor: '#D1D5DB',
-    padding: 12,
+    borderColor: 'lightgray',
+    padding: 13,
     borderRadius: 10,
-    marginTop: 8,
     fontSize: 14,
     alignSelf: 'center',
   },

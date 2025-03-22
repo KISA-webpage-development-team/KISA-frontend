@@ -16,8 +16,7 @@ export default function HorizontalDivider({
 const styles = StyleSheet.create({
   divider: {
     width: '100%',
-    height: 4,
+    height: 2,
     borderRadius: 8,
-    marginVertical: 14,
   },
 });

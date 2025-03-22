@@ -15,18 +15,17 @@ import DateTimePicker from 'react-native-ui-datepicker';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr'; // or 'ko' for Korean
 
-import CustomInput from '@/shared/components/CustomInput';
-import ErrorDisplay from '@/shared/components/ErrorDisplay';
-import CustomLabel from '@/shared/components/CustomLabel';
-import HorizontalDivider from '@/shared/components/HorizontalDivider';
+import CustomInput from '@/shared/components/form/CustomInput';
+import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
+import CustomLabel from '@/shared/components/form/CustomLabel';
+import HorizontalDivider from '@/shared/components/divider/HorizontalDivider';
 import RequiredFields from '@/shared/components/signup/RequiredFields';
 import TermConditions from '@/shared/components/signup/TermConditions';
 import {
   personalInfoTerm,
   websiteInfoTerm,
 } from '@/shared/components/config/TermCondition';
-import axios from 'axios';
-// import { BACKEND_URL } from '@/constants/env';
+import OptionalFields from '@/shared/components/signup/OptionalFields';
 
 export default function SignUpScreen({}) {
   // add "navigation" into the parameter here
@@ -51,56 +50,78 @@ export default function SignUpScreen({}) {
   // Form validation state
   const [disabled, setDisabled] = useState(true);
 
-  const requiredFields = useMemo(
-    () => [
-      {
-        value: name,
-        setValue: setName,
-        label: '이름 (본명)',
-        placeholder: '예) 홍길동',
-        error: name.length === 0,
-        errorMsg: '게시판에 사용될 이름입니다. 반드시 실명으로 작성해주세요.',
-        errorState: 'alert',
-      },
-      {
-        value: email,
-        setValue: setEmail,
-        label: 'umich 이메일',
-        placeholder: '예) example@umich.edu',
-        error: !email.endsWith('@umich.edu') || email.length === 0,
-        errorMsg: '유효한 미시간 이메일을 입력해주세요.',
-        errorState: 'error',
-      },
-      {
-        value: major,
-        setValue: setMajor,
-        label: '전공 (major)',
-        placeholder: '예) Computer Science',
-        error: major.length === 0,
-        errorMsg: '전공을 입력해주세요.',
-        errorState: 'error',
-      },
-      // {
-      //   value: bornDate,
-      //   setValue: setBornDate,
-      //   label: '생년월일',
-      //   placeholder: 'YYYY-MM-DD',
-      //   error: bornDate.length !== 10,
-      //   errorMsg: '출생년도를 입력해주세요.',
-      //   errorState: 'error',
-      // },
-      {
-        value: gradYear,
-        setValue: setGradYear,
-        label: '졸업년도 (YYYY)',
-        placeholder: '예) 2026',
-        error: gradYear.length !== 4,
-        errorMsg: '정확한 졸업년도를 입력해주세요.',
-        errorState: 'error',
-      },
-    ],
-    [name, email, major, gradYear],
-  );
+  // Required Fields
+  const requiredFields = [
+    {
+      value: name,
+      setValue: setName,
+      label: '이름 (본명)',
+      type: 'text',
+      placeholder: '예) 홍길동',
+      validationRules: [
+        (value: string) =>
+          true
+            ? '게시판에 사용될 이름입니다. 반드시 실명으로 작성해주세요.'
+            : null,
+      ],
+    },
+    {
+      value: email,
+      setValue: setEmail,
+      label: 'umich 이메일',
+      type: 'email',
+      placeholder: '예) example@umich.edu',
+      validationRules: [
+        (value: string) =>
+          !value.endsWith('@umich.edu')
+            ? '유효한 미시간 이메일을 입력해주세요.'
+            : null,
+      ],
+    },
+    {
+      value: major,
+      setValue: setMajor,
+      label: '전공 (major)',
+      type: 'text',
+      placeholder: '예) Computer Science',
+      validationRules: [
+        (value: string) => (!value.trim() ? '전공을 입력해주세요.' : null),
+      ],
+    },
+    {
+      value: birthDate,
+      setValue: setBirthDate,
+      label: '생년월일',
+      type: 'date',
+      placeholder: '예) 2000-01-01',
+      // validationRules: [
+      //   (value: string) =>
+      //     !value.trim() ? '생년월일을 입력해주세요.' : null,
+      // ],
+    },
+    {
+      value: gradYear,
+      setValue: setGradYear,
+      label: '졸업년도 (YYYY)',
+      type: 'number',
+      placeholder: '예) 2026',
+      validationRules: [
+        (value: string) =>
+          value.length !== 4 ? '정확한 졸업년도를 입력해주세요.' : null,
+      ],
+    },
+  ];
+
+  // Optional Fields
+  const optionalFields = [
+    {
+      value: linkedIn,
+      setValue: setLinkedIn,
+      label: 'LinkedIn URL',
+      type: 'text',
+      placeholder: '예) https://linkedin.com/in/yourname',
+    },
+  ];
 
   useEffect(() => {
     if (!personTermChecked || !websiteTermChecked) {
@@ -108,13 +129,16 @@ export default function SignUpScreen({}) {
       return;
     }
 
-    for (const field of requiredFields) {
-      if (field.error || field.value === '') {
-        setDisabled(true);
-        return;
+    // Update validation check to use the new validation rules
+    const hasInvalidFields = requiredFields.some(field => {
+      if (!field.value) return true;
+      if (field.validationRules) {
+        return field.validationRules.some(rule => rule(field.value) !== null);
       }
-    }
-    setDisabled(false);
+      return false;
+    });
+
+    setDisabled(hasInvalidFields);
   }, [requiredFields, personTermChecked, websiteTermChecked]);
 
   // BACKEND REQUIRED!
@@ -165,105 +189,69 @@ export default function SignUpScreen({}) {
   // };
 
   return (
-    <SafeAreaView style={{flex: 1, padding: 16}}>
-      <ScrollView>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+      <ScrollView style={styles.container}>
         {/* Header */}
-        <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
-          키사에 처음 오신걸 환영합니다!
-        </Text>
-        <Text style={{fontSize: 15, textAlign: 'center', marginBottom: 20}}>
-          회원가입을 위해 아래 정보를 입력해주세요.
-        </Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerLargeText}>
+            키사에 처음 오신걸 환영합니다!
+          </Text>
+          <Text style={styles.headerSmallText}>
+            회원가입을 위해 아래 정보를 입력해주세요.
+          </Text>
+        </View>
 
         {/* Required Fields */}
-        <View style={styles.container}>
+        <View style={styles.fieldsContainer}>
+          {/* @ts-ignore */}
           <RequiredFields fields={requiredFields} />
-
-          {/* Birthdate Input with Date Picker
-          Although implemented for now, will need to check
-          how they are parsed and stored in DB, to make adjustments. */}
-          <View style={styles.calendarStyle}>
-            <View style={styles.calendarStyleOuter}>
-              <Text style={styles.label}>생년월일</Text>
-              <Text style={styles.required}>*</Text>
-            </View>
-
-            <TouchableOpacity
-              onPress={toggleDatePicker}
-              style={styles.inputBox}>
-              <Text style={styles.dateText}>
-                {dayjs(birthDate).locale('fr').format('YYYY-MM-DD')}
-              </Text>
-            </TouchableOpacity>
-
-            {showDatePicker && (
-              <DateTimePicker
-                mode="single"
-                locale="en"
-                date={birthDate}
-                firstDayOfWeek={1}
-                onChange={response => {
-                  const selected = response?.date;
-                  if (!selected) return;
-
-                  if (dayjs.isDayjs(selected)) {
-                    setBirthDate(selected.toDate()); // Dayjs -> Date
-                  } else {
-                    setBirthDate(new Date(selected)); // string/number/Date -> Date
-                  }
-
-                  toggleDatePicker();
-                }}
-              />
-            )}
-          </View>
 
           <View style={styles.dividerSpacingOne}>
             <HorizontalDivider color={'dark'} />
           </View>
 
           {/* Optional Fields */}
-          <CustomLabel text={'LinkedIn URL'} required={false} />
-          <CustomInput
-            value={linkedIn}
-            onChangeText={setLinkedIn}
-            placeholder="예) https://linkedin.com/in/yourname"
-          />
+          {/* @ts-ignore */}
+          <OptionalFields fields={optionalFields} />
 
           <View style={styles.dividerSpacingTwo}>
             <HorizontalDivider color={'dark'} />
           </View>
-
           {/* Terms & Conditions */}
-          <TermConditions
-            isScrolledToBottom={personTermScroll}
-            setIsScrolledToBottom={setPersonTermScroll}
-            termChecked={personTermChecked}
-            setTermChecked={setPersonTermChecked}
-            label={personalInfoTerm.label}
-            text={personalInfoTerm.text}
-            checkboxLabel={personalInfoTerm.checkboxLabel}
-          />
-          {/* Website Conditions */}
-          <TermConditions
-            isScrolledToBottom={websiteTermScroll}
-            setIsScrolledToBottom={setWebsiteTermScroll}
-            termChecked={websiteTermChecked}
-            setTermChecked={setWebsiteTermChecked}
-            label={websiteInfoTerm.label}
-            text={websiteInfoTerm.text}
-            checkboxLabel={websiteInfoTerm.checkboxLabel}
-          />
+          <View style={styles.termsContainer}>
+            <TermConditions
+              isScrolledToBottom={personTermScroll}
+              setIsScrolledToBottom={setPersonTermScroll}
+              termChecked={personTermChecked}
+              setTermChecked={setPersonTermChecked}
+              label={personalInfoTerm.label}
+              text={personalInfoTerm.text}
+              checkboxLabel={personalInfoTerm.checkboxLabel}
+            />
+            {/* Website Conditions */}
+            <TermConditions
+              isScrolledToBottom={websiteTermScroll}
+              setIsScrolledToBottom={setWebsiteTermScroll}
+              termChecked={websiteTermChecked}
+              setTermChecked={setWebsiteTermChecked}
+              label={websiteInfoTerm.label}
+              text={websiteInfoTerm.text}
+              checkboxLabel={websiteInfoTerm.checkboxLabel}
+            />
+          </View>
         </View>
 
         {/* Submit Button */}
-        <Button
-          title="회원가입 제출"
+        <TouchableOpacity
+          style={[
+            styles.submitButton,
+            {backgroundColor: disabled ? 'gray' : 'blue'},
+          ]}
           // onPress={handleSubmit}
           onPress={() => Alert.alert('앙 지오쨩 상랑행 뀨우~~ 잘해찌이이?')}
-          disabled={disabled}
-          color={disabled ? 'gray' : 'blue'}
-        />
+          disabled={disabled}>
+          <Text style={[styles.submitButtonText]}>회원가입 제출</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -271,45 +259,51 @@ export default function SignUpScreen({}) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 20, // title to the first bar
-    paddingHorizontal: 40, // equal horizontal padding for all
+    flex: 1,
+    paddingVertical: '6%',
+    paddingHorizontal: '7%',
+  },
+  // Header
+  headerContainer: {
+    rowGap: 8,
+  },
+  headerLargeText: {
+    fontSize: 20,
+    textAlign: 'center',
+    fontFamily: 'Sejong-hospital-Bold',
+  },
+  headerSmallText: {
+    fontSize: 14,
+    textAlign: 'center',
+    fontFamily: 'Sejong-hospital-Light',
+  },
+  // Fields
+  fieldsContainer: {
+    marginTop: '10%',
+    flex: 1,
     width: '100%',
   },
   dividerSpacingOne: {
-    marginBottom: 14,
+    marginVertical: 24,
   },
   dividerSpacingTwo: {
-    marginTop: 16,
-    marginBottom: 2,
+    marginVertical: 12,
   },
-  datePickerContainer: {
-    marginBottom: 16,
+  // Terms & Conditions
+  termsContainer: {
+    marginTop: '2%',
+    rowGap: 24,
   },
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    marginTop: 8,
-  },
-  inputBox: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 12,
+  // Submit Button
+  submitButton: {
+    marginVertical: '10%',
+    alignItems: 'center',
+    paddingVertical: 12,
     borderRadius: 10,
-    backgroundColor: '#f9f9f9',
   },
-  dateText: {
-    fontSize: 14,
-  },
-  calendarStyle: {
-    marginBottom: 16,
-  },
-  required: {
-    color: 'red',
+  submitButtonText: {
     fontSize: 16,
-  },
-  calendarStyleOuter: {
-    flexDirection: 'row',
-    gap: 4,
+    color: 'white',
+    fontFamily: 'Sejong-hospital-Bold',
   },
 });
