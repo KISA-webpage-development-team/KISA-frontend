@@ -89,35 +89,63 @@ export default function PaymentSubmitForm({
   // }, [totalPrice, userEmail, fullname, clientSecret]);
 
   // if (!clientSecret || !stripe || !elements) {
-  if (!stripe || !elements) {
+
+  {/*stripe specific style */}
+  const cardFieldStyles = {
+    backgroundColor: '#efefef',
+     textColor: '#424242', // Allowed by Stripe's CardField, but not by React Native's StyleSheet
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+  };
+  if (!stripe) {
     return (
       <LoadingSpinner fullScreen={false} label="결제 정보를 가져오는 중..." />
     );
   }
 
   return (
-    <form
-    onSubmit={handlePaymentSubmit}
-    className="relative w-full
-    flex flex-col gap-4
-    bg-white rounded-md py-4">
-      {/* Payment form input */}
-      {/* {clientSecret && ( */}
-      <PaymentElement
-        options={{
-        layout: 'accordion',
-        paymentMethodOrder: ['apple_pay', 'google_pay', 'card'],
+    <View style={styles.container}>
+      {/* CardField is the React Native equivalent of a card input field */}
+      <CardField
+        postalCodeEnabled={false}
+        placeholders={{
+          number: '4242 4242 4242 4242',
         }}
-    />
+        cardStyle={cardFieldStyles}
+        style={styles.cardContainer}
+        onCardChange={cardDetails => {
+
+        }}
+      />
       {/* )} */}
       {/*?*/}
       {/* Total Price + Transaction fee display */}
       <PaySummaryCard amount={amount} fee={fee} totalPrice={totalPrice} />
 
-      {errorMessage && <p className="mt-4 text-red-500">{errorMessage}</p>}
+      {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
 
       {/* Submit button (sticky on the bottom) */}
       <PayButton loading={paymentLoading} totalPrice={totalPrice} />
-    </form>
+    </View>
   );
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 16,
+  },
+  cardContainer: {
+    height: 50,
+    marginVertical: 20,
+  },
+  errorText: {
+    marginTop: 8,
+    color: 'red',
+    fontSize: 14,
+  },
+});

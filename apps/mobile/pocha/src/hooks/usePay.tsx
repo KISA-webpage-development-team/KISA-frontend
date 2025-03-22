@@ -1,6 +1,6 @@
 import { PayInfo } from "@/types/pocha";
 import { useEffect, useState } from "react";
-import { getPayInfo } from "@/apis/pocha/queries";
+import { getPayInfo } from "@/apis/queries";
 import {
   calculateStripeFee,
   calculateStripeTotalPrice,
@@ -34,11 +34,11 @@ const usePay = (email: string, token: string, pochaID: number) => {
 
   return {
     amount: payInfo?.amount,
-    fee: calculateStripeFee(payInfo?.amount),
+    fee: calculateStripeFee(payInfo?.amount ?? 0),
     tip,
     setTip,
-    totalPrice: calculateStripeTotalPrice(payInfo?.amount),
-    ageCheckRequired: payInfo?.ageCheckRequired === "true" ? true : false,
+    totalPrice: calculateStripeTotalPrice(payInfo?.amount ?? 0),
+    ageCheckRequired: payInfo?.ageCheckRequired === 'true' ? true : false,
     status,
   };
 };
