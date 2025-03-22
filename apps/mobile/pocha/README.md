@@ -1,303 +1,97 @@
-# Pocha Mobile App Module
+This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-## Getting Started
+# Getting Started
 
-Make sure you have followed "Install Mobile App on Simulator" section in [Dev Scripts](../../../docs/dev-scripts.md) before running the following the steps below.
+> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
 
-> [!NOTE]
-> If you are Windows user, you can skip the "Install Mobile App on Simulator" section and run the following command to start the development server. Because the current android installation script is not implemented yet.
+## Step 1: Start Metro
 
-### 1. Open the "pocha" folder in your favorite IDE.
+First, you will need to run **Metro**, the JavaScript build tool for React Native.
 
-### 2. Install depedencies (if needed, you can skip this step if you have already installed the dependencies)
+To start the Metro dev server, run the following command from the root of your React Native project:
 
-```bash
-pnpm install && npx pod-install ios
+```sh
+# Using npm
+npm start
+
+# OR using Yarn
+yarn start
 ```
 
-### 3-1. Open iOS simulator (for Mac)
+## Step 2: Build and run your app
 
-- Open XCode
-- Click "XCode" menu on the top left corner of the whole screen
-- Select "Open Developer Tool > Simulator"
-- After the simulator app is opened, right-click the simulator's icon on the Mac Dock.
-- Select "Devices" and choose the simulator you installed the "pocha" app
-- After the simulator is opened, you can see the "pocha" app icon on the simulator
-- Click the "pocha" app icon to open the app
+With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
 
-### 3-2. Open Android simulator (for Windows or Mac with Android Studio installed)
+### Android
 
-- Open Android Studio
-- Click "More Actions" dropdown menu on the center of the screen
-- Select "Virtual Device Manager"
-- Choose the simulator you installed the "pocha" app
-- Launch the simulator by pressing "Play" icon on the Actions tab
+```sh
+# Using npm
+npm run android
 
-### 4. Start the development server
-
-```bash
-pnpm start:standalone # if you are using Mac
-pnpm run android # if you are using Windows (this will automatically open the Android Studio Simulator)
+# OR using Yarn
+yarn android
 ```
 
-If you want to run the app directly on the simulator, you can run the following command instead.
+### iOS
 
-```bash
-pnpm run ios # for iOS (Mac)
-pnpm run android # for Android (Windows or Mac with Android Studio installed)
+For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+
+The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+
+```sh
+bundle install
 ```
 
-### 5. Run the app on the simulator
+Then, and every time you update your native dependencies, run:
 
-- After the development server is started, you can reload the app on the simulator
-
-### 6. Stop the development server
-
-Simply press `Ctrl + C` on the terminal where the development server is running, and close the simulator.
-
-## Troubleshooting with reinstallation
-
-After pulling the latest changes from the pocha branch, you might need to reinstall the dependencies.
-
-```bash
-pnpm install
-
-cd ios
-rm -rf Pods
-rm -rf build
-pod cache clean --all
-pod deintegrate
-pod setup
-pod install # reinstall pods with clear cache
-cd ..
-pnpm run ios # new build
-pnpm start:standalone # start the development server
+```sh
+bundle exec pod install
 ```
 
-## Assets
+For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
 
-### Icons
+```sh
+# Using npm
+npm run ios
 
-We are using **react-native-svg** and **@svgr/webpack** to convert SVG icons to React components.
-You must use svg files and save them in the `src/assets/icons` folder.
-
-> [!IMPORTANT]
-> YOU MUST USE SVG ICONS FROM [https://www.svgrepo.com/](https://www.svgrepo.com/)
-
-> [!NOTE]
-> Colors might not be applied properly with raw svg files. To fix this, go to a raw svg file and change `fill` attribute to `currentColor`. (sample is given in `src/assets/icons/test_home.svg`)
-
-> [!NOTE]
-> You can use other svg icons from different websites, but you must be careful about the svg file format. Width and height might not be applied properly with raw svg files.
-
-#### Example
-
-```tsx
-import HomeIcon from '@/assets/icons/test_home.svg';
-
-<HomeIcon width={50} height={50} style={{color: 'blue'}} />;
+# OR using Yarn
+yarn ios
 ```
 
-### Fonts [WIP]
+If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
 
-It supposed to work correctly with the current setup, but it's not working due to re.pack config. Will figure it out later.
+This is one way to run your app — you can also build it directly from Android Studio or Xcode.
 
-## Web-to-Mobile Migration Guide: Folder Structure
+## Step 3: Modify your app
 
-All the migrated codes should be located under the `src` folder. This migration guide assumes that all the mobile folders are located under the `src` folder of the "pocha" project.
+Now that you have successfully run the app, let's make changes!
 
-#### 1. `app` folder (web) -> `screens` folder (mobile)
+Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
 
-#### 2. `features/pocha/components` folder (web) -> `components` folder (mobile)
+When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
 
-#### 3. `features/pocha/hooks` folder (web) -> `hooks` folder (mobile)
+- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
+- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
 
-#### 4. `features/pocha/utils` folder (web) -> `utils` folder (mobile)
+## Congratulations! :tada:
 
-#### 5. `types/pocha.ts`(web) -> `types/pocha.ts` (mobile)
+You've successfully run and modified your React Native App. :partying_face:
 
-#### 6. `apis/pocha` folder (web) -> `apis` (mobile)
+### Now what?
 
-#### 7. Any other folders or codes not specified from #1 to #6 -> `shared` with same folder structure as web (mobile)
+- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
+- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
 
-#### Example 1: `final_refactor_src/components/feedback/LoadingSpinners.tsx` (web) -> `shared/components/feedback/LoadingSpinners.tsx`
+# Troubleshooting
 
-**Web**
+If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
 
-![스크린샷 2025-03-01 오후 1 24 50](https://github.com/user-attachments/assets/42db1fb6-998c-43a2-8f6a-60353dacdbb4)
+# Learn More
 
-**Mobile**
+To learn more about React Native, take a look at the following resources:
 
-![스크린샷 2025-03-01 오후 1 25 23](https://github.com/user-attachments/assets/4236231b-2415-4bde-aa00-802eaf1fadfb)
-
-#### Example 2: `lib/axios` folder (web) -> `shared/lib/axios` folder (mobile)
-
-**Web**
-
-![스크린샷 2025-03-01 오후 1 26 23](https://github.com/user-attachments/assets/7aa684ca-2b6e-486b-b54f-93b3b3598a8d)
-
-**Mobile**
-
-![스크린샷 2025-03-01 오후 1 31 33](https://github.com/user-attachments/assets/2d2ca7c1-635f-4d39-8fb5-42c0eeaf3e94)
-
-## Web-to-Mobile Migration Guide: UI
-
-> [!IMPORTANT]
-> While working on UI Migration, please ignore or comment any "logics" codes (useState, useEffect, API calls, etc)
-
-#### Logic codes example
-
-**Web**
-
-```tsx
-// /app/pocha/page.tsx
-const searchParams = useSearchParams();
-const [activeTab, setActiveTab] = useState<PochaTab>(
-  (searchParams.get('tab') as PochaTab) || 'menu',
-);
-
-// fetch pocha information (GET /pocha/status-info/)
-const {pochaInfo, status, error} = usePocha();
-
-if (status === 'loading') {
-  return <LoadingSpinner />;
-}
-
-// Error Handling using error.tsx,
-// just throw the error, and it will be handled by error.tsx
-if (status === 'error') {
-  throw new Error(error || 'Unexpected error occurred');
-}
-
-// [TODO] better UI
-// if pochaInfo === {}, then there is no scheduled pocha
-if (Object.keys(pochaInfo).length === 0) {
-  return (
-    <section className="flex justify-center items-center h-full">
-      <p className={`text-3xl ${sejongHospitalBold.className}`}>
-        No scheduled pocha
-      </p>
-    </section>
-  );
-}
-```
-
-**Mobile**
-
-```tsx
-// /src/screens/HomeScreen.tsx: JUST COMMENT THE LOGIC CODES
-
-// const searchParams = useSearchParams();
-// const [activeTab, setActiveTab] = useState<PochaTab>(
-//   (searchParams.get('tab') as PochaTab) || 'menu',
-// );
-
-// // fetch pocha information (GET /pocha/status-info/)
-// const {pochaInfo, status, error} = usePocha();
-
-// if (status === 'loading') {
-//   return <LoadingSpinner />;
-// }
-
-// // Error Handling using error.tsx,
-// // just throw the error, and it will be handled by error.tsx
-// if (status === 'error') {
-//   throw new Error(error || 'Unexpected error occurred');
-// }
-
-// // [TODO] better UI
-// // if pochaInfo === {}, then there is no scheduled pocha
-// if (Object.keys(pochaInfo).length === 0) {
-//   return (
-//     <section className="flex justify-center items-center h-full">
-//       <p className={`text-3xl ${sejongHospitalBold.className}`}>
-//         No scheduled pocha
-//       </p>
-//     </section>
-//   );
-// }
-```
-
-### Converting HTML tags to Native tags
-
-**Web**
-
-```tsx
-// /features/pocha/components/home/HomeHeading.tsx
-
-<div className="flex flex-col items-center px-4 pt-2 gap-2" id="pocha-heading">
-  {/* Title - pocha name */}
-  <h1 className={`${sejongHospitalBold.className} text-xl`}>
-    {pochaInfo?.title}
-  </h1>
-
-  {/* Description - pocha description */}
-  <p className="text-center text-sm">{pochaInfo?.description}</p>
-</div>
-```
-
-**Mobile**
-
-```tsx
-// /src/components/home/HomeHeading.tsx
-<View style={styles.container} id="pocha-heading">
-  {/* Title - pocha name */}
-  <Text style={styles.title}>Halloween Pcoha</Text>
-
-  {/* Description - pocha description */}
-  <Text style={styles.description}>dasfdfasdf</Text>
-</View>
-```
-
-### Converting CSS classes to Native styles
-
-**Web**
-
-```tsx
-// /features/pocha/components/home/HomeHeading.tsx
-
-<div className="flex flex-col items-center px-4 pt-2 gap-2" id="pocha-heading">
-  {/* Title - pocha name */}
-  <h1 className={`${sejongHospitalBold.className} text-xl`}>
-    {pochaInfo?.title}
-  </h1>
-
-  {/* Description - pocha description */}
-  <p className="text-center text-sm">{pochaInfo?.description}</p>
-</div>
-```
-
-**Mobile**
-
-```tsx
-// /src/components/home/HomeHeading.tsx
-<View style={styles.container} id="pocha-heading">
-  {/* Title - pocha name */}
-  <Text style={styles.title}>Halloween Pcoha</Text>
-
-  {/* Description - pocha description */}
-  <Text style={styles.description}>dasfdfasdf</Text>
-</View>
-...
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 16,
-    gap: 8,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  description: {
-    fontSize: 16,
-  },
-});
-```
-
-### Note about Axios
-
-Axios 1.x version is causing "created" undefined error even with proper re.pack setup.
-So we are using axios 0.x version, which works well. This will be fine because we are not too much features that are only available in axios 1.x.
+- [React Native Website](https://reactnative.dev) - learn more about React Native.
+- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
+- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
+- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
+- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
