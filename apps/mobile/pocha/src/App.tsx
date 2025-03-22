@@ -23,7 +23,7 @@ export default function PochaApp() {
     // setUser(user);
     // [NOTE] for now, use fake user
     // IF YOU ARE WORKING ON AUTH NAVIGATION, COMMENT LINE BELOW
-    setUser(fakeUser);
+    // setUser(fakeUser);
   }, []);
 
   return (
