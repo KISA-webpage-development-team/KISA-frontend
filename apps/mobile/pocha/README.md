@@ -12,3 +12,11 @@ pnpm run ios
 pnpm start
 ```
 
+## Notes
+### After Pulling
+need to install pods and pnpm again
+```bash
+pnpm dlx pod-install ios
+pnpm install
+```
+
