@@ -60,7 +60,7 @@ export default function SignUpScreen({}) {
       placeholder: '예) 홍길동',
       validationRules: [
         (value: string) =>
-          true
+          !value.trim()
             ? '게시판에 사용될 이름입니다. 반드시 실명으로 작성해주세요.'
             : null,
       ],
@@ -94,10 +94,6 @@ export default function SignUpScreen({}) {
       label: '생년월일',
       type: 'date',
       placeholder: '예) 2000-01-01',
-      // validationRules: [
-      //   (value: string) =>
-      //     !value.trim() ? '생년월일을 입력해주세요.' : null,
-      // ],
     },
     {
       value: gradYear,
