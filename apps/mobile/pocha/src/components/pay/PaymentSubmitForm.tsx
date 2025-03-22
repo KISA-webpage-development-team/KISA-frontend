@@ -10,7 +10,7 @@
 
 import React, {useState} from 'react';
 import { CardField, useStripe } from '@stripe/stripe-react-native';
-import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 // import convertToSubcurrency from '@/lib/stripe/convertToSubcurrency';
 //import {useRouter} from 'next/navigation';
 // import {sejongHospitalBold} from '@/utils/fonts/textFonts';
@@ -115,9 +115,7 @@ export default function PaymentSubmitForm({
         }}
         cardStyle={cardFieldStyles}
         style={styles.cardContainer}
-        onCardChange={cardDetails => {
-
-        }}
+        //onCardChange={cardDetails => { }}
       />
       {/* )} */}
       {/*?*/}
