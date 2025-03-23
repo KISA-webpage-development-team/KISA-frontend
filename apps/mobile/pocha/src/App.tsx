@@ -20,10 +20,10 @@ export default function PochaApp() {
   useEffect(() => {
     // const user = await AsyncStorage.getItem('user');
     // [TODO] get user from somewhere with Google OAuth (Firebase Auth)
-    // setUser(user);
+    setUser(user);
     // [NOTE] for now, use fake user
     // IF YOU ARE WORKING ON AUTH NAVIGATION, COMMENT LINE BELOW
-    // setUser(fakeUser);
+    setUser(fakeUser);
   }, []);
 
   return (
