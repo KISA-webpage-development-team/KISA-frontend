@@ -3,33 +3,32 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C80B921A6F3F58F76C31292 /* libPods-pocha.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-pocha.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		3F8F28EEBB9D263FBE5ECECF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
-		4E8050969DE94CDF95AFE907 /* Sejonghospital-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39B106EFF6344C3391583EDE /* Sejonghospital-Bold.ttf */; };
+		18F4C41AE8BD3848A5B972E1 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		4C9AF5F736544591BD7C5C99 /* Sejong-hospital-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B909103F1C5648C7B24F2D9C /* Sejong-hospital-Bold.ttf */; };
+		73A3B7512CEF45B1BE65F66B /* Sejong-hospital-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57D37771627945C5B6216D13 /* Sejong-hospital-Light.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		AFB8E9F6C9BDC4F8D5B3F8A7 /* libPods-pocha.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDB7D07AE531A562A1C8974A /* libPods-pocha.a */; };
-		DE2DE295B7F6439B8381D019 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		F71A0BE540B749478D50B298 /* Sejonghospital-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C28F6F002F04C83868858E9 /* Sejonghospital-Light.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0C28F6F002F04C83868858E9 /* Sejonghospital-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Sejonghospital-Light.ttf"; path = "../src/assets/fonts/Sejonghospital-Light.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* pocha.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pocha.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = pocha/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = pocha/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = pocha/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		14CD4EE860FE726F1D69B3C6 /* Pods-pocha.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pocha.debug.xcconfig"; path = "Target Support Files/Pods-pocha/Pods-pocha.debug.xcconfig"; sourceTree = "<group>"; };
-		39B106EFF6344C3391583EDE /* Sejonghospital-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Sejonghospital-Bold.ttf"; path = "../src/assets/fonts/Sejonghospital-Bold.ttf"; sourceTree = "<group>"; };
+		3B4392A12AC88292D35C810B /* Pods-pocha.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pocha.debug.xcconfig"; path = "Target Support Files/Pods-pocha/Pods-pocha.debug.xcconfig"; sourceTree = "<group>"; };
+		5709B34CF0A7D63546082F79 /* Pods-pocha.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pocha.release.xcconfig"; path = "Target Support Files/Pods-pocha/Pods-pocha.release.xcconfig"; sourceTree = "<group>"; };
+		57D37771627945C5B6216D13 /* Sejong-hospital-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Sejong-hospital-Light.ttf"; path = "../src/assets/fonts/Sejong-hospital-Light.ttf"; sourceTree = "<group>"; };
+		5DCACB8F33CDC322A6C60F78 /* libPods-pocha.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pocha.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = pocha/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = pocha/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		DDC86FE219C1CF84CE990C10 /* Pods-pocha.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pocha.release.xcconfig"; path = "Target Support Files/Pods-pocha/Pods-pocha.release.xcconfig"; sourceTree = "<group>"; };
+		B909103F1C5648C7B24F2D9C /* Sejong-hospital-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Sejong-hospital-Bold.ttf"; path = "../src/assets/fonts/Sejong-hospital-Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		EDB7D07AE531A562A1C8974A /* libPods-pocha.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-pocha.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFB8E9F6C9BDC4F8D5B3F8A7 /* libPods-pocha.a in Frameworks */,
+				0C80B921A6F3F58F76C31292 /* libPods-pocha.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,9 +59,19 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				EDB7D07AE531A562A1C8974A /* libPods-pocha.a */,
+				5DCACB8F33CDC322A6C60F78 /* libPods-pocha.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		53A9A447CD0C4232A3430F4F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B909103F1C5648C7B24F2D9C /* Sejong-hospital-Bold.ttf */,
+				57D37771627945C5B6216D13 /* Sejong-hospital-Light.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -80,7 +89,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
-				B0F886D3FDBC478DABC1FA0A /* Resources */,
+				53A9A447CD0C4232A3430F4F /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -95,21 +104,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B0F886D3FDBC478DABC1FA0A /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				39B106EFF6344C3391583EDE /* Sejonghospital-Bold.ttf */,
-				0C28F6F002F04C83868858E9 /* Sejonghospital-Light.ttf */,
-			);
-			name = Resources;
-			path = "";
-			sourceTree = "<group>";
-		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				14CD4EE860FE726F1D69B3C6 /* Pods-pocha.debug.xcconfig */,
-				DDC86FE219C1CF84CE990C10 /* Pods-pocha.release.xcconfig */,
+				3B4392A12AC88292D35C810B /* Pods-pocha.debug.xcconfig */,
+				5709B34CF0A7D63546082F79 /* Pods-pocha.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -121,13 +120,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "pocha" */;
 			buildPhases = (
-				BB1F4B972431207E66E27FCE /* [CP] Check Pods Manifest.lock */,
+				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				79303AE796BEEB76590E5921 /* [CP] Embed Pods Frameworks */,
-				8EE02FABF21103D20303C4C8 /* [CP] Copy Pods Resources */,
+				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
+				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -152,6 +151,7 @@
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "pocha" */;
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -159,7 +159,6 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
-			preferredProjectObjectVersion = 77;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -176,10 +175,9 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				3F8F28EEBB9D263FBE5ECECF /* PrivacyInfo.xcprivacy in Resources */,
-				DE2DE295B7F6439B8381D019 /* BuildFile in Resources */,
-				4E8050969DE94CDF95AFE907 /* Sejonghospital-Bold.ttf in Resources */,
-				F71A0BE540B749478D50B298 /* Sejonghospital-Light.ttf in Resources */,
+				18F4C41AE8BD3848A5B972E1 /* PrivacyInfo.xcprivacy in Resources */,
+				4C9AF5F736544591BD7C5C99 /* Sejong-hospital-Bold.ttf in Resources */,
+				73A3B7512CEF45B1BE65F66B /* Sejong-hospital-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,9 +198,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nif [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\nsource \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\nsource \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\nexport CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('@react-native-community/cli/package.json')) + '/build/bin.js'\")\"\nexport BUNDLE_COMMAND=webpack-bundle\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		79303AE796BEEB76590E5921 /* [CP] Embed Pods Frameworks */ = {
+		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -219,24 +217,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-pocha/Pods-pocha-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8EE02FABF21103D20303C4C8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-pocha/Pods-pocha-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-pocha/Pods-pocha-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-pocha/Pods-pocha-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BB1F4B972431207E66E27FCE /* [CP] Check Pods Manifest.lock */ = {
+		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -258,6 +239,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-pocha/Pods-pocha-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-pocha/Pods-pocha-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-pocha/Pods-pocha-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -274,12 +272,11 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 14CD4EE860FE726F1D69B3C6 /* Pods-pocha.debug.xcconfig */;
+			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-pocha.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3WUX4J3277;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = pocha/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -303,12 +300,11 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DDC86FE219C1CF84CE990C10 /* Pods-pocha.release.xcconfig */;
+			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-pocha.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 3WUX4J3277;
 				INFOPLIST_FILE = pocha/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (

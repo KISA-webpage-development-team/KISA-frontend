@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontFamily: 'Sejonghospital-Bold',
+    fontFamily: 'Sejong-hospital-Bold',
     textAlign: 'center',
   },
   description: {

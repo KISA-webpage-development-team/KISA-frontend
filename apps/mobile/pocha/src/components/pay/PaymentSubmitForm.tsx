@@ -16,6 +16,7 @@ import { View, Text, StyleSheet } from 'react-native';
 // import {sejongHospitalBold} from '@/utils/fonts/textFonts';
 import PaySummaryCard from './PaySummaryCard';
 import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
+import { useMainNavigation } from '@/navigations/useMainNavigation';
 
 // hooks
 import useStripePayment from '../../hooks/useStripePayment';
@@ -31,7 +32,7 @@ interface PaymentSubmitFormProps {
   underAge: boolean;
   fullname: string;
 }
-
+ 
 export default function PaymentSubmitForm({
   amount,
   fee,
@@ -45,6 +46,13 @@ export default function PaymentSubmitForm({
   // [NOTE] useStripe and useElements should be called inside <Elements> wrapper
   const stripe = useStripe();
   //const elements = useElements();
+
+  const navigation = useMainNavigation();
+
+  const handlePayPress = () => {
+    console.log('Click!');
+    navigation.navigate('PaySuccessScreen');
+  };
 
   const {
     handlePaymentSubmit,
@@ -125,7 +133,7 @@ export default function PaymentSubmitForm({
       {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
 
       {/* Submit button (sticky on the bottom) */}
-      <PayButton loading={paymentLoading} totalPrice={totalPrice} />
+      <PayButton loading={paymentLoading} totalPrice={totalPrice} onPress={handlePaymentSubmit}/>
     </View>
   );
 }

@@ -12,7 +12,7 @@ import PochaButton from '@/components/shared/PochaButton';
 interface PayButtonProps {
   loading?: boolean;
   totalPrice: number;
-  onPress?: () => void;
+  onPress: () => void;
 }
 
 export default function PayButton({

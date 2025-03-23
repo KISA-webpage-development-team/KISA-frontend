@@ -13,9 +13,9 @@ export default function CartListItem({
   menuid,
   handleQuantityChange,
 }: CartListItemProps) {
-  const getImagePath = (menuID: number) => {
-    return require(`@/assets/images/${menuID}.png`);
-  };
+  // const getImagePath = (menuID: number) => {
+  //   return require(`@/assets/images/${menuID}.png`);
+  // };
 
   const incrementQuantity = () => {
     handleQuantityChange(menuid, 1);
@@ -38,7 +38,7 @@ export default function CartListItem({
   return (
     <View style={styles.itemContainer}>
       {/* Image */}
-      <Image source={getImagePath(menuid)} style={styles.image} />
+      {/* <Image source={getImagePath(menuid)} style={styles.image} /> */}
 
       {/* Name & Price */}
       <View style={styles.textContainer}>

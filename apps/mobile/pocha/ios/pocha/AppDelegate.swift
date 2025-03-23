@@ -12,6 +12,14 @@ class AppDelegate: RCTAppDelegate {
     // You can add your custom initial props in the dictionary below.
     // They will be passed down to the ViewController used by React Native.
     self.initialProps = [:]
+    
+    // Log all font families and names
+        for family in UIFont.familyNames.sorted() {
+          print("Font Family: \(family)")
+          for name in UIFont.fontNames(forFamilyName: family).sorted() {
+            print("   Font: \(name)")
+          }
+        }
 
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

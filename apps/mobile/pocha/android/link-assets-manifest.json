@@ -2,11 +2,11 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "src/assets/fonts/Sejonghospital-Bold.ttf",
+      "path": "src/assets/fonts/Sejong-hospital-Bold.ttf",
       "sha1": "77d2264e6122e03dfbb857074c5806701dc406a7"
     },
     {
-      "path": "src/assets/fonts/Sejonghospital-Light.ttf",
+      "path": "src/assets/fonts/Sejong-hospital-Light.ttf",
       "sha1": "f8c8a459de8f45ad76ee758215efda088c28a91b"
     }
   ]

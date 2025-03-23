@@ -7,9 +7,10 @@ import {ScriptManager, Script, Federated} from '@callstack/repack/client';
 import {name as appName} from './app.json';
 import App from './App';
 
+// a
 const resolveURL = Federated.createURLResolver({
   containers: {
-    pocha: "http://localhost:9000/[name][ext]",
+    pocha: 'http://localhost:9000/[name][ext]',
     // more containers can be added here
   },
 });

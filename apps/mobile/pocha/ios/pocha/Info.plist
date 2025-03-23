@@ -49,8 +49,8 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Sejonghospital-Bold.ttf</string>
-		<string>Sejonghospital-Light.ttf</string>
+		<string>Sejong-hospital-Bold.ttf</string>
+		<string>Sejong-hospital-Light.ttf</string>
 	</array>
 </dict>
 </plist>

@@ -1,12 +1,315 @@
-// [NOTE] this will be moved to the "host" app after the "pocha" app is completed
+import React, {useState, useEffect, useMemo} from 'react';
 
-import {SafeAreaView, Text} from 'react-native';
-import React from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  View,
+  Text,
+  Alert,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
+// https://github.com/farhoudshapouran/react-native-ui-datepicker
+import DateTimePicker from 'react-native-ui-datepicker';
+import dayjs from 'dayjs';
+import 'dayjs/locale/fr'; // or 'ko' for Korean
 
-export default function SignUpScreen() {
+import CustomInput from '@/shared/components/CustomInput';
+import ErrorDisplay from '@/shared/components/ErrorDisplay';
+import CustomLabel from '@/shared/components/CustomLabel';
+import HorizontalDivider from '@/shared/components/HorizontalDivider';
+import RequiredFields from '@/shared/components/signup/RequiredFields';
+import TermConditions from '@/shared/components/signup/TermConditions';
+import {
+  personalInfoTerm,
+  websiteInfoTerm,
+} from '@/shared/components/config/TermCondition';
+import axios from 'axios';
+// import { BACKEND_URL } from '@/constants/env';
+
+export default function SignUpScreen({}) {
+  // add "navigation" into the parameter here
+  // Form States
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [major, setMajor] = useState('');
+  const [birthDate, setBirthDate] = useState(new Date()); // Default to current date
+  const [gradYear, setGradYear] = useState('');
+  const [linkedIn, setLinkedIn] = useState('');
+
+  // Date Picker Modal Visibility
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const toggleDatePicker = () => setShowDatePicker(!showDatePicker);
+
+  // Terms & Conditions
+  const [personTermScroll, setPersonTermScroll] = useState(false); // 개인정보 수집 약관 스크롤 [boolean]
+  const [personTermChecked, setPersonTermChecked] = useState(false);
+  const [websiteTermChecked, setWebsiteTermChecked] = useState(false);
+  const [websiteTermScroll, setWebsiteTermScroll] = useState(false); // 웹사이트 이용 약관 스크롤 [boolean]
+
+  // Form validation state
+  const [disabled, setDisabled] = useState(true);
+
+  const requiredFields = useMemo(
+    () => [
+      {
+        value: name,
+        setValue: setName,
+        label: '이름 (본명)',
+        placeholder: '예) 홍길동',
+        error: name.length === 0,
+        errorMsg: '게시판에 사용될 이름입니다. 반드시 실명으로 작성해주세요.',
+        errorState: 'alert',
+      },
+      {
+        value: email,
+        setValue: setEmail,
+        label: 'umich 이메일',
+        placeholder: '예) example@umich.edu',
+        error: !email.endsWith('@umich.edu') || email.length === 0,
+        errorMsg: '유효한 미시간 이메일을 입력해주세요.',
+        errorState: 'error',
+      },
+      {
+        value: major,
+        setValue: setMajor,
+        label: '전공 (major)',
+        placeholder: '예) Computer Science',
+        error: major.length === 0,
+        errorMsg: '전공을 입력해주세요.',
+        errorState: 'error',
+      },
+      // {
+      //   value: bornDate,
+      //   setValue: setBornDate,
+      //   label: '생년월일',
+      //   placeholder: 'YYYY-MM-DD',
+      //   error: bornDate.length !== 10,
+      //   errorMsg: '출생년도를 입력해주세요.',
+      //   errorState: 'error',
+      // },
+      {
+        value: gradYear,
+        setValue: setGradYear,
+        label: '졸업년도 (YYYY)',
+        placeholder: '예) 2026',
+        error: gradYear.length !== 4,
+        errorMsg: '정확한 졸업년도를 입력해주세요.',
+        errorState: 'error',
+      },
+    ],
+    [name, email, major, gradYear],
+  );
+
+  useEffect(() => {
+    if (!personTermChecked || !websiteTermChecked) {
+      setDisabled(true);
+      return;
+    }
+
+    for (const field of requiredFields) {
+      if (field.error || field.value === '') {
+        setDisabled(true);
+        return;
+      }
+    }
+    setDisabled(false);
+  }, [requiredFields, personTermChecked, websiteTermChecked]);
+
+  // BACKEND REQUIRED!
+  // const handleSubmit = async () => {
+  //   const userData = {
+  //     fullname: name,
+  //     email: email,
+  //     bornYear: bornDate.split('-')[0] ? Number(bornDate.split('-')[0]) : null,
+  //     bornMonth: bornDate.split('-')[1] ? Number(bornDate.split('-')[1]) : null,
+  //     bornDate: bornDate.split('-')[2] ? Number(bornDate.split('-')[2]) : null,
+  //     major: major || null,
+  //     gradYear: gradYear ? Number(gradYear) : null,
+  //     linkedin: linkedIn || null,
+  //   };
+
+  //   const userConfirmed = Alert.alert(
+  //     '확인',
+  //     '한 번 생성된 로그인 정보 수정은 어렵습니다. 진행하시겠습니까?',
+  //     [
+  //       {text: '취소', style: 'cancel'},
+  //       {text: '확인', onPress: async () => registerUser(userData)},
+  //     ],
+  //   );
+
+  //   if (!userConfirmed) return;
+  // };
+
+  // const registerUser = async userData => {
+  //   try {
+  //     const res = await axios.get(`${BACKEND_URL}/auth/userExists/${email}`);
+  //     if (res.status === 200) {
+  //       Alert.alert('알림', '이미 가입된 이메일입니다.');
+  //       navigation.navigate('Home');
+  //       return;
+  //     }
+  //   } catch {
+  //     try {
+  //       const res = await axios.post(`${BACKEND_URL}/auth/signup/`, userData);
+  //       if (res.status === 201) {
+  //         navigation.navigate(`SignUpSuccess`, {name});
+  //       } else {
+  //         Alert.alert('오류', '회원가입에 실패했습니다.');
+  //       }
+  //     } catch (err) {
+  //       Alert.alert('오류', '회원가입 중 문제가 발생했습니다.');
+  //     }
+  //   }
+  // };
+
   return (
-    <SafeAreaView>
-      <Text>SignUpScreen</Text>
+    <SafeAreaView style={{flex: 1, padding: 16}}>
+      <ScrollView>
+        {/* Header */}
+        <Text style={{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
+          키사에 처음 오신걸 환영합니다!
+        </Text>
+        <Text style={{fontSize: 15, textAlign: 'center', marginBottom: 20}}>
+          회원가입을 위해 아래 정보를 입력해주세요.
+        </Text>
+
+        {/* Required Fields */}
+        <View style={styles.container}>
+          <RequiredFields fields={requiredFields} />
+
+          {/* Birthdate Input with Date Picker
+          Although implemented for now, will need to check
+          how they are parsed and stored in DB, to make adjustments. */}
+          <View style={styles.calendarStyle}>
+            <View style={styles.calendarStyleOuter}>
+              <Text style={styles.label}>생년월일</Text>
+              <Text style={styles.required}>*</Text>
+            </View>
+
+            <TouchableOpacity
+              onPress={toggleDatePicker}
+              style={styles.inputBox}>
+              <Text style={styles.dateText}>
+                {dayjs(birthDate).locale('fr').format('YYYY-MM-DD')}
+              </Text>
+            </TouchableOpacity>
+
+            {showDatePicker && (
+              <DateTimePicker
+                mode="single"
+                locale="en"
+                date={birthDate}
+                firstDayOfWeek={1}
+                onChange={response => {
+                  const selected = response?.date;
+                  if (!selected) return;
+
+                  if (dayjs.isDayjs(selected)) {
+                    setBirthDate(selected.toDate()); // Dayjs -> Date
+                  } else {
+                    setBirthDate(new Date(selected)); // string/number/Date -> Date
+                  }
+
+                  toggleDatePicker();
+                }}
+              />
+            )}
+          </View>
+
+          <View style={styles.dividerSpacingOne}>
+            <HorizontalDivider color={'dark'} />
+          </View>
+
+          {/* Optional Fields */}
+          <CustomLabel text={'LinkedIn URL'} required={false} />
+          <CustomInput
+            value={linkedIn}
+            onChangeText={setLinkedIn}
+            placeholder="예) https://linkedin.com/in/yourname"
+          />
+
+          <View style={styles.dividerSpacingTwo}>
+            <HorizontalDivider color={'dark'} />
+          </View>
+
+          {/* Terms & Conditions */}
+          <TermConditions
+            isScrolledToBottom={personTermScroll}
+            setIsScrolledToBottom={setPersonTermScroll}
+            termChecked={personTermChecked}
+            setTermChecked={setPersonTermChecked}
+            label={personalInfoTerm.label}
+            text={personalInfoTerm.text}
+            checkboxLabel={personalInfoTerm.checkboxLabel}
+          />
+          {/* Website Conditions */}
+          <TermConditions
+            isScrolledToBottom={websiteTermScroll}
+            setIsScrolledToBottom={setWebsiteTermScroll}
+            termChecked={websiteTermChecked}
+            setTermChecked={setWebsiteTermChecked}
+            label={websiteInfoTerm.label}
+            text={websiteInfoTerm.text}
+            checkboxLabel={websiteInfoTerm.checkboxLabel}
+          />
+        </View>
+
+        {/* Submit Button */}
+        <Button
+          title="회원가입 제출"
+          // onPress={handleSubmit}
+          onPress={() => Alert.alert('앙 지오쨩 상랑행 뀨우~~ 잘해찌이이?')}
+          disabled={disabled}
+          color={disabled ? 'gray' : 'blue'}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 20, // title to the first bar
+    paddingHorizontal: 40, // equal horizontal padding for all
+    width: '100%',
+  },
+  dividerSpacingOne: {
+    marginBottom: 14,
+  },
+  dividerSpacingTwo: {
+    marginTop: 16,
+    marginBottom: 2,
+  },
+  datePickerContainer: {
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    marginTop: 8,
+  },
+  inputBox: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 12,
+    borderRadius: 10,
+    backgroundColor: '#f9f9f9',
+  },
+  dateText: {
+    fontSize: 14,
+  },
+  calendarStyle: {
+    marginBottom: 16,
+  },
+  required: {
+    color: 'red',
+    fontSize: 16,
+  },
+  calendarStyleOuter: {
+    flexDirection: 'row',
+    gap: 4,
+  },
+});

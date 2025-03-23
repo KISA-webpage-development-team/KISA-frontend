@@ -1,4 +1,7 @@
 module.exports = {
-  commands: require('@callstack/repack/commands'),
-  assets: ['src/assets/fonts'],
+    project: {
+        ios: {},
+        android: {}, 
+    },
+    assets: ['src/assets/fonts'], 
 };
