@@ -1,15 +1,14 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import CustomField from '../CustomField';
+import CustomFormItem from '../form/CustomFormItem';
 
 interface FieldProps {
-  value: string;
-  setValue: (text: string) => void;
+  value: string | Date;
+  setValue: (value: string | Date) => void;
   label: string;
+  type?: string;
   placeholder?: string;
-  error?: boolean;
-  errorMsg?: string;
-  errorState?: string;
+  validationRules?: ((value: string | Date) => string | null)[];
 }
 
 interface OptionalFieldsProps {
@@ -21,18 +20,18 @@ export default function OptionalFields({fields}: OptionalFieldsProps) {
     <View style={styles.container}>
       {fields.map(
         (
-          {value, setValue, label, placeholder, errorMsg, errorState},
+          {value, setValue, label, type = 'text', placeholder, validationRules},
           index,
         ) => (
-          <View key={index} style={styles.fieldWrapper}>
-            <CustomField
+          <View key={`${label}-${index}`} style={styles.fieldWrapper}>
+            <CustomFormItem
+              labelText={label}
+              type={type}
               value={value}
-              setValue={setValue}
-              label={label}
-              required={false}
+              onChange={setValue}
               placeholder={placeholder}
-              errorMsg={errorMsg}
-              errorState={errorState}
+              validationRules={validationRules}
+              required={false}
             />
           </View>
         ),

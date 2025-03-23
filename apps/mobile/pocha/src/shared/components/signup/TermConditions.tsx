@@ -55,12 +55,13 @@ export default function TermConditions({
           disabled={!isScrolledToBottom}
           isChecked={termChecked}
           onClick={() => setTermChecked(!termChecked)}
+          checkBoxColor={!isScrolledToBottom ? 'lightgray' : '#000'}
         />
         {/*add sejong hospital light later here */}
         <Text
           style={[
             styles.checkboxLabel,
-            {color: isScrolledToBottom ? '#000' : '#9ca3af'},
+            {color: isScrolledToBottom ? '#000' : 'gray'},
           ]}>
           {checkboxLabel}
         </Text>
@@ -73,11 +74,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     width: '100%',
-    paddingVertical: 16,
   },
   label: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 14,
+    fontFamily: 'Sejong-hospital-Bold',
   },
   labelOuter: {
     flexDirection: 'row',
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#d1d5db',
     borderRadius: 8,
-    padding: 12,
+    padding: 10,
     maxHeight: 288,
     marginTop: 8,
   },
@@ -103,5 +103,6 @@ const styles = StyleSheet.create({
   checkboxLabel: {
     fontSize: 14,
     marginLeft: 8,
+    fontFamily: 'Sejong-hospital-Light',
   },
 });

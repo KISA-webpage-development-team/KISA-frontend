@@ -1,6 +1,4 @@
 import React from 'react';
-// sejongHospital 글꼴 나중에 추가
-// import { sejongHospitalBold } from "@/utils/fonts/textFonts";
 
 import {View, Text, StyleSheet} from 'react-native';
 type CustomLabelProps = {
@@ -28,13 +26,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   labelText: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 14,
     color: '#000',
+    fontFamily: 'Sejong-hospital-Bold',
   },
   required: {
+    fontSize: 14,
     color: 'red',
     marginLeft: 4,
-    fontSize: 16,
   },
 });

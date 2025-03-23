@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet, KeyboardTypeOptions} from 'react-native';
-import CustomLabel from './CustomLabel';
-import CustomInput from './CustomInput';
-import ErrorDisplay from './ErrorDisplay';
+import CustomLabel from '@/shared/components/form/CustomLabel';
+import CustomInput from '@/shared/components/form/CustomInput';
+import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
 
 export default function CustomField({
   // Define the types for your props

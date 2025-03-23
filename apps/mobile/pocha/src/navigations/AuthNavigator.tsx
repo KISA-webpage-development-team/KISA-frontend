@@ -4,7 +4,7 @@ import SignUpScreen from '@/screens/SignUpScreen';
 
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {TouchableOpacity, Text} from 'react-native';
+import {TouchableOpacity, Text, SafeAreaView} from 'react-native';
 import {useAuthNavigation} from './useAuthNavigation';
 
 const Stack = createNativeStackNavigator();
@@ -35,7 +35,13 @@ export default function AuthNavigator() {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+      <Stack.Screen
+        name="SignUpScreen"
+        component={SignUpScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 }
