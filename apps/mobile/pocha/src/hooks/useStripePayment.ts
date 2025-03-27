@@ -3,7 +3,8 @@ import { useState } from "react";
 import {useStripe} from '@stripe/stripe-react-native';
 import { checkCartStock, notifyPayResult } from "@/apis/mutations.ts";
 import {useMainNavigation} from '@/navigations/useMainNavigation';
-import {Alert} from 'react-native';
+import { Alert } from 'react-native';
+import { create_customer, create_paymentIntent } from '@/apis/stripe';
 const useStripePayment = (
   pochaID: number,
   totalPrice: number,
@@ -41,30 +42,14 @@ const useStripePayment = (
   const processPayment = async () => {
     try {
       // Step 3.1: Create or verify customer
-      const customerResponse = await fetch(
-        'https://your-backend.com/api/create-customer',
-        {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({email: userEmail, name: fullname}),
-        },
-      );
-      const {customerID} = await customerResponse.json();
+      const customerResponse = create_customer(userEmail, fullname);
+
+      const { customerID } = await customerResponse;
       if (!customerID) throw new Error('고객 생성에 실패했습니다.');
 
       // Step 3.2: Create a PaymentIntent including the customer ID
-      const createPaymentIntentResponse = await fetch(
-        'https://your-backend.com/api/create-payment-intent',
-        {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            amount: totalPrice * 100, // converting to subcurrency (cents)
-            customerID: customerID,
-          }),
-        },
-      );
-      const {clientSecret} = await createPaymentIntentResponse.json();
+      const createPaymentIntentResponse = create_paymentIntent(totalPrice * 100, customerID);
+      const { clientSecret } = await createPaymentIntentResponse;
       if (!clientSecret) throw new Error('PaymentIntent 생성에 실패했습니다.');
 
       // Step 3.3: Confirm the payment using Stripe's native confirmPayment call.

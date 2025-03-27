@@ -59,12 +59,18 @@ export default function PaymentSubmitForm({
     loading: paymentLoading,
     errorMessage,
   } = useStripePayment(
-    pochaID,
-    totalPrice,
-    userEmail,
-    fullname,
-    underAge,
-    ageCheckRequired,
+    // pochaID,
+    // totalPrice,
+    // userEmail,
+    // fullname,
+    // underAge,
+      // ageCheckRequired,
+    1, 
+    50.25, 
+    'test@example.com', 
+    'Test User', 
+    false,
+    false,
   );
 
   // useEffect(() => {
