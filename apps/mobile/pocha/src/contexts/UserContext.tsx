@@ -11,6 +11,9 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 // types
 import {SimpleUser} from '@/types/user';
 
+// env
+import {FIREBASE_CLIENT_ID} from '@env';
+
 export const UserContext = createContext<{
   user: SimpleUser | undefined;
   signInWithGoogle: () => Promise<void>;
@@ -23,6 +26,10 @@ export const UserContext = createContext<{
 
 export const UserProvider = ({children}: {children: ReactNode}) => {
   const [user, setUser] = useState<SimpleUser | undefined>(undefined);
+
+  GoogleSignin.configure({
+    webClientId: FIREBASE_CLIENT_ID,
+  });
 
   useEffect(() => {
     const unsubscribe = auth().onAuthStateChanged(
@@ -45,11 +52,6 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
   }, []);
 
   const signInWithGoogle = async () => {
-    GoogleSignin.configure({
-      webClientId:
-        '602978160198-tsvut54bce28nvlvvd0cm8feho3gapdm.apps.googleusercontent.com',
-    });
-
     await GoogleSignin.hasPlayServices();
     const signInResult = await GoogleSignin.signIn();
 

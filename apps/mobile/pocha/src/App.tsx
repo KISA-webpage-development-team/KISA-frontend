@@ -34,7 +34,14 @@ import React, {useEffect, useState} from 'react';
 import {View, ActivityIndicator} from 'react-native';
 import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
-import {FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_PROJECT_ID, FIREBASE_STORAGE_BUCKET, FIREBASE_MESSAGING_SENDER_ID, FIREBASE_APP_ID} from '@env';
+import {
+  FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN,
+  FIREBASE_PROJECT_ID,
+  FIREBASE_STORAGE_BUCKET,
+  FIREBASE_MESSAGING_SENDER_ID,
+  FIREBASE_APP_ID,
+} from '@env';
 
 const firebaseConfig = {
   apiKey: FIREBASE_API_KEY,
@@ -52,7 +59,6 @@ if (!auth().app) {
 }
 
 export default function PochaApp() {
-  const {user} = useUser();
   const [isInitializing, setInitializing] = useState(true);
 
   // Make sure firebase is ready before rendering the app
@@ -83,14 +89,14 @@ export default function PochaApp() {
     <UserProvider>
       <SafeAreaProvider>
         <NavigationContainer>
-          {user ? <MainNavigator /> : <AuthNavigator />}
+          <AppContent />
         </NavigationContainer>
       </SafeAreaProvider>
     </UserProvider>
   );
 }
 
-// const AppContent = () => {
-//   const {user} = useUser();
-//   return user ? <MainNavigator /> : <AuthNavigator />;
-// };
+const AppContent = () => {
+  const {user} = useUser();
+  return user ? <MainNavigator /> : <AuthNavigator />;
+};
