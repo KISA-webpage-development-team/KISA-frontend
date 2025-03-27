@@ -34,15 +34,15 @@ import React, {useEffect, useState} from 'react';
 import {View, ActivityIndicator} from 'react-native';
 import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
+import {FIREBASE_API_KEY, FIREBASE_AUTH_DOMAIN, FIREBASE_PROJECT_ID, FIREBASE_STORAGE_BUCKET, FIREBASE_MESSAGING_SENDER_ID, FIREBASE_APP_ID} from '@env';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBH_sBb3muZ8HluJPZEJ4PuLaQdpCIanqE',
-  authDomain:
-    'com.googleusercontent.apps.602978160198-tsvut54bce28nvlvvd0cm8feho3gapdm',
-  projectId: 'kisa-mobile',
-  storageBucket: 'kisa-mobile.firebasestorage.app',
-  messagingSenderId: '602978160198',
-  appId: '1:602978160198:ios:eb23556ea63e1e0cae0447',
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN,
+  projectId: FIREBASE_PROJECT_ID,
+  storageBucket: FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  appId: FIREBASE_APP_ID,
 };
 
 // Ensure Firebase is only initialized once

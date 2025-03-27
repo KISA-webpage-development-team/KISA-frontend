@@ -26,6 +26,9 @@ Now, install pods and pnpm
 pnpm full-install # checkout package.json for more details
 ```
 
+Then, go to the "mobile .env.local" file in google drive and copy the contents back to your .env.local file in the "pocha" directory
+https://docs.google.com/document/d/19-yPsUh6Z2ZY-jnRyMDnM4l3IT3IEjaZv1jLeqEtcN8/edit?tab=t.0
+
 Then, build the app again
 ```bash
 pnpm run ios
