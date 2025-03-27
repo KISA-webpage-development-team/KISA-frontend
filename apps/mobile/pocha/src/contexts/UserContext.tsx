@@ -79,6 +79,11 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
 
   const signInWithGoogle = async () => {
     try {
+      GoogleSignin.configure({
+        webClientId:
+          '602978160198-tsvut54bce28nvlvvd0cm8feho3gapdm.apps.googleusercontent.com',
+      });
+
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
 

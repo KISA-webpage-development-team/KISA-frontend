@@ -32,7 +32,7 @@ import AuthNavigator from './navigations/AuthNavigator';
 
 import React, {useEffect, useState} from 'react';
 import {View, ActivityIndicator} from 'react-native';
-import {initializeApp} from '@react-native-firebase/app';
+import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 
 const firebaseConfig = {
@@ -48,7 +48,7 @@ const firebaseConfig = {
 // Ensure Firebase is only initialized once
 let app;
 if (!auth().app) {
-  app = initializeApp(firebaseConfig);
+  app = firebase.initializeApp(firebaseConfig);
 }
 
 export default function PochaApp() {
