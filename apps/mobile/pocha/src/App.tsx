@@ -1,38 +1,96 @@
-import React, {useState, useEffect} from 'react';
+// import React from 'react';
+// import {SafeAreaProvider} from 'react-native-safe-area-context';
+// import {NavigationContainer} from '@react-navigation/native';
+// import {UserProvider, useUser} from './contexts/UserContext';
+
+// import MainNavigator from './navigations/MainNavigator';
+// import AuthNavigator from './navigations/AuthNavigator';
+
+// export default function PochaApp() {
+//   return (
+//     <SafeAreaProvider>
+//       <NavigationContainer>
+//         <UserProvider>
+//           <AppContent />
+//         </UserProvider>
+//       </NavigationContainer>
+//     </SafeAreaProvider>
+//   );
+// }
+
+// const AppContent = () => {
+//   const {user} = useUser();
+//   return user ? <MainNavigator /> : <AuthNavigator />;
+// };
+
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
-import {UserProvider} from './contexts/UserContext';
+import {UserProvider, useUser} from './contexts/UserContext';
 
 import MainNavigator from './navigations/MainNavigator';
 import AuthNavigator from './navigations/AuthNavigator';
-import {SimpleUser} from './types/user';
+
+import React, {useEffect, useState} from 'react';
+import {View, ActivityIndicator} from 'react-native';
+import firebase from '@react-native-firebase/app';
+import auth from '@react-native-firebase/auth';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyBH_sBb3muZ8HluJPZEJ4PuLaQdpCIanqE',
+  authDomain:
+    'com.googleusercontent.apps.602978160198-tsvut54bce28nvlvvd0cm8feho3gapdm',
+  projectId: 'kisa-mobile',
+  storageBucket: 'kisa-mobile.firebasestorage.app',
+  messagingSenderId: '602978160198',
+  appId: '1:602978160198:ios:eb23556ea63e1e0cae0447',
+};
+
+// Ensure Firebase is only initialized once
+let app;
+if (!auth().app) {
+  app = firebase.initializeApp(firebaseConfig);
+}
+
 export default function PochaApp() {
-  const fakeUser: SimpleUser = {
-    email: 'johndoe@umich.edu',
-    fullname: 'John Doe',
-    major: 'Computer Science',
-    gradYear: 2025,
-    linkedin: 'https://www.linkedin.com/in/johndoe/',
-  };
+  const {user} = useUser();
+  const [isInitializing, setInitializing] = useState(true);
 
-  const [user, setUser] = useState<SimpleUser | undefined>(undefined);
-
+  // Make sure firebase is ready before rendering the app
   useEffect(() => {
-    // const user = await AsyncStorage.getItem('user');
-    // [TODO] get user from somewhere with Google OAuth (Firebase Auth)
-    // setUser(user);
-    // [NOTE] for now, use fake user
-    // IF YOU ARE WORKING ON AUTH NAVIGATION, COMMENT LINE BELOW
-    // setUser(fakeUser);
+    const checkFirebaseReady = async () => {
+      try {
+        await auth().currentUser;
+      } catch (error) {
+        console.error('Firebase initialization error:', error);
+      } finally {
+        setInitializing(false);
+      }
+    };
+
+    checkFirebaseReady();
   }, []);
 
+  if (isInitializing) {
+    // [TODO] this should be a splash screen
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <UserProvider>
+    <UserProvider>
+      <SafeAreaProvider>
+        <NavigationContainer>
           {user ? <MainNavigator /> : <AuthNavigator />}
-        </UserProvider>
-      </NavigationContainer>
-    </SafeAreaProvider>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </UserProvider>
   );
 }
+
+// const AppContent = () => {
+//   const {user} = useUser();
+//   return user ? <MainNavigator /> : <AuthNavigator />;
+// };
