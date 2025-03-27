@@ -12,12 +12,10 @@ export default function LandingScreen() {
   const {signInWithGoogle} = useUser();
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>Welcome to Pocha</Text>
-        <Button title="Sign in with Google" onPress={signInWithGoogle} />
-      </View>
-      <Text>LandingScreen</Text>
+    <SafeAreaView
+      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>Welcome to Pocha</Text>
+      <Button title="Sign in with Google" onPress={signInWithGoogle} />
       <Button
         title="Sign Up"
         onPress={() => navigation.navigate('SignUpScreen')}

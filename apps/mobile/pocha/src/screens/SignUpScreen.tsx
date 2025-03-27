@@ -27,6 +27,22 @@ import {
 } from '@/shared/components/config/TermCondition';
 import OptionalFields from '@/shared/components/signup/OptionalFields';
 
+// hooks
+import {useMainNavigation} from '@/navigations/useMainNavigation';
+
+function HeaderBackButton() {
+  const navigation = useMainNavigation();
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
+  return (
+    <TouchableOpacity onPress={handleGoBack}>
+      <Text>Back</Text>
+    </TouchableOpacity>
+  );
+}
+
 export default function SignUpScreen({}) {
   // add "navigation" into the parameter here
   // Form States
@@ -49,75 +65,80 @@ export default function SignUpScreen({}) {
 
   // Form validation state
   const [disabled, setDisabled] = useState(true);
-
   // Required Fields
-  const requiredFields = [
-    {
-      value: name,
-      setValue: setName,
-      label: '이름 (본명)',
-      type: 'text',
-      placeholder: '예) 홍길동',
-      validationRules: [
-        (value: string) =>
-          !value.trim()
-            ? '게시판에 사용될 이름입니다. 반드시 실명으로 작성해주세요.'
-            : null,
-      ],
-    },
-    {
-      value: email,
-      setValue: setEmail,
-      label: 'umich 이메일',
-      type: 'email',
-      placeholder: '예) example@umich.edu',
-      validationRules: [
-        (value: string) =>
-          !value.endsWith('@umich.edu')
-            ? '유효한 미시간 이메일을 입력해주세요.'
-            : null,
-      ],
-    },
-    {
-      value: major,
-      setValue: setMajor,
-      label: '전공 (major)',
-      type: 'text',
-      placeholder: '예) Computer Science',
-      validationRules: [
-        (value: string) => (!value.trim() ? '전공을 입력해주세요.' : null),
-      ],
-    },
-    {
-      value: birthDate,
-      setValue: setBirthDate,
-      label: '생년월일',
-      type: 'date',
-      placeholder: '예) 2000-01-01',
-    },
-    {
-      value: gradYear,
-      setValue: setGradYear,
-      label: '졸업년도 (YYYY)',
-      type: 'number',
-      placeholder: '예) 2026',
-      validationRules: [
-        (value: string) =>
-          value.length !== 4 ? '정확한 졸업년도를 입력해주세요.' : null,
-      ],
-    },
-  ];
+  const requiredFields = useMemo(
+    () => [
+      {
+        value: name,
+        setValue: setName,
+        label: '이름 (본명)',
+        type: 'text',
+        placeholder: '예) 홍길동',
+        validationRules: [
+          (value: string) =>
+            !value.trim()
+              ? '게시판에 사용될 이름입니다. 반드시 실명으로 작성해주세요.'
+              : null,
+        ],
+      },
+      {
+        value: email,
+        setValue: setEmail,
+        label: 'umich 이메일',
+        type: 'email',
+        placeholder: '예) example@umich.edu',
+        validationRules: [
+          (value: string) =>
+            !value.endsWith('@umich.edu')
+              ? '유효한 미시간 이메일을 입력해주세요.'
+              : null,
+        ],
+      },
+      {
+        value: major,
+        setValue: setMajor,
+        label: '전공 (major)',
+        type: 'text',
+        placeholder: '예) Computer Science',
+        validationRules: [
+          (value: string) => (!value.trim() ? '전공을 입력해주세요.' : null),
+        ],
+      },
+      {
+        value: birthDate,
+        setValue: setBirthDate,
+        label: '생년월일',
+        type: 'date',
+        placeholder: '예) 2000-01-01',
+      },
+      {
+        value: gradYear,
+        setValue: setGradYear,
+        label: '졸업년도 (YYYY)',
+        type: 'number',
+        placeholder: '예) 2026',
+        validationRules: [
+          (value: string) =>
+            value.length !== 4 ? '정확한 졸업년도를 입력해주세요.' : null,
+        ],
+      },
+    ],
+    [name, email, major, birthDate, gradYear],
+  );
 
   // Optional Fields
-  const optionalFields = [
-    {
-      value: linkedIn,
-      setValue: setLinkedIn,
-      label: 'LinkedIn URL',
-      type: 'text',
-      placeholder: '예) https://linkedin.com/in/yourname',
-    },
-  ];
+  const optionalFields = useMemo(
+    () => [
+      {
+        value: linkedIn,
+        setValue: setLinkedIn,
+        label: 'LinkedIn URL',
+        type: 'text',
+        placeholder: '예) https://linkedin.com/in/yourname',
+      },
+    ],
+    [linkedIn],
+  );
 
   useEffect(() => {
     if (!personTermChecked || !websiteTermChecked) {
@@ -127,7 +148,9 @@ export default function SignUpScreen({}) {
 
     // Update validation check to use the new validation rules
     const hasInvalidFields = requiredFields.some(field => {
-      if (!field.value) return true;
+      if (!field.value) {
+        return true;
+      }
       if (field.validationRules) {
         return field.validationRules.some(rule => rule(field.value) !== null);
       }
@@ -189,6 +212,10 @@ export default function SignUpScreen({}) {
       <ScrollView style={styles.container}>
         {/* Header */}
         <View style={styles.headerContainer}>
+          <View style={styles.headerBackButtonContainer}>
+            <HeaderBackButton />
+          </View>
+
           <Text style={styles.headerLargeText}>
             키사에 처음 오신걸 환영합니다!
           </Text>
@@ -262,6 +289,12 @@ const styles = StyleSheet.create({
   // Header
   headerContainer: {
     rowGap: 8,
+  },
+  headerBackButtonContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 1000,
   },
   headerLargeText: {
     fontSize: 20,

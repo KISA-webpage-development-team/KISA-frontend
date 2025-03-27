@@ -1,36 +1,3 @@
-// import {createContext, ReactNode, useContext, useState} from 'react';
-
-// // types
-// // [NOTE] this may change when start implementing OAuth
-// import {SimpleUser} from '@/types/user';
-
-// export const UserContext = createContext<{
-//   user: SimpleUser | undefined;
-//   setUser: (user: SimpleUser) => void;
-// }>({
-//   user: undefined,
-//   setUser: () => {},
-// });
-
-// export const UserProvider = ({children}: {children: ReactNode}) => {
-//   const [user, setUser] = useState<SimpleUser | undefined>(undefined);
-
-//   return (
-//     <UserContext.Provider value={{user, setUser}}>
-//       {children}
-//     </UserContext.Provider>
-//   );
-// };
-
-// // Custom Hook
-// export const useUser = () => {
-//   const context = useContext(UserContext);
-//   if (!context) {
-//     throw new Error('useUser must be used within a UserProvider');
-//   }
-//   return context;
-// };
-
 import React, {
   createContext,
   ReactNode,
@@ -78,26 +45,22 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
   }, []);
 
   const signInWithGoogle = async () => {
-    try {
-      GoogleSignin.configure({
-        webClientId:
-          '602978160198-tsvut54bce28nvlvvd0cm8feho3gapdm.apps.googleusercontent.com',
-      });
+    GoogleSignin.configure({
+      webClientId:
+        '602978160198-tsvut54bce28nvlvvd0cm8feho3gapdm.apps.googleusercontent.com',
+    });
 
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
+    await GoogleSignin.hasPlayServices();
+    const signInResult = await GoogleSignin.signIn();
 
-      if (!userInfo.data?.idToken) {
-        throw new Error('Google Sign-In failed: No ID Token returned');
-      }
-
-      const googleCredential = auth.GoogleAuthProvider.credential(
-        userInfo.data.idToken,
-      );
-      await auth().signInWithCredential(googleCredential);
-    } catch (error) {
-      console.error('Google Sign-In Error:', error);
+    if (!signInResult.data?.idToken) {
+      throw new Error('Google Sign-In failed: No ID Token returned');
     }
+
+    const googleCredential = auth.GoogleAuthProvider.credential(
+      signInResult.data.idToken,
+    );
+    await auth().signInWithCredential(googleCredential);
   };
 
   const signOut = async () => {
