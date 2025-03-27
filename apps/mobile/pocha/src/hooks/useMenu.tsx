@@ -3,31 +3,40 @@
 // 기존의 pocha 훅들과는 다르게 생겼으나, 당황하지 말고 SWR 공식문서를 참고하자
 // https://swr.vercel.app/ko
 
-import useSWR from "swr";
-import { fetcherWithToken } from "@/lib/swr/fetchers";
-import { MenuByCategory } from "@/types/pocha";
+import {MenuByCategory} from '@/types/pocha';
+import {useState, useEffect} from 'react';
+import {HookStatus} from './types';
+import {getPochaMenu} from '@/apis/queries';
 
 /**
- * @desc hook to fetch menu of pocha with SWR and existing fetcher
+ * @desc hook to fetch menu of pocha
  */
-const useMenu = (pochaID: number, token: string) => {
-  const {
-    data: menuList,
-    error,
-    isLoading,
-  } = useSWR(
-    pochaID && token ? [`/pocha/menu/${pochaID}/`, token] : null,
-    fetcherWithToken,
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: true,
-      revalidateOnMount: true,
-    }
-  );
+const useMenu = (pochaID: number) => {
+  const [menuList, setMenuList] = useState<MenuByCategory[]>([]);
+  const [status, setStatus] = useState<HookStatus>('loading');
+  const [error, setError] = useState<string>();
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const res = await getPochaMenu(pochaID);
+        setMenuList(res);
+        setStatus('success');
+      } catch (error) {
+        setStatus('error');
+        if (error instanceof Error) {
+          setError(error.message);
+        }
+      }
+    };
+
+    fetchMenu();
+  }, []);
 
   return {
-    menuList: menuList as MenuByCategory[],
-    status: error ? "error" : isLoading ? "loading" : "success",
+    menuList,
+    status,
+    error,
   };
 };
 

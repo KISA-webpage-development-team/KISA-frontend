@@ -9,14 +9,30 @@
 // import TipModal from "@/features/pocha/components/pay/TipModal";
 
 import React, {useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text, ActivityIndicator} from 'react-native';
 import MenuList from '@/components/menu/MenuList';
-export default function MenuTab() {
-  const pochaID = 123; // temporary for now
+import {HomeTabProps} from '@/navigations/HomeTabNavigator';
+import useMenu from '@/hooks/useMenu';
+import {useUser} from '@/contexts/UserContext';
+
+export default function MenuTab({route}: HomeTabProps) {
+  const {user} = useUser();
+  const pochaID = route.params.pochaID;
+
+  const {menuList, status: menuStatus, error} = useMenu(pochaID);
+
+  if (menuStatus === 'loading') {
+    return <ActivityIndicator size="large" />;
+  }
+
+  if (menuStatus === 'error') {
+    return <Text>Error: {error}</Text>;
+  }
 
   return (
     <View style={styles.container}>
-      <MenuList />
+      <Text>{pochaID}</Text>
+      <MenuList menuList={menuList} />
     </View>
   );
 }

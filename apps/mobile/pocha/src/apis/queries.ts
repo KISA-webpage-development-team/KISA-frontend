@@ -56,24 +56,17 @@ export async function getPochaInfoMock(date: Date) {
  * @desc Fetch pocha menu
  * @route GET /pocha/menu/${pochaid}
  */
-// export async function getPochaMenu(
-//   pochaid: number,
-//   token: string,
-// ): Promise<MenuByCategory[] | undefined> {
-//   const url = `/pocha/menu/${pochaid}/`;
-//   try {
-//     const response = await client.get(url, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
+export async function getPochaMenu(pochaid: number): Promise<MenuByCategory[]> {
+  const url = `/pocha/menu/${pochaid}/`;
+  try {
+    const response = await client.get(url);
 
-//     return response?.data;
-//   } catch (error) {
-//     console.log(error);
-//     return undefined;
-//   }
-// }
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error fetching pocha menu');
+  }
+}
 
 /**
  * @desc Fetch user's cart
