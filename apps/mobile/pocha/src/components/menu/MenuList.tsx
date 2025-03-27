@@ -31,7 +31,7 @@ import {FlatList, Text, View, StyleSheet} from 'react-native';
 import MenuListItem from './MenuListItem';
 import MenuItemDetail from './MenuItemDetail';
 import ViewCartButton from './ViewCartButton';
-import {MenuItem} from '@/types/pocha';
+import {MenuByCategory, MenuItem} from '@/types/pocha';
 
 // Mock Data — Instead of fetching with API
 // Checks for: age restriction, stock availability
@@ -161,7 +161,7 @@ const mockMenuList = [
 //     throw new Error('Error fetching user info');
 //   }
 
-export default function MenuList() {
+export default function MenuList({menuList}: {menuList: MenuByCategory[]}) {
   const [selectedMenu, setSelectedMenu] = useState<MenuItem | undefined>(
     undefined,
   );
@@ -182,7 +182,7 @@ export default function MenuList() {
   return (
     <View style={styles.container}>
       <FlatList
-        data={mockMenuList}
+        data={menuList}
         keyExtractor={(item, idx) => `category-${idx}`}
         renderItem={({item: category}) => (
           <View style={styles.categoryContainer}>

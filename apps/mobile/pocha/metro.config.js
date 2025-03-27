@@ -1,22 +1,23 @@
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 const path = require('path');
 
-/**
- * Metro configuration
- * <https://reactnative.dev/docs/metro>
- *
- * @type {import('metro-config').MetroConfig}
- */
+const extraNodeModules = {
+  '@': path.resolve(__dirname, 'src'),
+};
+
+// Ensure Metro resolves all necessary node_modules
+const watchFolders = [
+  path.resolve(__dirname, '..', '..', '..'),
+  path.resolve(__dirname, 'node_modules'),
+];
+
 const config = {
   resolver: {
-    unstable_enableSymlinks: true, // this enable the use of Symlinks
+    unstable_enableSymlinks: true,
     resolverMainFields: ['browser', 'main', 'module'],
-    extraNodeModules: {
-      '@': path.resolve(__dirname, 'src'),
-    },
+    extraNodeModules,
   },
-  // this specifies the folder where are located the node_modules for the project
-  watchFolders: [path.join(__dirname, '..', '..', '..')],
+  watchFolders,
 };
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config);

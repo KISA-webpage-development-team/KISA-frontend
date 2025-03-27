@@ -1,14 +1,19 @@
 import React from 'react';
 import {PochaInfo} from '../../types/pocha';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {useUser} from '@/contexts/UserContext';
 
 interface HomeHeadingProps {
   pochaInfo: PochaInfo | undefined;
 }
 
 export default function HomeHeading({pochaInfo}: HomeHeadingProps) {
+  const {signOut} = useUser();
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={() => signOut()}>
+        <Text>Sign Out</Text>
+      </TouchableOpacity>
       {/* Title - pocha name */}
       <Text style={styles.title}>{pochaInfo?.title}</Text>
 

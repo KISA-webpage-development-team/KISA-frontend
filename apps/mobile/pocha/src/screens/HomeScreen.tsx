@@ -10,7 +10,7 @@ import HomeHeading from '@/components/home/HomeHeading';
 // import {useSearchParams} from 'next/navigation';
 import usePocha from '../hooks/usePocha';
 
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {ActivityIndicator, SafeAreaView, StyleSheet, Text} from 'react-native';
 import {BACKEND_URL} from '@env';
 
 // navigations
@@ -32,6 +32,24 @@ export default function HomeScreen() {
   // [NOTE] Sample Usage of env variables
   console.log('Backend URL: ', BACKEND_URL);
 
+  if (status === 'loading') {
+    return (
+      <SafeAreaView
+        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" />
+      </SafeAreaView>
+    );
+  }
+
+  if (status === 'error') {
+    return (
+      <SafeAreaView
+        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text>Error: {error}</Text>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       {/* PochaHeading (at the top, disappear when scrolling) */}
@@ -48,7 +66,7 @@ export default function HomeScreen() {
       {/* <div className="flex-1"> */}
       {/* <HomeTabContent activeTab={activeTab} pochaID={pochaInfo?.pochaID} /> */}
       {/* </div> */}
-      <HomeTabNavigator />
+      <HomeTabNavigator pochaID={pochaInfo?.pochaID as number} />
     </SafeAreaView>
   );
 }
