@@ -16,6 +16,7 @@ import useMenu from '@/hooks/useMenu';
 import {useUser} from '@/contexts/UserContext';
 
 export default function MenuTab({route}: HomeTabProps) {
+  // Example of using the logged in user (this is same type as the "session" from the web)
   const {user} = useUser();
   const pochaID = route.params.pochaID;
 
