@@ -19,19 +19,6 @@ import HomeTabNavigator from '@/navigations/HomeTabNavigator';
 export default function HomeScreen() {
   const {pochaInfo, status, error} = usePocha();
 
-  // const pochaInfo = {
-  //   pochaID: 1,
-  //   startDate: new Date(),
-  //   endDate: new Date(new Date().getTime() + 4 * 60 * 60 * 1000),
-  //   title: 'Halloween Pocha',
-  //   description:
-  //     '할로윈 포차 입니다. 한잔 포차에서 11월 2일 진행될 예정입니다! ^^',
-  //   ongoing: true,
-  // };
-
-  // [NOTE] Sample Usage of env variables
-  console.log('Backend URL: ', BACKEND_URL);
-
   if (status === 'loading') {
     return (
       <SafeAreaView

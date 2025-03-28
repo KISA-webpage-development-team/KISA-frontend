@@ -1,28 +1,3 @@
-// import React from 'react';
-// import {SafeAreaProvider} from 'react-native-safe-area-context';
-// import {NavigationContainer} from '@react-navigation/native';
-// import {UserProvider, useUser} from './contexts/UserContext';
-
-// import MainNavigator from './navigations/MainNavigator';
-// import AuthNavigator from './navigations/AuthNavigator';
-
-// export default function PochaApp() {
-//   return (
-//     <SafeAreaProvider>
-//       <NavigationContainer>
-//         <UserProvider>
-//           <AppContent />
-//         </UserProvider>
-//       </NavigationContainer>
-//     </SafeAreaProvider>
-//   );
-// }
-
-// const AppContent = () => {
-//   const {user} = useUser();
-//   return user ? <MainNavigator /> : <AuthNavigator />;
-// };
-
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
 import {UserProvider, useUser} from './contexts/UserContext';

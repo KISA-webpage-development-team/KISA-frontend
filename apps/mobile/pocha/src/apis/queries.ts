@@ -188,22 +188,17 @@ export async function getUserCart(
  * @route GET /pocha/cart/${email}/${pochaid}/checkout-info
  * @params email, token, pochaid
  */
-// export async function getPayInfo(
-//   email: string,
-//   pochaid: number,
-//   token: string,
-// ): Promise<PayInfo | undefined> {
-//   const url = `/pocha/cart/${email}/${pochaid}/checkout-info/`;
-//   try {
-//     const response = await client.get(url, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
+export async function getPayInfo(
+  email: string,
+  pochaid: number,
+): Promise<PayInfo | undefined> {
+  const url = `/pocha/cart/${email}/${pochaid}/checkout-info/`;
+  try {
+    const response = await client.get(url);
 
-//     return response?.data;
-//   } catch (error) {
-//     console.log(error);
-//     return undefined;
-//   }
-// }
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
+}

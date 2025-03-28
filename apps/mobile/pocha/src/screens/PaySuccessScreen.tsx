@@ -6,10 +6,12 @@ import React, {useEffect} from 'react';
 import {Image} from 'react-native';
 import {useState} from 'react';
 import PochaButton from '../components/shared/PochaButton';
-import {View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { useMainNavigation } from '@/navigations/useMainNavigation';
 // import TipModal from "@/features/pocha/components/pay/TipModal";
 
 export default function PaySuccessPage() {
+  const navigation = useMainNavigation();
   //   const router = useRouter();
   //   const searchParams = useSearchParams();
 
@@ -115,7 +117,12 @@ export default function PaySuccessPage() {
   //     window.location.href = '/pocha';
   //   }
 
+  const handleHomePress = () => {
+    navigation.navigate('HomeScreen');
+  }
   return (
+
+    
     <View style={styles.container}>
       {/* {showTipModal && paymentMethodId && (
         <TipModal
@@ -149,6 +156,7 @@ export default function PaySuccessPage() {
         <PochaButton
           label="홈으로 돌아가기"
           // onClick={directToMenuList}
+          onClick={handleHomePress}
           widthPercentage={75}
         />
       </View>

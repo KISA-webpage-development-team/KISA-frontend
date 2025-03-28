@@ -33,116 +33,6 @@ import MenuItemDetail from './MenuItemDetail';
 import ViewCartButton from './ViewCartButton';
 import {MenuByCategory, MenuItem} from '@/types/pocha';
 
-// Mock Data — Instead of fetching with API
-// Checks for: age restriction, stock availability
-const mockMenuList = [
-  {
-    category: '안주',
-    menusList: [
-      {
-        menuID: 1,
-        nameKor: '김치전',
-        nameEng: 'Kimchi Pancake',
-        price: 9.99,
-        stock: 10,
-        isImmediatePrep: false,
-        parentPochaId: 30,
-        ageCheckRequired: false,
-      },
-      {
-        menuID: 2,
-        nameKor: '불고기',
-        nameEng: 'Bulgogi',
-        price: 15.99,
-        stock: 3,
-        isImmediatePrep: false,
-        parentPochaId: 31,
-        ageCheckRequired: false,
-      },
-      {
-        menuID: 8,
-        nameKor: '순대',
-        nameEng: 'Sundae',
-        price: 8.99,
-        stock: 0,
-        isImmediatePrep: false,
-        parentPochaId: 32,
-        ageCheckRequired: false,
-      },
-      {
-        menuID: 9,
-        nameKor: '떡볶이',
-        nameEng: 'Tteokbokki',
-        price: 7.99,
-        stock: 5,
-        isImmediatePrep: false,
-        parentPochaId: 33,
-        ageCheckRequired: false,
-      },
-    ],
-  },
-  {
-    category: '특별 메뉴',
-    menusList: [
-      {
-        menuID: 3,
-        nameKor: '족발',
-        nameEng: 'Pork Feet',
-        price: 24.99,
-        stock: 0,
-        isImmediatePrep: false,
-        parentPochaId: 34,
-        ageCheckRequired: false,
-      },
-      {
-        menuID: 4,
-        nameKor: '삼겹살',
-        nameEng: 'Pig Belly',
-        price: 20.99,
-        stock: 3,
-        isImmediatePrep: false,
-        parentPochaId: 35,
-        ageCheckRequired: false,
-      },
-    ],
-  },
-  {
-    category: '주류',
-    menusList: [
-      {
-        menuID: 5,
-        nameKor: '참이슬',
-        nameEng: 'Chamesul Soju',
-        price: 12.99,
-        stock: 5,
-        isImmediatePrep: true,
-        parentPochaId: 36,
-        ageCheckRequired: true,
-      },
-      {
-        menuID: 6,
-        nameKor: '카스',
-        nameEng: 'Cass Beer',
-        price: 5.99,
-        stock: 0,
-        isImmediatePrep: true,
-        parentPochaId: 37,
-        ageCheckRequired: true,
-      },
-      {
-        menuID: 7,
-        nameKor: '막걸리',
-        nameEng: 'Makgeolli',
-        price: 6.99,
-        stock: 2,
-        isImmediatePrep: true,
-        parentPochaId: 38,
-        ageCheckRequired: true,
-      },
-    ],
-  },
-];
-
 //   // fetch menu and user age (for under age check)
 //   // [NOTE] useMenu and useUserAge uses SWR for better UX
 //   // to learn more about SWR, visit https://swr.vercel.app/ko or ask @retz8
@@ -202,7 +92,6 @@ export default function MenuList({menuList}: {menuList: MenuByCategory[]}) {
           </View>
         )}
       />
-      <ViewCartButton pochaID={123} />
     </View>
   );
 }
