@@ -1,6 +1,6 @@
 # Pocha App
 
-## [UPDATE] Session + API Connection Enabled
+## [UPDATE] Session + API + Stripe Connection Enabled
 
 after pulling `pocha` branch,
 
