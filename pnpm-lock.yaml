@@ -159,9 +159,15 @@ importers:
       react-native-dotenv:
         specifier: 3.4.11
         version: 3.4.11(@babel/runtime@7.26.10)
+      react-native-keychain:
+        specifier: 10.0.0
+        version: 10.0.0
       react-native-pager-view:
         specifier: 6.7.0
         version: 6.7.0(react-native@0.78.1(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@react-native-community/cli@15.0.1(typescript@5.0.4))(@types/react@19.0.12)(react@19.0.0))(react@19.0.0)
+      react-native-pure-jwt:
+        specifier: 3.0.3
+        version: 3.0.3(react-native@0.78.1(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@react-native-community/cli@15.0.1(typescript@5.0.4))(@types/react@19.0.12)(react@19.0.0))
       react-native-safe-area-context:
         specifier: 5.3.0
         version: 5.3.0(react-native@0.78.1(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@react-native-community/cli@15.0.1(typescript@5.0.4))(@types/react@19.0.12)(react@19.0.0))(react@19.0.0)
@@ -181,6 +187,9 @@ importers:
       '@babel/core':
         specifier: ^7.25.2
         version: 7.26.10
+      '@babel/plugin-transform-export-namespace-from':
+        specifier: 7.25.9
+        version: 7.25.9(@babel/core@7.26.10)
       '@babel/preset-env':
         specifier: ^7.25.3
         version: 7.26.9(@babel/core@7.26.10)
@@ -5457,11 +5466,20 @@ packages:
     peerDependencies:
       '@babel/runtime': ^7.20.6
 
+  react-native-keychain@10.0.0:
+    resolution: {integrity: sha512-YzPKSAnSzGEJ12IK6CctNLU79T1W15WDrElRQ+1/FsOazGX9ucFPTQwgYe8Dy8jiSEDJKM4wkVa3g4lD2Z+Pnw==}
+    engines: {node: '>=16'}
+
   react-native-pager-view@6.7.0:
     resolution: {integrity: sha512-sutxKiMqBuQrEyt4mLaLNzy8taIC7IuYpxfcwQBXfSYBSSpAa0qE9G1FXlP/iXqTSlFgBXyK7BESsl9umOjECQ==}
     peerDependencies:
       react: '*'
       react-native: '*'
+
+  react-native-pure-jwt@3.0.3:
+    resolution: {integrity: sha512-vSyTx0w23JTnLcTaqcxVSMYrua/D1YX6RxGQkDRYse5vfaJRwyXAfrFXETnRiyr3KTQxO+tH3nT7IvzopHINUA==}
+    peerDependencies:
+      react-native: '>=0.41.2'
 
   react-native-safe-area-context@5.3.0:
     resolution: {integrity: sha512-glV9bwuozTjf/JDBIBm+ITnukHNaUT3nucgdeADwjtHsfEN3RL5UO6nq99vvdWv5j/O9yCZBvFncM1BBQ+UvpQ==}
@@ -8571,9 +8589,7 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/preset-env'
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@react-native/metro-config@0.78.1(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))':
     dependencies:
@@ -8584,9 +8600,7 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/preset-env'
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@react-native/normalize-colors@0.74.89': {}
 
@@ -13002,9 +13016,15 @@ snapshots:
       '@babel/runtime': 7.26.10
       dotenv: 16.4.7
 
+  react-native-keychain@10.0.0: {}
+
   react-native-pager-view@6.7.0(react-native@0.78.1(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@react-native-community/cli@15.0.1(typescript@5.0.4))(@types/react@19.0.12)(react@19.0.0))(react@19.0.0):
     dependencies:
       react: 19.0.0
+      react-native: 0.78.1(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@react-native-community/cli@15.0.1(typescript@5.0.4))(@types/react@19.0.12)(react@19.0.0)
+
+  react-native-pure-jwt@3.0.3(react-native@0.78.1(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@react-native-community/cli@15.0.1(typescript@5.0.4))(@types/react@19.0.12)(react@19.0.0)):
+    dependencies:
       react-native: 0.78.1(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@react-native-community/cli@15.0.1(typescript@5.0.4))(@types/react@19.0.12)(react@19.0.0)
 
   react-native-safe-area-context@5.3.0(react-native@0.78.1(@babel/core@7.26.10)(@babel/preset-env@7.26.9(@babel/core@7.26.10))(@react-native-community/cli@15.0.1(typescript@5.0.4))(@types/react@19.0.12)(react@19.0.0))(react@19.0.0):
