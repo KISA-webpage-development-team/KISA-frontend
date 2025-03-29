@@ -1,21 +1,30 @@
 // import React from "react";
 // import { sejongHospitalBold } from "@/utils/fonts/textFonts";
-// import useUserOrders from "../../hooks/useUserOrders";
+import useUserOrders from '../../hooks/useUserOrders';
 // import { useSession } from "next-auth/react";
 
 // import { UserSession } from "@/lib/next-auth/types";
 // import PochaOrderItem from "./PochaOrderItem";
 // import { Tabs, Tab } from "@nextui-org/react"; // Using Tabs
 // import useUserOrderSocket from "../../hooks/useUserOrderSocket";
-// import LoadingSpinner from "@/final_refactor_src/components/feedback/LoadingSpinner";
 import React, {useState} from 'react';
+import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
 import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import PochaOrderItem from './PochaOrderItem';
 import {OrderStatus, OrderItem} from '@/types/pocha';
+
 // interface OrderListProps {
 //   pochaID: number;
 // }
 
+// menuID: number;
+// nameKor: string;
+// nameEng: string;
+// price: number;
+// stock: number;
+// isImmediatePrep: boolean;
+// parentPochaId: number;
+// ageCheckRequired: boolean;
 const pendingOrders: OrderItem[] = [
   {
     orderItemID: 1,
@@ -35,14 +44,7 @@ const pendingOrders: OrderItem[] = [
     ordererEmail: 'alice@example.com',
   },
 ];
-// menuID: number;
-// nameKor: string;
-// nameEng: string;
-// price: number;
-// stock: number;
-// isImmediatePrep: boolean;
-// parentPochaId: number;
-// ageCheckRequired: boolean;
+
 const preparingOrders: OrderItem[] = [
   {
     orderItemID: 2,
@@ -105,39 +107,43 @@ const closedOrders: OrderItem[] = [
 
 const tabs = ['all', 'pending', 'preparing', 'ready'];
 
-//export default function OrderList({ pochaID }: OrderListProps) {
-//   const { data: session, status: sessionStatus } = useSession() as {
-//     data: UserSession | undefined;
-//     status: string;
-//   };
+const mockEmail = 'dongeunk@umich.edu';
+const mockToken = 'mockToken';
+const mockPochaId = 1;
 
-//   const {
-//     updateOrder,
-//     addNewOrderItem,
-//     pendingOrders,
-//     preparingOrders,
-//     readyOrders,
-//     closedOrders,
-//     status: ordersStatus,
-//   } = useUserOrders(session?.user?.email, session?.token, pochaID);
+export default function OrderList(pochaID = mockPochaId) {
+  // const { data: session, status: sessionStatus } = useSession() as {
+  //   data: UserSession | undefined;
+  //   status: string;
+  // };
 
-//   useUserOrderSocket({
-//     token: session?.token,
-//     email: session?.user?.email,
-//     pochaID,
-//     updateOrder,
-//     addNewOrderItem,
-//   });
-
-//   // UI Rendering ----------------------------------------------
-//   if (sessionStatus === "loading" || ordersStatus === "loading") {
-//     return (
-//       <LoadingSpinner fullScreen={false} label="주문 목록 가져오는중..." />
-//     );
-//   }
-
-export default function OrderList() {
   const [activeTab, setActiveTab] = useState<string>('all');
+
+  const {
+    updateOrder,
+    addNewOrderItem,
+    pendingOrders,
+    preparingOrders,
+    readyOrders,
+    closedOrders,
+    status: ordersStatus,
+  } = useUserOrders(mockEmail, mockToken, mockPochaId);
+
+  // useUserOrderSocket({
+  //   token: session?.token,
+  //   email: session?.user?.email,
+  //   pochaID,
+  //   updateOrder,
+  //   addNewOrderItem,
+
+  // UI Rendering ----------------------------------------------
+  // if (sessionStatus === "loading" || ordersStatus === "loading") {
+  if (ordersStatus === 'loading') {
+    return (
+      <LoadingSpinner fullScreen={false} label="주문 목록 가져오는중..." />
+    );
+  }
+
   let ordersToRender: OrderItem[] = [];
   if (activeTab === 'all') {
     ordersToRender = [

@@ -1,10 +1,6 @@
-import {
-  getUserOrders,
-  getPochaOrders,
-  getUserClosedOrders,
-} from "@/apis/pocha/queries";
-import { OrderHistory, OrderItem, Orders, OrderStatus } from "@/types/pocha";
-import { useCallback, useEffect, useState } from "react";
+import {getUserOrders, getUserClosedOrders} from '@/apis/queries';
+import {OrderHistory, OrderItem, Orders, OrderStatus} from '@/types/pocha';
+import {useCallback, useEffect, useState} from 'react';
 
 /*
   @desc get the next status of the order item
@@ -33,7 +29,7 @@ const convertOrdersToMap = (orders: Orders & OrderHistory) => {
     ...orders.preparing,
     ...orders.ready,
     ...orders.closed,
-  ].forEach((order) => {
+  ].forEach(order => {
     map.set(order.orderItemID, order);
   });
   return map;
@@ -45,8 +41,8 @@ const convertOrdersToMap = (orders: Orders & OrderHistory) => {
 */
 const useUserOrdersMap = (email: string, token: string, pochaID: number) => {
   const [ordersMap, setOrdersMap] = useState<Map<number, OrderItem>>(new Map());
-  const [status, setStatus] = useState<"loading" | "success" | "error">(
-    "loading"
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
+    'loading',
   );
 
   useEffect(() => {
@@ -62,10 +58,10 @@ const useUserOrdersMap = (email: string, token: string, pochaID: number) => {
         };
 
         setOrdersMap(convertOrdersToMap(orders));
-        setStatus("success");
+        setStatus('success');
       } catch (error) {
-        console.error("Error fetching orders: ", error);
-        setStatus("error");
+        console.error('Error fetching orders: ', error);
+        setStatus('error');
       }
     };
 
@@ -74,7 +70,7 @@ const useUserOrdersMap = (email: string, token: string, pochaID: number) => {
     }
   }, [email, pochaID, token]);
 
-  return { ordersMap, status, setOrdersMap, setStatus };
+  return {ordersMap, status, setOrdersMap, setStatus};
 };
 
 /**
@@ -83,14 +79,14 @@ const useUserOrdersMap = (email: string, token: string, pochaID: number) => {
  */
 
 const useUserOrders = (email: string, token: string, pochaID: number) => {
-  const { ordersMap, status, setOrdersMap, setStatus } = useUserOrdersMap(
+  const {ordersMap, status, setOrdersMap, setStatus} = useUserOrdersMap(
     email,
     token,
-    pochaID
+    pochaID,
   );
 
   const updateOrder = (orderItemID: number) => {
-    setOrdersMap((prevMap) => {
+    setOrdersMap(prevMap => {
       const newMap = new Map(prevMap);
       const orderItem = prevMap.get(orderItemID);
 
@@ -110,7 +106,7 @@ const useUserOrders = (email: string, token: string, pochaID: number) => {
         const nextStatus = getNextStatus(orderItem?.status);
         if (nextStatus) {
           newMap.delete(orderItemID);
-          newMap.set(orderItemID, { ...orderItem, status: nextStatus });
+          newMap.set(orderItemID, {...orderItem, status: nextStatus});
         }
       }
 
@@ -119,7 +115,7 @@ const useUserOrders = (email: string, token: string, pochaID: number) => {
   };
 
   const addNewOrderItem = (orderItem: OrderItem) => {
-    setOrdersMap((prevMap) => {
+    setOrdersMap(prevMap => {
       const newMap = new Map(prevMap);
       newMap.set(orderItem.orderItemID, orderItem);
       return newMap;
@@ -127,16 +123,16 @@ const useUserOrders = (email: string, token: string, pochaID: number) => {
   };
 
   const pendingOrders = Array.from(ordersMap.values()).filter(
-    (order) => order.status === "pending"
+    order => order.status === 'pending',
   );
   const preparingOrders = Array.from(ordersMap.values()).filter(
-    (order) => order.status === "preparing"
+    order => order.status === 'preparing',
   );
   const readyOrders = Array.from(ordersMap.values()).filter(
-    (order) => order.status === "ready"
+    order => order.status === 'ready',
   );
   const closedOrders = Array.from(ordersMap.values()).filter(
-    (order) => order.status === "closed"
+    order => order.status === 'closed',
   );
 
   return {

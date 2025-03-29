@@ -92,72 +92,72 @@ export async function getUserCart(
  * @route GET /pocha/orders/${email}/${pochaid}
  * @note Assume orders are returned in descending order of waiting
  */
-// export async function getUserOrders(
-//   email: string,
-//   pochaid: number,
-//   token: string,
-// ): Promise<Orders | undefined> {
-//   const url = `/pocha/order/${email}/${pochaid}/`;
-//   try {
-//     const response = await client.get(url, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
+export async function getUserOrders(
+  email: string,
+  pochaid: number,
+  token: string,
+): Promise<Orders | undefined> {
+  const url = `/pocha/order/${email}/${pochaid}/`;
+  try {
+    const response = await client.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-//     return response?.data;
-//   } catch (error) {
-//     console.log(error);
-//     return undefined;
-//   }
-// }
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
+}
 
 /**
  * @desc Fetch all orders of pocha
  * @route GET /pocha/orders/${pochaid}
  */
-// export async function getPochaOrders(
-//   pochaid: number,
-//   token: string,
-// ): Promise<Orders | undefined> {
-//   const url = `/pocha/dashboard/${pochaid}/`;
-//   try {
-//     const response = await client.get(url, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
+export async function getPochaOrders(
+  pochaid: number,
+  token: string,
+): Promise<Orders | undefined> {
+  const url = `/pocha/dashboard/${pochaid}/`;
+  try {
+    const response = await client.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-//     return response?.data;
-//   } catch (error) {
-//     console.log(error);
-//     return undefined;
-//   }
-// }
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
+}
 
 /**
  * @desc Fetch user's closed orders
  * @route GET /pocha/orders/${email}/${pochaid}/closed
  */
-// export async function getUserClosedOrders(
-//   email: string,
-//   pochaid: number,
-//   token: string,
-// ): Promise<OrderHistory | undefined> {
-//   const url = `/pocha/order/${email}/${pochaid}/closed/`;
-//   try {
-//     const response = await client.get(url, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
+export async function getUserClosedOrders(
+  email: string,
+  pochaid: number,
+  token: string,
+): Promise<OrderHistory | undefined> {
+  const url = `/pocha/order/${email}/${pochaid}/closed/`;
+  try {
+    const response = await client.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-//     return response?.data;
-//   } catch (error) {
-//     console.log(error);
-//     return undefined;
-//   }
-// }
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
+}
 
 /**
  * @desc Fetch all closed orders
