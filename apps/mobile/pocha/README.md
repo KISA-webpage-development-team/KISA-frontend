@@ -1,5 +1,14 @@
 # Pocha App
 
+## [UPDATE] Local Backend
+
+To run the app with the local backend, run the following command in the "pocha" directory
+Make sure you ran the backend locally
+
+```bash
+pnpm start-local
+```
+
 ## [UPDATE] Session + API + Stripe Connection Enabled
 
 after pulling `pocha` branch,
