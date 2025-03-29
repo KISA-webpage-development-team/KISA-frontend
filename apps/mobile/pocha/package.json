@@ -1,5 +1,5 @@
 {
-  "name": "bare",
+  "name": "pocha",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -32,7 +32,9 @@
     "react-native": "0.78.1",
     "react-native-check-box": "^2.1.7",
     "react-native-dotenv": "3.4.11",
+    "react-native-keychain": "10.0.0",
     "react-native-pager-view": "6.7.0",
+    "react-native-pure-jwt": "3.0.3",
     "react-native-safe-area-context": "5.3.0",
     "react-native-screens": "4.9.2",
     "react-native-svg": "15.11.2",
@@ -41,6 +43,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@babel/plugin-transform-export-namespace-from": "7.25.9",
     "@babel/preset-env": "^7.25.3",
     "@react-native-community/cli": "15.0.1",
     "@react-native-community/cli-platform-android": "15.0.1",

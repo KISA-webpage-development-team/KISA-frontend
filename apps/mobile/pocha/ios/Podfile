@@ -22,6 +22,8 @@ $RNFirebaseAsStaticFramework = true
 target 'pocha' do
   config = use_native_modules!
 
+  # pod 'react-native-pure-jwt', :podspec => '../../../../node_modules/react-native-pure-jwt/react-native-pure-jwt.podspec'
+
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.

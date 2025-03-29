@@ -96,8 +96,6 @@ export default function CustomFormItem({
     validationRules,
   );
 
-  console.log('value: ', value);
-
   const handleChange = (text: string) => {
     onChange(text);
     validate(text);

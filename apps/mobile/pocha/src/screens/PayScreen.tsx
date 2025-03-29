@@ -5,7 +5,7 @@ import PayButton from '@/components/pay/PayButton';
 import {useMainNavigation} from '@/navigations/useMainNavigation';
 import PaymentSubmitForm from '@/components/pay/PaymentSubmitForm';
 import {StripeProvider} from '@stripe/stripe-react-native';
-import StripeProviderWrapper from '@/shared/lib/axios/stripe/stripeClient';
+import StripeProviderWrapper from '@/shared/lib/stripe/stripeClient';
 import {SimpleUser} from '@/types/user';
 
 // hooks

@@ -5,7 +5,9 @@ PODS:
   - AppAuth/Core (1.7.6)
   - AppAuth/ExternalUserAgent (1.7.6):
     - AppAuth/Core
+  - Base64 (1.1.2)
   - boost (1.84.0)
+  - CryptoSwift (1.8.4)
   - DoubleConversion (1.1.6)
   - fast_float (6.1.4)
   - FBLazyVector (0.78.1)
@@ -67,6 +69,8 @@ PODS:
   - hermes-engine (0.78.1):
     - hermes-engine/Pre-built (= 0.78.1)
   - hermes-engine/Pre-built (0.78.1)
+  - JWT (3.0.0-beta.12):
+    - Base64 (~> 1.1.2)
   - RCT-Folly (2024.11.18.00):
     - boost
     - DoubleConversion
@@ -1297,6 +1301,9 @@ PODS:
     - React-jsiexecutor
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
+  - react-native-hmac (0.1.1):
+    - CryptoSwift
+    - React-Core
   - react-native-pager-view (6.7.0):
     - DoubleConversion
     - glog
@@ -1318,6 +1325,9 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-pure-jwt (3.0.3):
+    - JWT (= 3.0.0-beta.12)
+    - React
   - react-native-safe-area-context (5.3.0):
     - DoubleConversion
     - glog
@@ -1701,6 +1711,27 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNKeychain (10.0.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNScreens (4.9.2):
     - DoubleConversion
     - glog
@@ -1868,7 +1899,9 @@ DEPENDENCIES:
   - React-logger (from `../../../../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../../../../node_modules/react-native/ReactCommon`)
   - React-microtasksnativemodule (from `../../../../node_modules/react-native/ReactCommon/react/nativemodule/microtasks`)
+  - react-native-hmac (from `../../../../node_modules/react-native-hmac`)
   - react-native-pager-view (from `../../../../node_modules/react-native-pager-view`)
+  - react-native-pure-jwt (from `../../../../node_modules/react-native-pure-jwt`)
   - react-native-safe-area-context (from `../../../../node_modules/react-native-safe-area-context`)
   - React-NativeModulesApple (from `../../../../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../../../../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1901,6 +1934,7 @@ DEPENDENCIES:
   - "RNFBApp (from `../../../../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../../../../node_modules/@react-native-firebase/auth`)"
   - "RNGoogleSignin (from `../../../../node_modules/@react-native-google-signin/google-signin`)"
+  - RNKeychain (from `../../../../node_modules/react-native-keychain`)
   - RNScreens (from `../../../../node_modules/react-native-screens`)
   - RNSVG (from `../../../../node_modules/react-native-svg`)
   - "stripe-react-native (from `../../../../node_modules/@stripe/stripe-react-native`)"
@@ -1909,6 +1943,8 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AppAuth
+    - Base64
+    - CryptoSwift
     - Firebase
     - FirebaseAppCheckInterop
     - FirebaseAuth
@@ -1920,6 +1956,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - JWT
     - RecaptchaInterop
     - SocketRocket
     - Stripe
@@ -2007,8 +2044,12 @@ EXTERNAL SOURCES:
     :path: "../../../../node_modules/react-native/ReactCommon"
   React-microtasksnativemodule:
     :path: "../../../../node_modules/react-native/ReactCommon/react/nativemodule/microtasks"
+  react-native-hmac:
+    :path: "../../../../node_modules/react-native-hmac"
   react-native-pager-view:
     :path: "../../../../node_modules/react-native-pager-view"
+  react-native-pure-jwt:
+    :path: "../../../../node_modules/react-native-pure-jwt"
   react-native-safe-area-context:
     :path: "../../../../node_modules/react-native-safe-area-context"
   React-NativeModulesApple:
@@ -2073,6 +2114,8 @@ EXTERNAL SOURCES:
     :path: "../../../../node_modules/@react-native-firebase/auth"
   RNGoogleSignin:
     :path: "../../../../node_modules/@react-native-google-signin/google-signin"
+  RNKeychain:
+    :path: "../../../../node_modules/react-native-keychain"
   RNScreens:
     :path: "../../../../node_modules/react-native-screens"
   RNSVG:
@@ -2084,7 +2127,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
+  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
+  CryptoSwift: e64e11850ede528a02a0f3e768cec8e9d92ecb90
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
   FBLazyVector: bba368dacede4c9dec7a58c9be5a2d3e9ea30cc7
@@ -2102,6 +2147,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: f69bd07d68cd3b766125f7e072c45d7340dea0de
   GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
   hermes-engine: f493b0a600aed5dc06532141603688a30a5b2f61
+  JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
   RCT-Folly: e78785aa9ba2ed998ea4151e314036f6c49e6d82
   RCTDeprecation: 082fbc90409015eac1366795a0b90f8b5cb28efe
   RCTRequired: ca966f4da75b62ce3ea8c538d82cb5ecbb06f12a
@@ -2132,7 +2178,9 @@ SPEC CHECKSUMS:
   React-logger: 74ddb793d36b48bba176328c7af75e5e656fd405
   React-Mapbuffer: 9089a8ef738526aa31bb993debfaff214c2bef5d
   React-microtasksnativemodule: d4fd1d752f04965cd989beb8d28e896fa7f58605
+  react-native-hmac: e6bd9cb34438c9551c8356cfab944f3b11afb06d
   react-native-pager-view: f7f13e312fd72e7b800f76ff54b2bfe736cfb366
+  react-native-pure-jwt: ddc75cb6ec8fe40c8efa6b5ca2cd41eadc914056
   react-native-safe-area-context: 33fadf89988c8813cfac57797a3bc53708863dd1
   React-NativeModulesApple: ce75ed8f1188483be3620bf9dbb3b1286dd39bab
   React-perflogger: 26d07766b033f84559bd520e949453dba8bf1cd8
@@ -2166,6 +2214,7 @@ SPEC CHECKSUMS:
   RNFBApp: 9297acf6e0fbc398a0b1df684cf41a849f3f521b
   RNFBAuth: d8af04c95f86a16c592c9a49f16cf0b0bf0b6fd3
   RNGoogleSignin: 1a215139c537bb0430abdb9ff9a8e437578e515d
+  RNKeychain: 35beaa17938f7d8e4990d8a38fad5f8a748fc47c
   RNScreens: 2e4870e8f9cb4a77e5a51530729f2762868316df
   RNSVG: 71e35e78add645b84b52b0c6f203f91028e1ab5e
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
@@ -2180,6 +2229,6 @@ SPEC CHECKSUMS:
   StripeUICore: 17a4f3adb81ae05ab885e1b353022a430176eab1
   Yoga: 464c847c822847c88560af530ca15273b8e45261
 
-PODFILE CHECKSUM: 7fb8b537a8d4738c80f1de20397b9ad0f3ca2072
+PODFILE CHECKSUM: 73838a8f408ef34a16a73c43ddaa335859a41c5b
 
 COCOAPODS: 1.16.2

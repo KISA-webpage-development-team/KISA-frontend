@@ -80,3 +80,19 @@ need to install pods and pnpm again
 pnpm dlx pod-install ios
 pnpm install
 ```
+
+### JWT
+
+react-native-pure-jwt
+
+#### Token usage example
+
+```ts
+import {getToken} from '@/shared/lib/react-native-keychain/keychain';
+
+const token = await getToken();
+
+console.log(token);
+
+// Then, token can be used for API calls
+```

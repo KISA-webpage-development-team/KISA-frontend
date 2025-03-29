@@ -4,8 +4,8 @@
  */
 // useCart.tsx (responsible for managing cart data and state)
 import {useState, useEffect, useCallback} from 'react';
-import {getUserCart} from '@/apis/pocha/queries';
-import {changeItemInCart} from '@/apis/pocha/mutations';
+import {getUserCart} from '@/apis/queries';
+import {changeItemInCart} from '@/apis/mutations';
 import {Cart} from '@/types/pocha';
 import {debounce} from 'lodash';
 import {HookStatus} from './types';

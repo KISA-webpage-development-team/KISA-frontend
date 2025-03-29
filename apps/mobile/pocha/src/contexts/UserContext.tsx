@@ -13,14 +13,22 @@ import {SimpleUser} from '@/types/user';
 
 // env
 import {FIREBASE_CLIENT_ID} from '@env';
+import {getUser} from '@/shared/apis/users/queries';
+import {saveToken} from '@/shared/lib/react-native-keychain/keychain';
+import signToken from '@/shared/lib/jsonwebtoken/signToken';
+
+type SignInResult = {
+  success: boolean;
+  redirect: 'signup' | '';
+};
 
 export const UserContext = createContext<{
   user: SimpleUser | undefined;
-  signInWithGoogle: () => Promise<void>;
+  signInWithGoogle: () => Promise<SignInResult>;
   signOut: () => Promise<void>;
 }>({
   user: undefined,
-  signInWithGoogle: async () => {},
+  signInWithGoogle: async () => ({success: false, redirect: ''}),
   signOut: async () => {},
 });
 
@@ -51,18 +59,49 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
     return () => unsubscribe();
   }, []);
 
-  const signInWithGoogle = async () => {
+  const signInWithGoogle = async (): Promise<SignInResult> => {
     await GoogleSignin.hasPlayServices();
     const signInResult = await GoogleSignin.signIn();
+    console.log('signInResult.data: ', signInResult.data);
 
-    if (!signInResult.data?.idToken) {
+    const idToken = signInResult.data?.idToken;
+
+    if (!idToken) {
       throw new Error('Google Sign-In failed: No ID Token returned');
     }
 
-    const googleCredential = auth.GoogleAuthProvider.credential(
-      signInResult.data.idToken,
-    );
-    await auth().signInWithCredential(googleCredential);
+    const email = signInResult.data?.user.email;
+
+    if (!email) {
+      throw new Error('Google Sign-In failed: No Email returned');
+    }
+
+    console.log('email: ', email);
+    const token = await signToken(email);
+    console.log('token: ', token);
+    // Check if user already exists in the database
+    const existingUser = await getUser(email, token);
+
+    if (!existingUser) {
+      console.warn('User does not exist in the database');
+      return {success: false, redirect: 'signup'};
+    }
+
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    try {
+      await auth().signInWithCredential(googleCredential);
+
+      // save token to mobile keychain
+      await saveToken(token);
+      console.log('Token saved to keychain for user:', email);
+
+      // TODO: continue here...
+      return {success: true, redirect: ''};
+    } catch (error) {
+      console.error('Sign-In Error:', error);
+      return {success: false, redirect: ''};
+    }
   };
 
   const signOut = async () => {
