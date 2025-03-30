@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     gap: 12, // gap is not fully supported in RN, so you may need marginRight on icon manually if older version.
   },
   label: {
+    fontFamily: 'Sejong-hospital-Bold',
     color: 'white',
     fontSize: 18,
     lineHeight: 24,

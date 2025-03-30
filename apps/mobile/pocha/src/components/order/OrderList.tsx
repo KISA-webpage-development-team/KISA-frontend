@@ -12,6 +12,7 @@ import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
 import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import PochaOrderItem from './PochaOrderItem';
 import {OrderStatus, OrderItem} from '@/types/pocha';
+import {UserCredentials} from 'react-native-keychain';
 
 // interface OrderListProps {
 //   pochaID: number;
@@ -107,16 +108,19 @@ const closedOrders: OrderItem[] = [
 
 const tabs = ['all', 'pending', 'preparing', 'ready'];
 
-const mockEmail = 'dongeunk@umich.edu';
-const mockToken = 'mockToken';
-const mockPochaId = 1;
+// const mockEmail = 'dongeunk@umich.edu';
+// const mockToken = 'mockToken';
+// const mockPochaId = 1;
 
-export default function OrderList(pochaID = mockPochaId) {
-  // const { data: session, status: sessionStatus } = useSession() as {
-  //   data: UserSession | undefined;
-  //   status: string;
-  // };
-
+export default function OrderList({
+  pochaID,
+  email,
+  token,
+}: {
+  pochaID: number;
+  email: string;
+  token: string;
+}) {
   const [activeTab, setActiveTab] = useState<string>('all');
 
   const {
@@ -127,7 +131,7 @@ export default function OrderList(pochaID = mockPochaId) {
     readyOrders,
     closedOrders,
     status: ordersStatus,
-  } = useUserOrders(mockEmail, mockToken, mockPochaId);
+  } = useUserOrders(email, token, pochaID);
 
   // useUserOrderSocket({
   //   token: session?.token,

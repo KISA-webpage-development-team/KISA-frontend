@@ -27,7 +27,7 @@
 // }
 
 import React, {memo, useState} from 'react';
-import {FlatList, Text, View, StyleSheet} from 'react-native';
+import {FlatList, Text, View, StyleSheet, Animated} from 'react-native';
 import MenuListItem from './MenuListItem';
 import MenuItemDetail from './MenuItemDetail';
 import ViewCartButton from './ViewCartButton';
@@ -51,7 +51,12 @@ import {MenuByCategory, MenuItem} from '@/types/pocha';
 //     throw new Error('Error fetching user info');
 //   }
 
-export default function MenuList({menuList}: {menuList: MenuByCategory[]}) {
+interface MenuListProps {
+  menuList: MenuByCategory[];
+  scrollY: Animated.Value;
+}
+
+export default function MenuList({menuList, scrollY}: MenuListProps) {
   const [selectedMenu, setSelectedMenu] = useState<MenuItem | undefined>(
     undefined,
   );
@@ -71,7 +76,12 @@ export default function MenuList({menuList}: {menuList: MenuByCategory[]}) {
 
   return (
     <View style={styles.container}>
-      <FlatList
+      <Animated.FlatList
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: false},
+        )}
+        scrollEventThrottle={16}
         data={menuList}
         keyExtractor={(item, idx) => `category-${idx}`}
         renderItem={({item: category}) => (
@@ -108,7 +118,7 @@ const styles = StyleSheet.create({
   },
   categoryTitle: {
     fontSize: 22,
-    fontFamily: 'Sejonghospital-Bold',
+    fontFamily: 'Sejong-hospital-Bold',
     marginBottom: 4,
   },
   menuDivider: {

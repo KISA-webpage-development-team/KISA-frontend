@@ -1,6 +1,7 @@
 import {getUserOrders, getUserClosedOrders} from '@/apis/queries';
 import {OrderHistory, OrderItem, Orders, OrderStatus} from '@/types/pocha';
 import {useCallback, useEffect, useState} from 'react';
+import {UserCredentials} from 'react-native-keychain';
 
 /*
   @desc get the next status of the order item
@@ -53,9 +54,11 @@ const useUserOrdersMap = (email: string, token: string, pochaID: number) => {
         const closedRes = await getUserClosedOrders(email, pochaID, token);
 
         const orders = {
-          ...res,
-          closed: closedRes.closed,
-        };
+          pending: res?.pending,
+          preparing: res?.preparing,
+          ready: res?.ready,
+          closed: closedRes?.closed,
+        } as Orders & OrderHistory;
 
         setOrdersMap(convertOrdersToMap(orders));
         setStatus('success');
@@ -103,10 +106,12 @@ const useUserOrders = (email: string, token: string, pochaID: number) => {
           status: OrderStatus.READY,
         });
       } else {
-        const nextStatus = getNextStatus(orderItem?.status);
-        if (nextStatus) {
-          newMap.delete(orderItemID);
-          newMap.set(orderItemID, {...orderItem, status: nextStatus});
+        if (orderItem && orderItem.status) {
+          const nextStatus = getNextStatus(orderItem?.status);
+          if (nextStatus) {
+            newMap.delete(orderItemID);
+            newMap.set(orderItemID, {...orderItem, status: nextStatus});
+          }
         }
       }
 

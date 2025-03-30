@@ -1,59 +1,53 @@
 'use client';
 
-import React, {useState} from 'react';
+import React, {useRef} from 'react';
+import {SafeAreaView, StyleSheet, Animated} from 'react-native';
 
 // ui components
-import LoadingSpinner from '../shared/components/feedback/LoadingSpinner';
 import HomeHeading from '@/components/home/HomeHeading';
-
-// hooks
-// import {useSearchParams} from 'next/navigation';
-import usePocha from '../hooks/usePocha';
-
-import {ActivityIndicator, SafeAreaView, StyleSheet, Text} from 'react-native';
-import {BACKEND_URL} from '@env';
+import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
+import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
 
 // navigations
 import HomeTabNavigator from '@/navigations/HomeTabNavigator';
 
+// hooks
+import usePocha from '../hooks/usePocha';
+
 export default function HomeScreen() {
   const {pochaInfo, status, error} = usePocha();
 
+  const scrollY = useRef(new Animated.Value(0)).current;
+
+  const headerHeight = scrollY.interpolate({
+    inputRange: [0, 100],
+    outputRange: [95, 0], // Adjust 80 to match your header height
+    extrapolate: 'clamp',
+  });
+
+  const headerOpacity = scrollY.interpolate({
+    inputRange: [0, 100],
+    outputRange: [1, 0],
+    extrapolate: 'clamp',
+  });
+
   if (status === 'loading') {
-    return (
-      <SafeAreaView
-        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size="large" />
-      </SafeAreaView>
-    );
+    return <LoadingSpinner fullScreen label="로딩 중입니다..." />;
   }
 
   if (status === 'error') {
-    return (
-      <SafeAreaView
-        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text>Error: {error}</Text>
-      </SafeAreaView>
-    );
+    return <ErrorDisplay fullScreen state="error" message={error} />;
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* PochaHeading (at the top, disappear when scrolling) */}
-      {/* <div className="relative z-10 flex-shrink-0"> */}
-      <HomeHeading pochaInfo={pochaInfo} />
-      {/* </div> */}
-
-      {/* Sticky Tabs (fixed at the top) */}
-      {/* <div className="sticky top-0 z-50 bg-white"> */}
-      {/* <HomeTabs activeTab={activeTab} setActiveTab={setActiveTab} /> */}
-      {/* </div> */}
-
-      {/* Main Content Area (scrollable) */}
-      {/* <div className="flex-1"> */}
-      {/* <HomeTabContent activeTab={activeTab} pochaID={pochaInfo?.pochaID} /> */}
-      {/* </div> */}
-      <HomeTabNavigator pochaID={pochaInfo?.pochaID as number} />
+      <Animated.View style={{height: headerHeight, opacity: headerOpacity}}>
+        <HomeHeading pochaInfo={pochaInfo} />
+      </Animated.View>
+      <HomeTabNavigator
+        pochaID={pochaInfo?.pochaID as number}
+        scrollY={scrollY}
+      />
     </SafeAreaView>
   );
 }
@@ -61,7 +55,5 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: '100%',
-    width: '100%',
   },
 });

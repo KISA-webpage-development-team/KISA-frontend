@@ -14,6 +14,7 @@ import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import {useMainNavigation} from '@/navigations/useMainNavigation.ts';
+import PochaButton from '../shared/PochaButton';
 
 interface ViewCartButtonProps {
   pochaID: number;
@@ -21,39 +22,25 @@ interface ViewCartButtonProps {
 
 export default function ViewCartButton({pochaID}: ViewCartButtonProps) {
   const navigation = useMainNavigation();
+
   const handleViewCart = () => {
-    // Leave these 2 comments below commented for now. --> navigate to cart page with pochaID
-    // const queryParams = `pochaid=${pochaID}`;;
-    // window.location.href = `/pocha/cart?${queryParams}`;
-    navigation.navigate('CartScreen');
+    navigation.navigate('CartScreen', {pochaID});
   };
 
   return (
-    <View style={styles.wrapper}>
-      <TouchableOpacity onPress={handleViewCart} style={styles.viewCartButton}>
-        {/* <PochaCartIcon /> */}
-        <Text style={styles.viewCartText}>View Cart</Text>
-      </TouchableOpacity>
+    <View style={styles.container}>
+      <PochaButton
+        label="View Cart"
+        onClick={handleViewCart}
+        widthPercentage={100}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: 'white',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  viewCartButton: {
-    backgroundColor: '#3B82F6',
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: 'center',
+  container: {
     width: '100%',
-  },
-  viewCartText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
+    paddingHorizontal: '10%',
   },
 });

@@ -5,9 +5,9 @@
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-type MainStackParam = {
+export type MainStackParam = {
   HomeScreen: undefined;
-  CartScreen: undefined;
+  CartScreen: {pochaID: number};
   PayScreen: {pochaid: number};
   PaySuccessScreen: undefined;
 };

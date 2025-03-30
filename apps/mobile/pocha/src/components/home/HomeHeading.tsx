@@ -14,10 +14,8 @@ export default function HomeHeading({pochaInfo}: HomeHeadingProps) {
       <TouchableOpacity onPress={() => signOut()}>
         <Text>Sign Out</Text>
       </TouchableOpacity>
-      {/* Title - pocha name */}
       <Text style={styles.title}>{pochaInfo?.title}</Text>
 
-      {/* Description - pocha description */}
       <Text style={styles.description}>{pochaInfo?.description}</Text>
     </View>
   );

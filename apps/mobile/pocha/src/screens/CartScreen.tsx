@@ -14,11 +14,19 @@ import {useState} from 'react';
 
 // types
 import {Cart} from '@/types/pocha';
-
+import {MainStackParam} from '@/navigations/useMainNavigation';
 // import usePochaID from '@/hooks/usePochaID';
 // import useCart from '@/hooks/useCart';
 
-export default function CartScreen() {
+// [NOTE] this is how to use TS with navigation props
+type CartScreenProps = {
+  route: {params: {pochaID: number}};
+};
+
+export default function CartScreen({route}: CartScreenProps) {
+  // pochaID is passed from the menu tab
+  const pochaID = route.params.pochaID;
+
   const fakeCart = {
     3: {
       menu: {

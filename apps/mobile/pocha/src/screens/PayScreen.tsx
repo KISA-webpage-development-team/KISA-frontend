@@ -13,6 +13,7 @@ import {useUser} from '@/contexts/UserContext';
 import usePochaID from '@/hooks/usePochaID';
 import usePayInfo from '@/hooks/usePayInfo';
 import useUserAge from '@/hooks/useUserAge';
+import useUserToken from '@/hooks/useUserToken';
 
 export default function PayScreen() {
   const navigation = useMainNavigation();
@@ -20,6 +21,11 @@ export default function PayScreen() {
   // Get logged in user
   const {user} = useUser();
   const loggedInUser = user as SimpleUser;
+  const {token, status: tokenStatus, error: tokenError} = useUserToken();
+
+  if (!token) {
+    return null;
+  }
 
   const {pochaID, status: pochaIDStatus, error: pochaIDError} = usePochaID();
 
@@ -32,13 +38,13 @@ export default function PayScreen() {
     error: payInfoError,
   } = usePayInfo(loggedInUser.email, pochaID);
 
-  // TODO: remove fake token
-  // const {
-  //   underAge,
-  //   status: userAgeStatus,
-  //   fullname,
-  //   error: userAgeError,
-  // } = useUserAge(loggedInUser.email, 'fake_token');
+  // TODO: check underage
+  const {
+    underAge,
+    status: userAgeStatus,
+    fullname,
+    error: userAgeError,
+  } = useUserAge(loggedInUser.email, token);
 
   const isLoading = pochaIDStatus === 'loading' || payInfoStatus === 'loading';
   // userAgeStatus === 'loading';

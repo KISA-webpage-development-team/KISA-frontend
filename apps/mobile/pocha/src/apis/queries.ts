@@ -7,13 +7,14 @@ import {
   OrderHistory,
   PayInfo,
 } from '@/types/pocha';
+import {UserCredentials} from 'react-native-keychain';
 /**
  * @desc Fetch pocha info, if no upcoming pocha -> empty data, if else -> unempty data
  * @route GET /pocha/status-info/?date=${date}
  */
 export async function getPochaInfo(date: Date): Promise<PochaInfo> {
   // [TODO] change fakeDateEST to date for production
-  const fakeDateEST = new Date('2025-02-15T23:00:00');
+  // const fakeDateEST = new Date('2021-10-31T00:00:00');
 
   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Detect user's time zone
   const KST_OFFSET = 14; // KST is UTC+9, EST is UTC-5 => Difference is +14 hours
@@ -28,7 +29,7 @@ export async function getPochaInfo(date: Date): Promise<PochaInfo> {
   }
 
   const url = `/pocha/status-info/?date=${
-    fakeDateEST.toISOString().split('.')[0]
+    convertedDate.toISOString().split('.')[0]
   }`;
 
   try {
@@ -56,10 +57,17 @@ export async function getPochaInfoMock(date: Date) {
  * @desc Fetch pocha menu
  * @route GET /pocha/menu/${pochaid}
  */
-export async function getPochaMenu(pochaid: number): Promise<MenuByCategory[]> {
+export async function getPochaMenu(
+  pochaid: number,
+  token: string,
+): Promise<MenuByCategory[]> {
   const url = `/pocha/menu/${pochaid}/`;
   try {
-    const response = await client.get(url);
+    const response = await client.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response?.data;
   } catch (error) {
@@ -118,7 +126,7 @@ export async function getUserOrders(
  */
 export async function getPochaOrders(
   pochaid: number,
-  token: string,
+  token: UserCredentials,
 ): Promise<Orders | undefined> {
   const url = `/pocha/dashboard/${pochaid}/`;
   try {

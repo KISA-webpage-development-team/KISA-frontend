@@ -1,10 +1,10 @@
 // hooks/useStripePayment.ts
-import { useState } from "react";
+import {useState} from 'react';
 import {useStripe} from '@stripe/stripe-react-native';
-import { checkCartStock, notifyPayResult } from "@/apis/mutations.ts";
+import {checkCartStock, notifyPayResult} from '@/apis/mutations.ts';
 import {useMainNavigation} from '@/navigations/useMainNavigation';
-import { Alert } from 'react-native';
-import { create_customer, create_paymentIntent } from '@/apis/stripe';
+import {Alert} from 'react-native';
+import {create_customer, create_paymentIntent} from '@/apis/stripe';
 const useStripePayment = (
   pochaID: number,
   totalPrice: number,
@@ -44,12 +44,15 @@ const useStripePayment = (
       // Step 3.1: Create or verify customer
       const customerResponse = create_customer(userEmail, fullname);
 
-      const { customerID } = await customerResponse;
+      const {customerID} = await customerResponse;
       if (!customerID) throw new Error('고객 생성에 실패했습니다.');
 
       // Step 3.2: Create a PaymentIntent including the customer ID
-      const createPaymentIntentResponse = create_paymentIntent(totalPrice * 100, customerID);
-      const { clientSecret } = await createPaymentIntentResponse;
+      const createPaymentIntentResponse = create_paymentIntent(
+        totalPrice * 100,
+        customerID,
+      );
+      const {clientSecret} = await createPaymentIntentResponse;
       if (!clientSecret) throw new Error('PaymentIntent 생성에 실패했습니다.');
 
       // Step 3.3: Confirm the payment using Stripe's native confirmPayment call.
@@ -90,9 +93,12 @@ const useStripePayment = (
       navigation.navigate('PaySuccessScreen');
     } catch (err) {
       const error = err as Error;
-      Alert.alert('결제 오류가 발생했습니다. 카드 정보를 확인해주세요', error.message ?? '결제 실패');
+      Alert.alert(
+        '결제 오류가 발생했습니다. 카드 정보를 확인해주세요',
+        error.message ?? '결제 실패',
+      );
       setErrorMessage(error.message ?? '결제 실패');
-    
+
       // Notify your backend of the failure.
       const res = await notifyPayResult(userEmail, pochaID, {
         result: 'failure',
@@ -111,10 +117,11 @@ const useStripePayment = (
       // We assume that if the CardField is rendered, the user has entered valid info.
       checkUserUnderAge();
       await checkCartInventory();
-      await processPayment();
+      await processPayment(); // -> openPaymentSheet
+      // + notifyPayResult
     } catch (err) {
       const error = err as Error;
-      Alert.alert('Payment failed: ', error.message ?? "결제 실패");
+      Alert.alert('Payment failed: ', error.message ?? '결제 실패');
       setErrorMessage(error.message ?? '결제 실패');
     } finally {
       setLoading(false);
@@ -127,6 +134,5 @@ const useStripePayment = (
     errorMessage,
   };
 };
-
 
 export default useStripePayment;

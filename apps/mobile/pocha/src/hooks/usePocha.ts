@@ -1,3 +1,5 @@
+// [NOTE] this hook is the best practice for API calls in custom hooks
+
 import {useEffect, useState} from 'react';
 import {getPochaInfo} from '@/apis/queries';
 
@@ -20,12 +22,13 @@ const usePocha = () => {
         setPochaInfo(res);
         setStatus('success');
       } catch (error) {
-        // ✅ Error message directly from the error object
+        // [NOTE] error will be thrown from the `getPochaInfo` function
+        // which directly makes API call with axios
         setStatus('error');
         if (error instanceof Error) {
           setError(error.message);
         } else {
-          setError('An unexpected error occurred.');
+          setError('Something went wrong...');
         }
       }
     };

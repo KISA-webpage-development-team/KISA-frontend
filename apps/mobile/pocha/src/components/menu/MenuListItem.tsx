@@ -14,7 +14,7 @@
 
 import React from 'react';
 import {Image, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import { MenuItem } from '../../types/pocha';
+import {MenuItem} from '../../types/pocha';
 
 interface MenuItemCardProps {
   menu: MenuItem;
@@ -52,7 +52,6 @@ export default function MenuListItem({
         style={styles.itemContainer}
         onPress={handleMenuClick}
         disabled={notForUnderAge || stock === 0}>
-        {/* Menu Item Image */}
         <View style={styles.imageWrapper}>
           <Image
             // src={getMenuImagePath(menuID)}
@@ -72,7 +71,6 @@ export default function MenuListItem({
         </View>
       </TouchableOpacity>
 
-      {/* Overlay if age restricted */}
       {notForUnderAge && (
         <View style={styles.overlay}>
           <Text style={styles.overlayText}>{AGE_RESTRICTION_MESSAGE}</Text>
@@ -121,12 +119,12 @@ const styles = StyleSheet.create({
   },
   menuName: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'Sejong-hospital-Bold',
     color: '#222',
   },
   menuPrice: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'Sejong-hospital-Bold',
     color: '#666',
     marginTop: 12,
   },

@@ -1,5 +1,11 @@
 import React from 'react';
-import {ActivityIndicator, Text, View, StyleSheet} from 'react-native';
+import {
+  ActivityIndicator,
+  Text,
+  View,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
 
 interface LoadingSpinnerProps {
   fullScreen?: boolean;
@@ -10,20 +16,34 @@ export default function LoadingSpinner({
   fullScreen = false,
   label = '로딩중입니다',
 }: LoadingSpinnerProps) {
+  // [TODO]: Figure out the best way to extract this color setup
+  const michiganBlue = '#00274C';
+  const michiganLightBlue = '#003594';
+  const michiganMaize = '#FFCB05';
+  const michiganDarkMaize = '#e5b604';
+
   // Fullscreen spinner
   if (fullScreen) {
     return (
-      <View style={styles.fullScreenContainer}>
-        <ActivityIndicator size="large" color="#3B82F6" />
-        {label ? <Text style={styles.fullScreenLabel}>{label}</Text> : null}
-      </View>
+      <SafeAreaView style={styles.fullScreenContainer}>
+        <ActivityIndicator size="large" color={michiganLightBlue} />
+        {label ? (
+          <Text style={[styles.fullScreenLabel, {color: michiganDarkMaize}]}>
+            {label}
+          </Text>
+        ) : null}
+      </SafeAreaView>
     );
   }
   // Inline spinner
   return (
     <View style={styles.inlineContainer}>
-      <ActivityIndicator size="small" color="white" />
-      {label ? <Text style={styles.inlineLabel}>{label}</Text> : null}
+      <ActivityIndicator size="small" color={michiganLightBlue} />
+      {label ? (
+        <Text style={[styles.inlineLabel, {color: michiganDarkMaize}]}>
+          {label}
+        </Text>
+      ) : null}
     </View>
   );
 }
@@ -41,20 +61,18 @@ const styles = StyleSheet.create({
     zIndex: 50,
   },
   fullScreenLabel: {
-    marginTop: 8,
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#374151', // gray-700
+    marginTop: 16,
+    fontSize: 20,
+    fontFamily: 'Sejong-hospital-Bold',
   },
   inlineContainer: {
-    flexDirection: 'row',
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6,
   },
   inlineLabel: {
-    color: 'white',
+    marginTop: 16,
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Sejong-hospital-Bold',
   },
 });

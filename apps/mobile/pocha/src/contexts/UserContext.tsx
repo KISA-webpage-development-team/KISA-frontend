@@ -76,9 +76,7 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
       throw new Error('Google Sign-In failed: No Email returned');
     }
 
-    console.log('email: ', email);
     const token = await signToken(email);
-    console.log('token: ', token);
     // Check if user already exists in the database
     const existingUser = await getUser(email, token);
 

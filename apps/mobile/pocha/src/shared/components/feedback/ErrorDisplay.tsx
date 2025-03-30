@@ -1,25 +1,36 @@
 import React from 'react';
-import InfoIcon from '@/assets/icons/info_icon';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
 
-// NOTE to JIOH: We've tried using the svg icons the same way as your example (home icon) but it didn't work,
-// but neither home icon nor our icon worked. So, we changed the file to .tsx instead (checkout info_icon.tsx)
-// and implemented the code there, to bring the InfoIcon straight into this file.
+// import AlertIcon from '@/assets/icons/alert.svg';
 
 interface ErrorDisplayProps {
+  fullScreen?: boolean;
   state?: string;
   message?: string;
 }
-export default function ErrorDisplay({state, message}: ErrorDisplayProps) {
+export default function ErrorDisplay({
+  fullScreen = false,
+  state,
+  message,
+}: ErrorDisplayProps) {
   if (!message) return null;
+
+  if (fullScreen) {
+    return (
+      <SafeAreaView style={styles.safeAreaContainer}>
+        <Text
+          style={[
+            styles.text,
+            state === 'error' ? styles.error : styles.alert,
+          ]}>
+          {message}
+        </Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      <InfoIcon
-        width={15}
-        height={15}
-        fill={state === 'error' ? 'red' : 'blue'} // Change color based on state
-      />
       <Text
         style={[styles.text, state === 'error' ? styles.error : styles.alert]}>
         {message}
@@ -29,16 +40,24 @@ export default function ErrorDisplay({state, message}: ErrorDisplayProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    gap: 4,
-    marginTop: 8,
+  safeAreaContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
+  container: {
+    borderRadius: 10,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   text: {
-    fontSize: 12,
+    fontSize: 18,
+    fontFamily: 'Sejong-hospital-Bold',
   },
   error: {
-    color: 'red',
+    color: 'gray',
   },
   alert: {
     color: 'blue',
