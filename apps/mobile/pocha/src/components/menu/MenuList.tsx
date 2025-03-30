@@ -5,33 +5,11 @@
  * - render MenuListItems for each category
  */
 
-// READ!
-// TODO: N/A
-
-// UNUSED IMPORT:
-// import LoadingSpinner from '@/final_refactor_src/components/feedback/LoadingSpinner';
-
-// Hooks
-// import {useSession} from 'next-auth/react';
-// import useMenu from '../../hooks/useMenu';
-// import useUserAge from '../../hooks/useUserAge';
-
-// Types
-// import {UserSession} from '@/lib/next-auth/types';
-// import {MenuItem} from '@/types/pocha';
-// import {sejongHospitalBold} from '@/utils/fonts/textFonts';
-// import MenuItemDetail from './MenuItemDetail';
-
-// interface MenuListProps {
-//   pochaid: number | undefined;
-// }
-
-import React, {memo, useState} from 'react';
+import React, {useState} from 'react';
 import {FlatList, Text, View, StyleSheet, Animated} from 'react-native';
 import MenuListItem from './MenuListItem';
 import MenuItemDetail from './MenuItemDetail';
-import ViewCartButton from './ViewCartButton';
-import {MenuByCategory, MenuItem} from '@/types/pocha';
+import {MenuItem} from '@/types/pocha';
 import useUserToken from '@/hooks/useUserToken';
 import useUserAge from '@/hooks/useUserAge';
 import {useUser} from '@/contexts/UserContext';
@@ -40,24 +18,6 @@ import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
 import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
 import useMenu from '@/hooks/useMenu';
 import HorizontalDivider from '@/shared/components/divider/HorizontalDivider';
-
-//   // fetch menu and user age (for under age check)
-//   // [NOTE] useMenu and useUserAge uses SWR for better UX
-//   // to learn more about SWR, visit https://swr.vercel.app/ko or ask @retz8
-// const {menuList, status: menuStatus} = useMenu(pochaid, session?.token);
-// const {underAge, status: userStatus} = useUserAge(session);
-
-// if (menuStatus === 'loading' || userStatus === 'loading') {
-//   return <LoadingSpinner fullScreen={false} label="메뉴를 가져오는 중..." />;
-// }
-
-//   if (menuStatus === 'error') {
-//     throw new Error('Error fetching menu');
-//   }
-
-//   if (userStatus === 'error') {
-//     throw new Error('Error fetching user info');
-//   }
 
 interface MenuListProps {
   pochaID: number;
@@ -140,7 +100,6 @@ export default function MenuList({pochaID, scrollY}: MenuListProps) {
         renderItem={({item: category}) => (
           <View style={styles.categoryContainer}>
             <Text style={styles.categoryTitle}>{category.category}</Text>
-            console.log('Token saved to keychain for user:', email);
             <FlatList
               data={category.menusList}
               keyExtractor={menu => `menu-${menu.menuID}`}
