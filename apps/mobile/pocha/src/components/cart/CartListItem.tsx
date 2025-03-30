@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {CartItem} from '@/types/pocha';
 import {getMenuImageSrc} from '@/utils/getImageSrc';
+import TrashIcon from '@/shared/components/icon/TrashIcon';
 type CartListItemProps = {
   item: CartItem;
   menuid: number;
@@ -58,7 +59,8 @@ export default function CartListItem({
           <TouchableOpacity
             onPress={removeItemFromCart}
             style={styles.counterButton}>
-            <Text style={styles.buttonText}>🗑</Text>
+            {/* <Text style={styles.buttonText}>🗑</Text> */}
+            <TrashIcon />
           </TouchableOpacity>
         )}
 
@@ -97,12 +99,15 @@ const styles = StyleSheet.create({
   },
   itemName: {
     fontSize: 16,
-    fontWeight: 'bold',
     color: '#000',
+    fontFamily: 'sejong-hospital-bold',
+    marginBottom: 8,
   },
   price: {
     fontSize: 14,
     color: '#666',
+    fontFamily: 'sejong-hospital-light',
+    fontWeight: '500',
   },
   counterContainer: {
     flexDirection: 'row',
@@ -129,5 +134,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginHorizontal: 10,
+    fontFamily: 'sejong-hospital-light',
   },
 });

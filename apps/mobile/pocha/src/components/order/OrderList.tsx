@@ -1,6 +1,6 @@
 // import useUserOrderSocket from "../../hooks/useUserOrderSocket";
 import React from 'react';
-import {FlatList, Text, View, StyleSheet} from 'react-native';
+import {FlatList, Text, View, StyleSheet, Animated} from 'react-native';
 
 // hooks
 import useUserOrders from '@/hooks/useUserOrders';
@@ -20,12 +20,14 @@ interface OrderListProps {
   pochaID: number;
   activeTab: OrderTabs;
   setActiveTab: (tab: OrderTabs) => void;
+  scrollY: Animated.Value;
 }
 
 export default function OrderList({
   pochaID,
   activeTab,
   setActiveTab,
+  scrollY,
 }: OrderListProps) {
   // Get user from firebase context
   const {user} = useUser();
@@ -91,12 +93,18 @@ export default function OrderList({
           You haven't placed any orders yet.
         </Text>
       ) : (
-        <FlatList
-          style={styles.ordersList}
+        <Animated.FlatList
           data={ordersToRender}
           keyExtractor={item => item.orderItemID.toString()}
           renderItem={({item}) => <OrderListItem orderItem={item} />}
-          contentContainerStyle={styles.ordersList}
+          contentContainerStyle={styles.ordersListContent}
+          style={styles.ordersList}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: scrollY}}}],
+            {useNativeDriver: false},
+          )}
+          scrollEventThrottle={16}
         />
       )}
     </View>
@@ -110,12 +118,18 @@ const styles = StyleSheet.create({
   },
   ordersList: {
     width: '100%',
-    paddingHorizontal: '2%',
-    rowGap: '1%',
+  },
+  ordersListContent: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    paddingBottom: 24,
+  },
+  separator: {
+    height: 8,
   },
   noOrdersText: {
     textAlign: 'center',
-    marginTop: '4%',
+    marginTop: 16,
     fontSize: 16,
     fontFamily: 'Sejong-hospital-Bold',
   },

@@ -19,28 +19,6 @@ export default function OrderTicketModal({
     setIsOpenModal(false);
   };
 
-  //   return (
-  //     < className="fixed inset-0 z-[99999] bg-black/30">
-  //       <div className="relative z-[100000] w-full h-full flex items-center justify-center">
-  //         <div
-  //           className="relative flex flex-col items-center justify-center
-  //          space-y-4 bg-white rounded-lg shadow-md text-black
-  //          border-2 border-[#71717A] h-[30%] aspect-[8/5]">
-  //           <button
-  //             className="absolute top-[1rem] right-[1rem]"
-  //             onClick={handleCloseModal}>
-  //             <PochaCloseIcon size="extra-large" />
-  //           </button>
-  //           <span className={`text-lg ${sejongHospitalBold.className}`}>
-  //             Order Ready!
-  //           </span>
-  //           <span
-  //             className={`text-4xl ${sejongHospitalBold.className}`}>{`#${orderItemID}`}</span>
-  //           <span className={`text-lg font-medium`}>
-  //             {menu.nameKor} is ready for pickup
-  //           </span>
-  //         </div>
-  //       </div>
   return (
     <Modal
       visible={true}
@@ -79,9 +57,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContent: {
-    position: 'absolute',
+    //position: 'absolute',
     width: '80%',
-    top: 180,
+    //top: 180,
     aspectRatio: 8 / 5,
     backgroundColor: '#FFF',
     borderRadius: 8,

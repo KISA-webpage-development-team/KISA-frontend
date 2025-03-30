@@ -92,7 +92,6 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
 
       // save token to mobile keychain
       await saveToken(token);
-      console.log('Token saved to keychain for user:', email);
 
       // TODO: continue here...
       return {success: true, redirect: ''};

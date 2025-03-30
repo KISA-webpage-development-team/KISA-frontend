@@ -22,6 +22,8 @@ export default function OrderTab({route}: HomeTabProps) {
   const {user} = useUser();
   const pochaID = route.params.pochaID;
 
+  const scrollY = route.params.scrollY;
+
   const [activeTab, setActiveTab] = useState<OrderTabs>('all');
 
   return (
@@ -31,6 +33,7 @@ export default function OrderTab({route}: HomeTabProps) {
         pochaID={pochaID}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        scrollY={scrollY}
       />
     </View>
   );

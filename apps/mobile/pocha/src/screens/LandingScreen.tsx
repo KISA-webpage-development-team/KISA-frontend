@@ -11,11 +11,16 @@ export default function LandingScreen() {
   const navigation = useAuthNavigation();
   const {signInWithGoogle} = useUser();
 
+  const handleSignInWithGoogle = async () => {
+    const result = await signInWithGoogle();
+    // do something when result fails
+  };
+
   return (
     <SafeAreaView
       style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>Welcome to Pocha</Text>
-      <Button title="Sign in with Google" onPress={signInWithGoogle} />
+      <Button title="Sign in with Google" onPress={handleSignInWithGoogle} />
       <Button
         title="Sign Up"
         onPress={() => navigation.navigate('SignUpScreen')}
