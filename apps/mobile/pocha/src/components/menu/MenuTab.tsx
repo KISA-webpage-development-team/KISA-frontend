@@ -14,44 +14,17 @@ import {View, StyleSheet} from 'react-native';
 // ui components
 import MenuList from '@/components/menu/MenuList';
 import ViewCartButton from '@/components/menu/ViewCartButton';
-import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
-import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
-
-// hooks
-import useMenu from '@/hooks/useMenu';
-import useUserToken from '@/hooks/useUserToken';
 
 // types
 import {HomeTabProps} from '@/navigations/HomeTabNavigator';
 
 export default function MenuTab({route}: HomeTabProps) {
-  const {token, status: tokenStatus, error: tokenError} = useUserToken();
-
   const pochaID = route.params.pochaID;
-  const scrollY = route.params.scrollY;
-  const {
-    menuList,
-    status: menuFetchStatus,
-    error: menuFetchError,
-  } = useMenu(pochaID, token);
-
-  const isLoading = menuFetchStatus === 'loading' || tokenStatus === 'loading';
-
-  if (isLoading) {
-    return <LoadingSpinner label="메뉴를 가져오는 중..." />;
-  }
-
-  if (tokenError) {
-    return <ErrorDisplay state="error" message={tokenError} />;
-  }
-
-  if (menuFetchError) {
-    return <ErrorDisplay state="error" message={menuFetchError} />;
-  }
+  const scrollY = route.params.scrollY; // for fancy scroll animation
 
   return (
     <View style={styles.container}>
-      <MenuList menuList={menuList} scrollY={scrollY} />
+      <MenuList pochaID={pochaID} scrollY={scrollY} />
       <ViewCartButton pochaID={pochaID} />
     </View>
   );

@@ -22,26 +22,37 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Modal,
+  SafeAreaView,
+  StatusBar,
 } from 'react-native';
 
-import {getMenuImagePath} from '@/utils/getImagePath';
+import {getMenuImageSrc} from '@/utils/getImageSrc';
 import PochaErrorMsg from '@/components/shared/PochaErrorMsg';
 import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
 import {MenuItem} from '@/types/pocha';
+import PochaButton from '../shared/PochaButton';
+import {changeItemInCart} from '@/apis/mutations';
+import {useUser} from '@/contexts/UserContext';
+import {SimpleUser} from '@/types/user';
 
 interface MenuItemDetailProps {
   // session: UserSession | undefined;
   selectedMenu: MenuItem;
   setSelectedMenu: (selectedMenu: MenuItem | undefined) => void;
-  pochaid: number;
+  pochaID: number;
+  visible: boolean;
 }
 
 export default function MenuItemDetail({
   // session,
   selectedMenu,
   setSelectedMenu,
-  pochaid,
+  pochaID,
+  visible,
 }: MenuItemDetailProps) {
+  const {user} = useUser();
+  const loggedInUser = user as SimpleUser;
   // Loading state for add to cart button
   const [addingToCart, setAddingToCart] = useState<boolean>(false);
   // Counter Logic
@@ -70,7 +81,7 @@ export default function MenuItemDetail({
   };
 
   const handleBackButton = () => {
-    // This is to return back to original page = Show original PochaMenuList.
+    // Let the parent component handle the state changes
     setSelectedMenu(undefined);
   };
 
@@ -83,103 +94,131 @@ export default function MenuItemDetail({
       quantity: quantity,
     };
 
-    // try {
-    //   const res = await changeItemInCart(
-    //     // session?.user?.email,
-    //     pochaid,
-    //     addedMenu,
-    //   );
+    try {
+      const res = await changeItemInCart(
+        loggedInUser.email,
+        pochaID,
+        addedMenu,
+      );
 
-    //   if (!res) {
-    //     console.error('Error updating cart item quantity');
-    //     setAddingToCart(false);
-    //     return;
-    //   }
+      if (!res) {
+        throw new Error('Failed to add to cart');
+      }
 
-    //   //  1. out of stock
-    //   if (res.isStocked === false) {
-    //     setError('Out of stock');
-    //     setAddingToCart(false);
-    //     return;
-    //   }
+      //  1. out of stock
+      if (res.isStocked === false) {
+        throw new Error('Out of stock');
+      }
 
-    //   // 2. success
-    //   setAddingToCart(false);
+      // 2. success
+      setAddingToCart(false);
 
-    //   // redirect to the original page
-    //   setSelectedMenu(undefined);
-    // } catch (error) {
-    //   console.log('Error message: ', error);
-    // }
+      // return to the menu tab
+      setSelectedMenu(undefined);
+    } catch (error) {
+      setError(error as string);
+      setAddingToCart(false);
+    }
   };
+  if (!selectedMenu) {
+    return null;
+  }
 
   // TODO: replace text to icons
   return (
-    <ScrollView style={styles.container}>
-      {/* Header with Back Button */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={handleBackButton}>
-          <Text>Back</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Food Image */}
-      <Image
-        source={{uri: getMenuImagePath(selectedMenu.menuID)}}
-        style={styles.image}
-        resizeMode="cover"
-      />
-
-      {/* Menu Details */}
-      <View style={styles.card}>
-        <Text style={styles.menuNameKor}>{selectedMenu.nameKor}</Text>
-        <Text style={styles.menuNameEng}>{selectedMenu.nameEng}</Text>
-
-        <View style={styles.divider} />
-
-        {/* Price */}
-        <Text style={styles.price}>${selectedMenu.price * quantity}</Text>
-
-        {/* Quantity Selector */}
-        <View style={styles.quantityContainer}>
-          <Text style={styles.label}>수량</Text>
-          <View style={styles.quantityControls}>
+    <Modal
+      visible={visible}
+      animationType="slide"
+      presentationStyle="fullScreen"
+      onRequestClose={handleBackButton}
+      transparent={true}>
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar barStyle="dark-content" />
+        <ScrollView style={styles.container} bounces={false}>
+          {/* Header with Back Button */}
+          <View style={styles.header}>
             <TouchableOpacity
-              onPress={decrementQuantity}
-              disabled={quantity === 1}>
-              <Text>-</Text>
-            </TouchableOpacity>
-            <Text style={styles.quantity}>{quantity}</Text>
-            <TouchableOpacity onPress={incrementQuantity}>
-              <Text>+</Text>
+              onPress={handleBackButton}
+              style={styles.backButton}
+              hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
+              <Text style={styles.backButtonText}>←</Text>
             </TouchableOpacity>
           </View>
-        </View>
 
-        {/* Error Message */}
-        {error !== null && <PochaErrorMsg message={error} />}
+          {/* Food Image */}
+          <View style={styles.imageContainer}>
+            <Image
+              source={getMenuImageSrc(selectedMenu.menuID)}
+              style={styles.image}
+              resizeMode="cover"
+            />
+          </View>
 
-        {/* Add to Cart Button */}
-        <TouchableOpacity
-          style={styles.addToCartButton}
-          onPress={handleAddToCart}
-          disabled={addingToCart}>
-          {addingToCart ? (
-            <LoadingSpinner label="Adding to Cart..." />
-          ) : (
-            <Text style={styles.addToCartText}>Add to Cart</Text>
-          )}
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+          {/* Menu Details */}
+          <View style={styles.card}>
+            <Text style={styles.menuNameKor}>{selectedMenu.nameKor}</Text>
+            <Text style={styles.menuNameEng}>{selectedMenu.nameEng}</Text>
+
+            <View style={styles.divider} />
+
+            {/* Price */}
+            <Text style={styles.price}>${selectedMenu.price * quantity}</Text>
+
+            {/* Quantity Selector */}
+            <View style={styles.quantityContainer}>
+              <Text style={styles.label}>수량</Text>
+              <View style={styles.quantityControls}>
+                <TouchableOpacity
+                  onPress={decrementQuantity}
+                  disabled={quantity === 1}
+                  style={styles.quantityButton}>
+                  <Text style={styles.quantityButtonText}>-</Text>
+                </TouchableOpacity>
+                <Text style={styles.quantity}>{quantity}</Text>
+                <TouchableOpacity
+                  onPress={incrementQuantity}
+                  style={styles.quantityButton}>
+                  <Text style={styles.quantityButtonText}>+</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Error Message */}
+            {error !== null && <PochaErrorMsg message={error} />}
+
+            {/* Add to Cart Button */}
+            {/* <TouchableOpacity
+              style={styles.addToCartButton}
+              onPress={handleAddToCart}
+              disabled={addingToCart}>
+              {addingToCart ? (
+                <LoadingSpinner label="Adding to Cart..." />
+              ) : (
+                <Text style={styles.addToCartText}>Add to Cart</Text>
+              )}
+            </TouchableOpacity> */}
+            <View style={styles.addToCartButtonContainer}>
+              <PochaButton
+                label={addingToCart ? 'Adding to Cart...' : 'Add to Cart'}
+                onClick={handleAddToCart}
+                disabled={addingToCart}
+              />
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </Modal>
   );
 }
 
 // Styles
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
+  },
   container: {
     flex: 1,
-    backgroundColor: 'white',
   },
   header: {
     flexDirection: 'row',
@@ -187,8 +226,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     backgroundColor: 'white',
-    elevation: 2,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 10,
   },
+  backButton: {
+    padding: 8,
+  },
+  backButtonText: {
+    fontSize: 24,
+    color: '#000',
+  },
+  // Image
+  imageContainer: {
+    width: '100%',
+    aspectRatio: 1 / 1,
+    backgroundColor: 'red',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+  // Menu Details
   card: {
     width: '90%',
     backgroundColor: 'white',
@@ -202,21 +263,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     marginTop: -80, // Pull up to overlap image
-  },
-  image: {
-    width: '100%',
-    aspectRatio: 5 / 4,
+    borderWidth: 1,
+    borderColor: 'lightgray',
   },
   menuNameKor: {
     fontSize: 26,
-    fontWeight: 'bold',
+    fontFamily: 'Sejong-hospital-Bold',
     color: 'black',
     marginBottom: 10,
     marginTop: 10,
   },
   menuNameEng: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Sejong-hospital-Bold',
     color: 'gray',
     marginBottom: 14,
   },
@@ -224,37 +283,50 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 1,
     backgroundColor: '#D1D5DB',
-    marginTop: 12,
+    marginTop: '3%',
   },
   price: {
-    fontSize: 28,
-    fontWeight: 'bold',
+    fontSize: 24,
+    fontFamily: 'Sejong-hospital-Bold',
     marginTop: 18,
-    marginBottom: 12,
+    marginBottom: '4%',
   },
   quantityContainer: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#F3F4F6',
     padding: 12,
     borderRadius: 8,
-    marginTop: 12,
-    paddingVertical: 16,
+    marginTop: '3%',
+    paddingVertical: '5%',
   },
   label: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Sejong-hospital-Bold',
   },
   quantityControls: {
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 'auto',
-    gap: 20,
+    gap: '6%',
+  },
+  quantityButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#E5E7EB',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  quantityButtonText: {
+    fontSize: 20,
+    fontFamily: 'Sejong-hospital-Bold',
+    color: '#374151',
   },
   quantity: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'Sejong-hospital-Bold',
     textAlign: 'center',
     minWidth: 24,
   },
@@ -263,17 +335,9 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 14,
   },
-  addToCartButton: {
-    marginTop: 16,
-    backgroundColor: '#3B82F6',
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: 'center',
+
+  addToCartButtonContainer: {
     width: '100%',
-  },
-  addToCartText: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
+    marginTop: 16,
   },
 });

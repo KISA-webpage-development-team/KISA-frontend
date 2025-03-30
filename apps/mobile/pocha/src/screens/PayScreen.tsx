@@ -1,33 +1,32 @@
 import React from 'react';
-import {View, StyleSheet, ActivityIndicator, Text} from 'react-native';
-import PaySummaryCard from '@/components/pay/PaySummaryCard';
-import PayButton from '@/components/pay/PayButton';
-import {useMainNavigation} from '@/navigations/useMainNavigation';
-import PaymentSubmitForm from '@/components/pay/PaymentSubmitForm';
-import {StripeProvider} from '@stripe/stripe-react-native';
+import {View, StyleSheet} from 'react-native';
 import StripeProviderWrapper from '@/shared/lib/stripe/stripeClient';
-import {SimpleUser} from '@/types/user';
 
+// ui components
+import PaymentSubmitForm from '@/components/pay/PaymentSubmitForm';
+import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
+import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
+import PaySummaryCard from '@/components/pay/PaySummaryCard';
 // hooks
 import {useUser} from '@/contexts/UserContext';
-import usePochaID from '@/hooks/usePochaID';
 import usePayInfo from '@/hooks/usePayInfo';
 import useUserAge from '@/hooks/useUserAge';
 import useUserToken from '@/hooks/useUserToken';
 
-export default function PayScreen() {
-  const navigation = useMainNavigation();
+// types
+import {SimpleUser} from '@/types/user';
 
+type PochaScreenProps = {
+  route: {params: {pochaID: number}};
+};
+
+export default function PayScreen({route}: PochaScreenProps) {
   // Get logged in user
   const {user} = useUser();
   const loggedInUser = user as SimpleUser;
   const {token, status: tokenStatus, error: tokenError} = useUserToken();
-
-  if (!token) {
-    return null;
-  }
-
-  const {pochaID, status: pochaIDStatus, error: pochaIDError} = usePochaID();
+  const pochaID = route.params.pochaID;
+  // const {pochaID, status: pochaIDStatus, error: pochaIDError} = usePochaID();
 
   const {
     amount,
@@ -38,7 +37,6 @@ export default function PayScreen() {
     error: payInfoError,
   } = usePayInfo(loggedInUser.email, pochaID);
 
-  // TODO: check underage
   const {
     underAge,
     status: userAgeStatus,
@@ -46,33 +44,36 @@ export default function PayScreen() {
     error: userAgeError,
   } = useUserAge(loggedInUser.email, token);
 
-  const isLoading = pochaIDStatus === 'loading' || payInfoStatus === 'loading';
-  // userAgeStatus === 'loading';
+  const isLoading = payInfoStatus === 'loading' || userAgeStatus === 'loading';
 
-  const isError = pochaIDError || payInfoError || !totalPrice;
+  const isError = payInfoError || !totalPrice;
+
+  // wait until it gets the token
+  if (tokenStatus === 'loading') {
+    return <LoadingSpinner fullScreen={true} />;
+  }
+
+  // if the token is being retrieved after wait, return tokenError.
+  if (tokenError) {
+    return <ErrorDisplay fullScreen state="error" message={tokenError} />;
+  }
 
   if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+    <LoadingSpinner fullScreen={false} label="결제 화면으로 진행 중..." />;
   }
 
   if (isError) {
-    return (
-      <View style={styles.container}>
-        <Text>Error</Text>
-      </View>
-    );
+    <ErrorDisplay fullScreen state="error" message="결제를 실패하였습니다." />;
   }
 
   if (!amount || !fee || !totalPrice || !pochaID) {
     return <></>;
   }
+
   return (
     <StripeProviderWrapper>
       <View style={styles.container}>
+        <PaySummaryCard amount={amount} fee={fee} totalPrice={totalPrice} />
         <PaymentSubmitForm
           amount={amount}
           fee={fee}
@@ -80,7 +81,7 @@ export default function PayScreen() {
           pochaID={pochaID}
           ageCheckRequired={ageCheckRequired}
           userEmail={loggedInUser.email}
-          underAge={false}
+          underAge={underAge}
           fullname={loggedInUser.fullname}
         />
       </View>
@@ -91,17 +92,5 @@ export default function PayScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 16,
   },
 });
-
-const members = [
-  '임수빈,',
-  'Gayson Gay Park',
-  '강수민',
-  '나윤성!!',
-  '함리아',
-  '인지오?',
-  '한준희?',
-];

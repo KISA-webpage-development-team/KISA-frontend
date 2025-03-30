@@ -15,7 +15,7 @@
 import React from 'react';
 import {Image, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {MenuItem} from '../../types/pocha';
-
+import {getMenuImageSrc} from '@/utils/getImageSrc';
 interface MenuItemCardProps {
   menu: MenuItem;
   underAge: boolean;
@@ -53,11 +53,7 @@ export default function MenuListItem({
         onPress={handleMenuClick}
         disabled={notForUnderAge || stock === 0}>
         <View style={styles.imageWrapper}>
-          <Image
-            // src={getMenuImagePath(menuID)}
-            source={{uri: 'https://via.placeholder.com/64'}} // Replace with real image URL later
-            style={styles.image}
-          />
+          <Image source={getMenuImageSrc(menuID)} style={styles.image} />
         </View>
 
         <View style={styles.textContainer}>

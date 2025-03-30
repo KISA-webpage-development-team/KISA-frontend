@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {CartItem} from '@/types/pocha';
-
+import {getMenuImageSrc} from '@/utils/getImageSrc';
 type CartListItemProps = {
   item: CartItem;
   menuid: number;
@@ -13,10 +13,6 @@ export default function CartListItem({
   menuid,
   handleQuantityChange,
 }: CartListItemProps) {
-  // const getImagePath = (menuID: number) => {
-  //   return require(`@/assets/images/${menuID}.png`);
-  // };
-
   const incrementQuantity = () => {
     handleQuantityChange(menuid, 1);
   };
@@ -38,7 +34,7 @@ export default function CartListItem({
   return (
     <View style={styles.itemContainer}>
       {/* Image */}
-      {/* <Image source={getImagePath(menuid)} style={styles.image} /> */}
+      <Image source={getMenuImageSrc(menuid)} style={styles.image} />
 
       {/* Name & Price */}
       <View style={styles.textContainer}>

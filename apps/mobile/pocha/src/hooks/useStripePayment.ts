@@ -1,10 +1,15 @@
 // hooks/useStripePayment.ts
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useStripe} from '@stripe/stripe-react-native';
 import {checkCartStock, notifyPayResult} from '@/apis/mutations.ts';
 import {useMainNavigation} from '@/navigations/useMainNavigation';
 import {Alert} from 'react-native';
-import {create_customer, create_paymentIntent} from '@/apis/stripe';
+import {
+  create_customer,
+  create_ephemeral_key,
+  create_paymentIntent,
+} from '@/apis/stripe';
+
 const useStripePayment = (
   pochaID: number,
   totalPrice: number,
@@ -15,9 +20,13 @@ const useStripePayment = (
 ) => {
   const {confirmPayment} = useStripe();
   const navigation = useMainNavigation();
-
+  const {initPaymentSheet, presentPaymentSheet} = useStripe();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  useEffect(() => {
+    initializePaymentSheet();
+  }, []);
 
   /** Step 1: Check User Age */
   const checkUserUnderAge = () => {
@@ -38,74 +47,35 @@ const useStripePayment = (
     }
   };
 
-  /** Step 3: Process Payment */
-  const processPayment = async () => {
-    try {
-      // Step 3.1: Create or verify customer
-      const customerResponse = create_customer(userEmail, fullname);
+  const initializePaymentSheet = async () => {
+    // Create customer
+    const customer = await create_customer(userEmail, fullname);
+    if (!customer?.id) throw new Error('고객 생성에 실패했습니다.');
 
-      const {customerID} = await customerResponse;
-      if (!customerID) throw new Error('고객 생성에 실패했습니다.');
+    // Create ephemeral key
+    const ephemeralKey = await create_ephemeral_key(customer.id);
+    if (!ephemeralKey?.secret)
+      throw new Error('Ephemeral key 생성에 실패했습니다.');
 
-      // Step 3.2: Create a PaymentIntent including the customer ID
-      const createPaymentIntentResponse = create_paymentIntent(
-        totalPrice * 100,
-        customerID,
-      );
-      const {clientSecret} = await createPaymentIntentResponse;
-      if (!clientSecret) throw new Error('PaymentIntent 생성에 실패했습니다.');
+    // Create payment intent
+    const paymentIntent = await create_paymentIntent(totalPrice, customer.id);
+    if (!paymentIntent?.client_secret)
+      throw new Error('PaymentIntent 생성에 실패했습니다.');
 
-      // Step 3.3: Confirm the payment using Stripe's native confirmPayment call.
-      // This call uses the card details entered via the CardField component.
-      const {error, paymentIntent} = await confirmPayment(clientSecret, {
-        paymentMethodType: 'Card',
-        paymentMethodData: {
-          billingDetails: {
-            email: userEmail,
-            name: fullname,
-          },
-        },
-      });
+    // Initialize PaymentSheet
+    const {error} = await initPaymentSheet({
+      merchantDisplayName: 'UMich KISA',
+      customerId: customer.id,
+      customerEphemeralKeySecret: ephemeralKey.secret,
+      paymentIntentClientSecret: paymentIntent.client_secret,
+      allowsDelayedPaymentMethods: true,
+      defaultBillingDetails: {
+        name: fullname,
+      },
+    });
 
-      if (error) {
-        console.error('Error while confirming payment:', error);
-        setErrorMessage(error.message);
-        throw new Error(error.message);
-      }
-
-      // Step 3.4: Notify your backend of the successful payment
-      const res = await notifyPayResult(userEmail, pochaID, {
-        result: 'success',
-      });
-      if (!res) {
-        throw new Error('Error while updating cart status');
-      }
-
-      // (Optional) Save payment-related data locally.
-      // For React Native, you can use AsyncStorage if needed.
-      // await AsyncStorage.setItem("paymentMethodId", paymentIntent.payment_method as string);
-      // await AsyncStorage.setItem("customerName", fullname);
-      // await AsyncStorage.setItem("customerEmail", userEmail);
-      // await AsyncStorage.setItem("customerID", customerID);
-
-      Alert.alert('결제가 완료되었습니다.');
-      // Navigate to the success screen.
-      navigation.navigate('PaySuccessScreen');
-    } catch (err) {
-      const error = err as Error;
-      Alert.alert(
-        '결제 오류가 발생했습니다. 카드 정보를 확인해주세요',
-        error.message ?? '결제 실패',
-      );
-      setErrorMessage(error.message ?? '결제 실패');
-
-      // Notify your backend of the failure.
-      const res = await notifyPayResult(userEmail, pochaID, {
-        result: 'failure',
-      });
-      if (!res) {
-        throw new Error('Error while updating cart status');
-      }
+    if (error) {
+      throw new Error(`PaymentSheet 초기화 오류: ${error.message}`);
     }
   };
 
@@ -117,12 +87,28 @@ const useStripePayment = (
       // We assume that if the CardField is rendered, the user has entered valid info.
       checkUserUnderAge();
       await checkCartInventory();
-      await processPayment(); // -> openPaymentSheet
+      // await initializePaymentSheet(); // -> openPaymentSheet
       // + notifyPayResult
+      const {error} = await presentPaymentSheet();
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      // Step 4: Notify backend of success
+      const res = await notifyPayResult(userEmail, pochaID, {
+        result: 'success',
+      });
+      if (!res) {
+        throw new Error('Error while updating cart status');
+      }
+
+      // Navigate to success screen
+      navigation.navigate('PaySuccessScreen');
     } catch (err) {
       const error = err as Error;
-      Alert.alert('Payment failed: ', error.message ?? '결제 실패');
+      Alert.alert(error.message ?? '결제 실패');
       setErrorMessage(error.message ?? '결제 실패');
+      await notifyPayResult(userEmail, pochaID, {result: 'failure'});
     } finally {
       setLoading(false);
     }

@@ -4,14 +4,14 @@ import PochaButton from '../shared/PochaButton';
 import {useMainNavigation} from '@/navigations/useMainNavigation';
 
 type PaymentProps = {
-  pochaid: number;
+  pochaID: number;
 };
 
-export default function ProceedToPaymentButton({pochaid}: PaymentProps) {
+export default function ProceedToPaymentButton({pochaID}: PaymentProps) {
   const navigation = useMainNavigation();
 
   const handlePaymentClick = () => {
-    navigation.navigate('PayScreen', {pochaid});
+    navigation.navigate('PayScreen', {pochaID});
   };
 
   return (

@@ -107,13 +107,13 @@ const styles = StyleSheet.create({
     fontSize: 18, // text-lg
     color: '#000',
     marginBottom: 8,
-    fontWeight: 'bold',
+    fontFamily: 'sejong-hospital-bold',
   },
   orderItemId: {
     fontSize: 32, // text-4xl
     color: '#000',
     marginBottom: 8,
-    fontWeight: 'bold',
+    fontFamily: 'sejong-hospital-bold',
   },
   pickupText: {
     fontSize: 18, // text-lg

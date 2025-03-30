@@ -28,7 +28,7 @@ export default function LoadingSpinner({
       <SafeAreaView style={styles.fullScreenContainer}>
         <ActivityIndicator size="large" color={michiganLightBlue} />
         {label ? (
-          <Text style={[styles.fullScreenLabel, {color: michiganDarkMaize}]}>
+          <Text style={[styles.fullScreenLabel, {color: michiganBlue}]}>
             {label}
           </Text>
         ) : null}
@@ -40,9 +40,7 @@ export default function LoadingSpinner({
     <View style={styles.inlineContainer}>
       <ActivityIndicator size="small" color={michiganLightBlue} />
       {label ? (
-        <Text style={[styles.inlineLabel, {color: michiganDarkMaize}]}>
-          {label}
-        </Text>
+        <Text style={[styles.inlineLabel, {color: michiganBlue}]}>{label}</Text>
       ) : null}
     </View>
   );
@@ -62,7 +60,7 @@ const styles = StyleSheet.create({
   },
   fullScreenLabel: {
     marginTop: 16,
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: 'Sejong-hospital-Bold',
   },
   inlineContainer: {
@@ -72,7 +70,7 @@ const styles = StyleSheet.create({
   },
   inlineLabel: {
     marginTop: 16,
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: 'Sejong-hospital-Bold',
   },
 });

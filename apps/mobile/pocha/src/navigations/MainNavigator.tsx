@@ -10,7 +10,13 @@ import CartScreen from '@/screens/CartScreen';
 import PayScreen from '@/screens/PayScreen';
 import PaySuccessScreen from '@/screens/PaySuccessScreen';
 
-const Stack = createNativeStackNavigator();
+// types
+import {MainStackParam} from '@/navigations/useMainNavigation';
+
+// ui components
+import BackIcon from '@/shared/components/icon/BackIcon';
+
+const Stack = createNativeStackNavigator<MainStackParam>();
 
 const HeaderBackButton = () => {
   const navigation = useMainNavigation();
@@ -20,7 +26,7 @@ const HeaderBackButton = () => {
 
   return (
     <TouchableOpacity onPress={handleGoBack}>
-      <Text>Back</Text>
+      <BackIcon />
     </TouchableOpacity>
   );
 };
@@ -32,6 +38,9 @@ export default function MainNavigator() {
       screenOptions={{
         // [TODO] more header custom styling
         // Custom back button
+        headerTitleStyle: {
+          fontFamily: 'Sejong-hospital-Bold',
+        },
         headerLeft: () => <HeaderBackButton />,
       }}>
       <Stack.Screen

@@ -54,18 +54,23 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 16,
+    fontFamily: 'sejong-hospital-light',
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 8,
+    fontFamily: 'sejong-hospital-light',
   },
+
   label: {
     fontSize: 16,
     color: 'black',
+    fontFamily: 'sejong-hospital-light',
   },
   value: {
     fontSize: 16,
+    fontFamily: 'sejong-hospital-light',
   },
   divider: {
     height: 2,
@@ -79,5 +84,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'gray',
     marginTop: 8,
+    fontFamily: 'sejong-Hospital-Bold',
   },
 });

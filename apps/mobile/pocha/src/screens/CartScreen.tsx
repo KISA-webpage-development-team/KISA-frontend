@@ -1,13 +1,14 @@
 'use client';
 
 import React from 'react';
-
+import {useUser} from '@/contexts/UserContext';
 // UI
 import EmptyCartAlert from '@/components/cart/EmptyCartAlert';
 import CartList from '@/components/cart/CartList';
 import CartTotalSummary from '@/components/cart/CartTotalSummary';
 import ProceedToPaymentButton from '@/components/cart/ProceedToPaymentButton';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
 
 // hooks
 import {useState} from 'react';
@@ -15,8 +16,7 @@ import {useState} from 'react';
 // types
 import {Cart} from '@/types/pocha';
 import {MainStackParam} from '@/navigations/useMainNavigation';
-// import usePochaID from '@/hooks/usePochaID';
-// import useCart from '@/hooks/useCart';
+import useCart from '@/hooks/useCart';
 
 // [NOTE] this is how to use TS with navigation props
 type CartScreenProps = {
@@ -24,81 +24,42 @@ type CartScreenProps = {
 };
 
 export default function CartScreen({route}: CartScreenProps) {
+  const {user} = useUser();
+
   // pochaID is passed from the menu tab
   const pochaID = route.params.pochaID;
 
-  const fakeCart = {
-    3: {
-      menu: {
-        menuID: 3,
-        nameKor: '치킨',
-        nameEng: 'Chicken',
-        price: 30.0,
-        stock: 300,
-        isImmediatePrep: false,
-        parentPochaId: 1,
-        ageCheckRequired: false,
-      },
-      quantity: 1,
-    },
-    1: {
-      menu: {
-        menuID: 1,
-        nameKor: '맥주',
-        nameEng: 'Beer',
-        price: 15.0,
-        stock: 100,
-        isImmediatePrep: false,
-        parentPochaId: 1,
-        ageCheckRequired: true,
-      },
-      quantity: 2,
-    },
-    2: {
-      menu: {
-        menuID: 2,
-        nameKor: '소주',
-        nameEng: 'Soju',
-        price: 10.0,
-        stock: 200,
-        isImmediatePrep: true,
-        parentPochaId: 1,
-        ageCheckRequired: true,
-      },
-      quantity: 3,
-    },
-  };
-  const [fakeStateCart, setCart] = useState<Cart>(fakeCart as unknown as Cart);
+  if (!user) {
+    return null;
+  }
 
-  // const { data: session, status: sessionStatus } = useSession() as {
-  //   data: UserSession | undefined;
-  //   status: string;
-  // };
+  const {
+    cart,
+    status: cartStatus,
+    error: cartError,
+    totalAmount,
+    handleQuantityChange,
+  } = useCart(user.email, pochaID);
 
-  // // get pochaID from URL or API to use in cart
-  // const { pochaID, status: pochaIDStatus, error: pochaIDError } = usePochaID();
-  const fakePochaID = 3;
-
-  const fakeHandleQuantityChange = (menuid: number, newQuantity: number) => {};
+  if (cartStatus === 'loading') {
+    return <LoadingSpinner />;
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.divider} />
-      {Object.keys(fakeCart).length === 0 ? (
+      {Object.keys(cart ?? {}).length === 0 ? (
         <EmptyCartAlert />
       ) : (
         <>
           <View style={styles.cartListContainer}>
-            <CartList
-              cart={fakeCart}
-              fakeHandleQuantityChange={fakeHandleQuantityChange}
-            />
+            <CartList cart={cart} handleQuantityChange={handleQuantityChange} />
           </View>
           <View style={styles.stickyFooter}>
             <View style={styles.divider}></View>
             <View style={styles.infoView}>
-              <CartTotalSummary totalAmount={10} />
-              <ProceedToPaymentButton pochaid={fakePochaID} />
+              <CartTotalSummary totalAmount={totalAmount} />
+              <ProceedToPaymentButton pochaID={pochaID} />
             </View>
           </View>
         </>

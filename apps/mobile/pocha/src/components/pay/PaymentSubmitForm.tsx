@@ -118,121 +118,116 @@ export default function PaymentSubmitForm({
   //   borderRadius: 8,
   // };
 
-  const {initPaymentSheet, presentPaymentSheet} = useStripe();
-  const [loading, setLoading] = useState(false);
+  // const {initPaymentSheet, presentPaymentSheet} = useStripe();
+  // const [loading, setLoading] = useState(false);
 
-  const fetchPaymentSheetParams = async () => {
-    // Step 1: Create a customer
-    let customer;
-    try {
-      const response = await create_customer(
-        // totalPrice,
-        userEmail,
-        fullname,
-      );
-      console.log('CREATE CUSTOMER: ', response);
-      customer = response;
-    } catch (error) {
-      console.log(error);
-    }
+  // const fetchPaymentSheetParams = async () => {
+  //   // Step 1: Create a customer
+  //   let customer;
+  //   try {
+  //     const response = await create_customer(
+  //       // totalPrice,
+  //       userEmail,
+  //       fullname,
+  //     );
+  //     console.log('CREATE CUSTOMER: ', response);
+  //     customer = response;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
 
-    // Step 2. Create an ephemeral key
-    let ephemeralKey;
-    try {
-      const response = await create_ephemeral_key(customer.id);
-      console.log('CREATE EPHEMERAL KEY: ', response);
-      ephemeralKey = response;
-    } catch (error) {
-      console.log(error);
-    }
-    // Step 3: Create a payment intent
-    let paymentIntent;
-    try {
-      const response = await create_paymentIntent(totalPrice, customer.id);
-      console.log('CREATE PAYMENT INTENT: ', response);
-      paymentIntent = response;
-    } catch (error) {
-      console.log(error);
-    }
-    console.log('paymentIntent: ', paymentIntent);
-    console.log('ephemeralKey: ', ephemeralKey);
-    console.log('customer: ', customer);
-    return {
-      paymentIntent,
-      ephemeralKey,
-      customerId: customer.id,
-    };
-  };
+  //   // Step 2. Create an ephemeral key
+  //   let ephemeralKey;
+  //   try {
+  //     const response = await create_ephemeral_key(customer.id);
+  //     console.log('CREATE EPHEMERAL KEY: ', response);
+  //     ephemeralKey = response;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   // Step 3: Create a payment intent
+  //   let paymentIntent;
+  //   try {
+  //     const response = await create_paymentIntent(totalPrice, customer.id);
+  //     console.log('CREATE PAYMENT INTENT: ', response);
+  //     paymentIntent = response;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   console.log('paymentIntent: ', paymentIntent);
+  //   console.log('ephemeralKey: ', ephemeralKey);
+  //   console.log('customer: ', customer);
+  //   return {
+  //     paymentIntent,
+  //     ephemeralKey,
+  //     customerId: customer.id,
+  //   };
+  // };
 
-  const initializePaymentSheet = async () => {
-    const {paymentIntent, ephemeralKey, customerId} =
-      await fetchPaymentSheetParams();
+  // const initializePaymentSheet = async () => {
+  //   const {paymentIntent, ephemeralKey, customerId} =
+  //     await fetchPaymentSheetParams();
 
-    const {error} = await initPaymentSheet({
-      merchantDisplayName: 'UMich KISA',
-      // @ts-ignore
-      customerId: customerId,
-      // @ts-ignore
-      customerEphemeralKeySecret: ephemeralKey.secret,
-      // @ts-ignore
-      paymentIntentClientSecret: paymentIntent.client_secret,
-      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
-      //methods that complete payment after a delay, like SEPA Debit and Sofort.
-      allowsDelayedPaymentMethods: true,
-      defaultBillingDetails: {
-        name: fullname,
-      },
-    });
+  //   const {error} = await initPaymentSheet({
+  //     merchantDisplayName: 'UMich KISA',
+  //     // @ts-ignore
+  //     customerId: customerId,
+  //     // @ts-ignore
+  //     customerEphemeralKeySecret: ephemeralKey.secret,
+  //     // @ts-ignore
+  //     paymentIntentClientSecret: paymentIntent.client_secret,
+  //     // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
+  //     //methods that complete payment after a delay, like SEPA Debit and Sofort.
+  //     allowsDelayedPaymentMethods: true,
+  //     defaultBillingDetails: {
+  //       name: fullname,
+  //     },
+  //   });
 
-    console.log('initializePaymentSheet error: ', error);
-    if (!error) {
-      setLoading(true);
-    }
-  };
+  //   console.log('initializePaymentSheet error: ', error);
+  //   if (!error) {
+  //     setLoading(true);
+  //   }
+  // };
 
-  const openPaymentSheet = async () => {
-    const {error} = await presentPaymentSheet();
+  // const openPaymentSheet = async () => {
+  //   const {error} = await presentPaymentSheet();
 
-    if (error) {
-      Alert.alert(`Error code: ${error.code}`, error.message);
-    } else {
-      Alert.alert('Success', 'Your order is confirmed!');
-    }
-  };
-  // if (!stripe) {
-  //   return (
-  //     <LoadingSpinner fullScreen={false} label="결제 정보를 가져오는 중..." />
-  //   );
-  // }
-  useEffect(() => {
-    console.log('initializePaymentSheet');
-    initializePaymentSheet();
-  }, []);
+  //   if (error) {
+  //     Alert.alert(`Error code: ${error.code}`, error.message);
+  //   } else {
+  //     Alert.alert('Success', 'Your order is confirmed!');
+  //   }
+  // };
+  // // if (!stripe) {
+  // //   return (
+  // //     <LoadingSpinner fullScreen={false} label="결제 정보를 가져오는 중..." />
+  // //   );
+  // // }
+  // useEffect(() => {
+  //   console.log('initializePaymentSheet');
+  //   initializePaymentSheet();
+  // }, []);
+
+  const {handlePaymentSubmit, loading, errorMessage} = useStripePayment(
+    pochaID,
+    totalPrice,
+    userEmail,
+    fullname,
+    underAge,
+    ageCheckRequired,
+  );
 
   return (
     <View style={styles.container}>
-      {/* CardField is the React Native equivalent of a card input field */}
-      {/* <CardField
-        postalCodeEnabled={false}
-        placeholders={{
-          number: '4242 4242 4242 4242',
-        }}
-        cardStyle={cardFieldStyles}
-        style={styles.cardContainer}
-        //onCardChange={cardDetails => { }}
-      /> */}
-      {/* )} */}
-      {/*?*/}
       {/* Total Price + Transaction fee display */}
-      <PaySummaryCard amount={amount} fee={fee} totalPrice={totalPrice} />
-
       {/* {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>} */}
 
       {/* Submit button (sticky on the bottom) */}
       <PayButton
         // loading={paymentLoading}
         totalPrice={totalPrice}
-        onPress={openPaymentSheet}
+        onPress={handlePaymentSubmit}
       />
     </View>
   );
@@ -241,8 +236,6 @@ export default function PaymentSubmitForm({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 16,
   },
   cardContainer: {
     height: 50,

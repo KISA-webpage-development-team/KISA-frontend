@@ -78,13 +78,13 @@ export default function HomeTabBar({
             style={[
               tabBarStyles.tabItem,
               isFocused && tabBarStyles.activeTabItem,
-            ]}
-          >
-            <Animated.Text style={[
-              tabBarStyles.tabLabel,
-              { opacity },
-              isFocused && tabBarStyles.activeTabLabel,
             ]}>
+            <Animated.Text
+              style={[
+                tabBarStyles.tabLabel,
+                {opacity},
+                isFocused && tabBarStyles.activeTabLabel,
+              ]}>
               {label}
             </Animated.Text>
           </TouchableOpacity>
@@ -102,23 +102,22 @@ const tabBarStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10,
-    paddingVertical: 12,
+    paddingVertical: 10,
     borderBottomWidth: 3,
     borderBottomColor: 'darkgrey',
   },
   activeTabItem: {
     borderBottomWidth: 3,
-    borderBottomColor: 'black',
+    borderBottomColor: '#00274C',
   },
   tabLabel: {
-    fontSize: 18,
+    fontSize: 16,
     color: 'darkgrey',
-    fontWeight: 'bold',
+    fontFamily: 'sejong-hospital-Bold',
   },
   activeTabLabel: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#00274C',
-    fontWeight: 'bold',
+    fontFamily: 'sejong-hospital-Bold',
   },
 });

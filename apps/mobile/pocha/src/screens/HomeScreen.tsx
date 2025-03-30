@@ -14,10 +14,16 @@ import HomeTabNavigator from '@/navigations/HomeTabNavigator';
 // hooks
 import usePocha from '../hooks/usePocha';
 
-export default function HomeScreen() {
+interface HomeScreenProps {
+  route: {params: {currentTab: 'MenuTab' | 'OrderTab'}};
+}
+
+export default function HomeScreen({route}: HomeScreenProps) {
   const {pochaInfo, status, error} = usePocha();
 
   const scrollY = useRef(new Animated.Value(0)).current;
+
+  const currentTab = route?.params?.currentTab || 'MenuTab';
 
   const headerHeight = scrollY.interpolate({
     inputRange: [0, 100],
@@ -47,6 +53,7 @@ export default function HomeScreen() {
       <HomeTabNavigator
         pochaID={pochaInfo?.pochaID as number}
         scrollY={scrollY}
+        currentTab={currentTab}
       />
     </SafeAreaView>
   );
@@ -55,5 +62,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    gap: '1%',
   },
 });

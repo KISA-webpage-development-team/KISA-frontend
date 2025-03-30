@@ -13,6 +13,7 @@ import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import PochaOrderItem from './PochaOrderItem';
 import {OrderStatus, OrderItem} from '@/types/pocha';
 import {UserCredentials} from 'react-native-keychain';
+import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
 
 // interface OrderListProps {
 //   pochaID: number;
@@ -142,11 +143,6 @@ export default function OrderList({
 
   // UI Rendering ----------------------------------------------
   // if (sessionStatus === "loading" || ordersStatus === "loading") {
-  if (ordersStatus === 'loading') {
-    return (
-      <LoadingSpinner fullScreen={false} label="주문 목록 가져오는중..." />
-    );
-  }
 
   let ordersToRender: OrderItem[] = [];
   if (activeTab === 'all') {
@@ -163,6 +159,23 @@ export default function OrderList({
   } else if (activeTab === 'ready') {
     ordersToRender = readyOrders;
   }
+
+  if (ordersStatus === 'loading') {
+    return (
+      <LoadingSpinner fullScreen={false} label="주문 목록 가져오는중..." />
+    );
+  }
+
+  if (ordersStatus === 'error') {
+    return (
+      <ErrorDisplay
+        fullScreen
+        state="error"
+        message={'주문 목록 가져오는데 실패했습니다.'}
+      />
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.tabBar}>

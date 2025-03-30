@@ -22,7 +22,7 @@ const calculateAge = (birthday: string): number => {
 /**
  * @desc Hook to fetch and calculate user's age using SWR
  */
-const useUserAge = (email: string, token: string) => {
+const useUserAge = (email: string, token: string | null) => {
   const [status, setStatus] = useState<HookStatus>('loading');
   const [underAge, setUnderAge] = useState<boolean>(false);
   const [fullname, setFullname] = useState<string>('');
@@ -31,10 +31,14 @@ const useUserAge = (email: string, token: string) => {
   useEffect(() => {
     const fetchUserAge = async () => {
       try {
-        const res = await getUser(email, token);
+        const res = await getUser(email, token as string);
 
         if (!res) {
           throw new Error('User not found');
+        }
+
+        if (!email || !token) {
+          throw new Error('Email or token not found');
         }
 
         const {bornDate, bornMonth, bornYear} = res;
@@ -57,7 +61,9 @@ const useUserAge = (email: string, token: string) => {
       }
     };
 
-    fetchUserAge();
+    if (token) {
+      fetchUserAge();
+    }
   }, [email, token]);
 
   return {

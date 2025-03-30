@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import {getMenuImagePath} from '@/utils/getImagePath';
+import {getMenuImageSrc} from '@/utils/getImageSrc';
 import OrderTicketModal from './OrderTicketModal';
 //import OrderTicketModal from './OrderTicketModal';
 import {STATUS_COLORS, STATUS_TEXT_COLORS} from '@/utils/statusToColor';
 import {OrderStatus, MenuItem, OrderItem} from '@/types/pocha';
-
+import TicketIcon from '@/shared/components/icon/TicketIcon';
 interface PochaOrderItemProps {
   orderItem: OrderItem;
   setSelectedOrder?: (orderItem: OrderItem) => void;
@@ -86,7 +86,8 @@ export default function PochaOrderItem({orderItem}: PochaOrderItemProps) {
                 onPress={handleViewTicket}
                 style={styles.viewTicketButton}>
                 {/*should add a ticket icon here later */}
-                <Text style={styles.ticketIcon}>t</Text>
+                {/* <Text style={styles.ticketIcon}>t</Text> */}
+                <TicketIcon />
                 <Text
                   style={[
                     styles.statusText,
@@ -230,6 +231,7 @@ const styles = StyleSheet.create({
     width: 128,
     height: 32, // ~2rem
     marginTop: 8,
+    gap: 4,
   },
   ticketIcon: {
     marginRight: 8,

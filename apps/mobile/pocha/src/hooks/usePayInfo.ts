@@ -14,6 +14,8 @@ const usePayInfo = (email: string, pochaID: number | undefined) => {
   );
   const [error, setError] = useState<string | null>(null);
 
+  console.log('usePAYINFO: ', pochaID);
+
   useEffect(() => {
     const fetchPayInfo = async () => {
       try {

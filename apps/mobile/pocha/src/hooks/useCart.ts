@@ -10,12 +10,15 @@ import {Cart} from '@/types/pocha';
 import {debounce} from 'lodash';
 import {HookStatus} from './types';
 
-const cartToTotalAmount = (cart: Cart) => {
+const cartToTotalAmount = (cart: Cart | undefined) => {
   if (!cart) return 0;
 
-  return Array.from(Object.values(cart))
-    .reduce((total, item) => total + item.menu.price * item.quantity, 0)
-    .toFixed(2);
+  const total = Array.from(Object.values(cart)).reduce(
+    (total, item) => total + item.menu.price * item.quantity,
+    0,
+  );
+
+  return parseFloat(total.toFixed(2));
 };
 
 const useCart = (email: string, pochaID: number) => {
@@ -29,6 +32,7 @@ const useCart = (email: string, pochaID: number) => {
     setStatus('loading');
     try {
       const fetchedCart = await getUserCart(email, pochaID);
+
       setCart(fetchedCart);
       setTotalAmount(cartToTotalAmount(fetchedCart));
       setStatus('success');
@@ -48,10 +52,14 @@ const useCart = (email: string, pochaID: number) => {
   // update item's quantity in UI (optimistic UI)
   const updateQuantityUI = (menuid: number, newQuantity: number) => {
     setCart(prevCart => {
+      if (!prevCart) return prevCart;
+
       const updatedCart = {
         ...prevCart,
         [menuid]: {
+          // @ts-ignore
           ...prevCart[menuid],
+          // @ts-ignore
           quantity: prevCart[menuid].quantity + newQuantity,
         },
       };

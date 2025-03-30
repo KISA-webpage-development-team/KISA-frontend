@@ -32,6 +32,14 @@ import MenuListItem from './MenuListItem';
 import MenuItemDetail from './MenuItemDetail';
 import ViewCartButton from './ViewCartButton';
 import {MenuByCategory, MenuItem} from '@/types/pocha';
+import useUserToken from '@/hooks/useUserToken';
+import useUserAge from '@/hooks/useUserAge';
+import {useUser} from '@/contexts/UserContext';
+import {SimpleUser} from '@/types/user';
+import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
+import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
+import useMenu from '@/hooks/useMenu';
+import HorizontalDivider from '@/shared/components/divider/HorizontalDivider';
 
 //   // fetch menu and user age (for under age check)
 //   // [NOTE] useMenu and useUserAge uses SWR for better UX
@@ -52,27 +60,72 @@ import {MenuByCategory, MenuItem} from '@/types/pocha';
 //   }
 
 interface MenuListProps {
-  menuList: MenuByCategory[];
+  pochaID: number;
   scrollY: Animated.Value;
 }
 
-export default function MenuList({menuList, scrollY}: MenuListProps) {
+export default function MenuList({pochaID, scrollY}: MenuListProps) {
+  // get user from firebase context
+  const {user} = useUser();
+  const loggedInUser = user as SimpleUser;
+
   const [selectedMenu, setSelectedMenu] = useState<MenuItem | undefined>(
     undefined,
   );
-  const underAge = true; // Mocked (set to false if needed)
+  const [isDetailVisible, setIsDetailVisible] = useState(false);
+
+  // get token from keychain
+  const {token, status: tokenStatus, error: tokenError} = useUserToken();
+
+  // get user age from backend
+  const {
+    underAge,
+    status: userAgeStatus,
+    error: userAgeError,
+  } = useUserAge(loggedInUser.email, token);
+
+  // get menu from backend
+  const {
+    menuList,
+    status: menuStatus,
+    error: menuError,
+  } = useMenu(pochaID, token);
+
+  const isLoading =
+    tokenStatus === 'loading' ||
+    userAgeStatus === 'loading' ||
+    menuStatus === 'loading';
+
+  if (isLoading) {
+    return <LoadingSpinner fullScreen={false} label="메뉴를 가져오는 중..." />;
+  }
+
+  if (tokenError) {
+    return <ErrorDisplay fullScreen state="error" message={tokenError} />;
+  }
+
+  if (userAgeError) {
+    return <ErrorDisplay fullScreen state="error" message={userAgeError} />;
+  }
+
+  if (menuError) {
+    return <ErrorDisplay fullScreen state="error" message={menuError} />;
+  }
 
   // IF menu is selected, show the menu detail
-  if (selectedMenu) {
-    return (
-      <MenuItemDetail
-        // session={session}
-        selectedMenu={selectedMenu}
-        setSelectedMenu={setSelectedMenu}
-        pochaid={123} // temporary for now
-      />
-    );
-  }
+  const handleMenuSelect = (menu: MenuItem) => {
+    setSelectedMenu(menu);
+    setIsDetailVisible(true);
+  };
+
+  const handleCloseDetail = () => {
+    // First hide the modal
+    setIsDetailVisible(false);
+    // Then clear the selected menu after animation completes
+    setTimeout(() => {
+      setSelectedMenu(undefined);
+    }, 300); // Match this with the slide animation duration
+  };
 
   return (
     <View style={styles.container}>
@@ -94,13 +147,19 @@ export default function MenuList({menuList, scrollY}: MenuListProps) {
                 <MenuListItem
                   menu={menu}
                   underAge={underAge}
-                  setSelectedMenu={setSelectedMenu}
+                  setSelectedMenu={handleMenuSelect}
                 />
               )}
-              ItemSeparatorComponent={() => <View style={styles.menuDivider} />}
+              ItemSeparatorComponent={() => <HorizontalDivider />}
             />
           </View>
         )}
+      />
+      <MenuItemDetail
+        selectedMenu={selectedMenu!}
+        setSelectedMenu={() => handleCloseDetail()}
+        pochaID={pochaID}
+        visible={isDetailVisible}
       />
     </View>
   );
@@ -110,11 +169,12 @@ export default function MenuList({menuList, scrollY}: MenuListProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 16,
-    paddingHorizontal: 16,
+    paddingTop: '4%',
+    paddingBottom: '2%',
   },
   categoryContainer: {
-    marginBottom: 16,
+    marginBottom: '4%',
+    paddingHorizontal: '4%',
   },
   categoryTitle: {
     fontSize: 22,
