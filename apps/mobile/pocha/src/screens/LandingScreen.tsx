@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     top: -100,
     left: '-50%',
     width: '200%',
-    height: 550,
+    height: '110%',
   },
   textContainer: {
     marginTop: 80,
