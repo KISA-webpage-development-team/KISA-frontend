@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
   menuName: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Sejong-hospital-Bold',
     color: '#222',
   },
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   },
   overlayText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Sejong-hospital-Bold',
     color: 'red',
   },
 });

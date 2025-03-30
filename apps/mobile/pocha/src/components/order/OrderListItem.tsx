@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {getMenuImageSrc} from '@/utils/getImageSrc';
-import OrderTicketModal from './OrderTicketModal';
+import OrderTicketModal from '@/components/order/OrderTicketModal';
 //import OrderTicketModal from './OrderTicketModal';
 import {STATUS_COLORS, STATUS_TEXT_COLORS} from '@/utils/statusToColor';
 import {OrderStatus, MenuItem, OrderItem} from '@/types/pocha';
 import TicketIcon from '@/shared/components/icon/TicketIcon';
-interface PochaOrderItemProps {
+
+interface OrderListItemProps {
   orderItem: OrderItem;
   setSelectedOrder?: (orderItem: OrderItem) => void;
 }
@@ -15,7 +16,7 @@ export function capitalizeStatus(status: string): string {
   return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
 }
 
-export default function PochaOrderItem({orderItem}: PochaOrderItemProps) {
+export default function OrderListItem({orderItem}: OrderListItemProps) {
   const {menu, quantity, status} = orderItem;
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
@@ -116,36 +117,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFF',
     borderRadius: 8,
-    paddingVertical: 16,
-    paddingHorizontal: 12,
-    marginBottom: 16,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
+    paddingVertical: '6%',
+    paddingHorizontal: '4%',
+    // elevation: 2,
+    // shadowColor: '#000',
+    // shadowOffset: {width: 0, height: 2},
+    // shadowOpacity: 0.2,
+    // shadowRadius: 4,
   },
   // For "ready" status, thicker green border
   readyBorder: {
     borderWidth: 2,
-    borderColor: 'green',
+    borderColor: STATUS_TEXT_COLORS['ready'],
   },
   // Default border style
   defaultBorder: {
-    borderWidth: 1,
-    borderColor: '#E4E4E7', // e.g., tailwind zinc-200
+    borderWidth: 2,
+    borderColor: 'lightgray', // e.g., tailwind zinc-200
   },
   // Colored circle
   statusCircle: {
     width: 12,
     height: 12,
     borderRadius: 6,
-    marginRight: 8,
+    marginRight: '3%',
   },
   // Image container
   imageContainer: {
-    width: 64,
-    height: 64,
+    width: '18%',
+    aspectRatio: 1,
     borderRadius: 8,
     overflow: 'hidden',
     backgroundColor: '#f5f5f5',
@@ -168,14 +168,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
+    rowGap: '5%',
   },
 
   nameRow: {
     // flex items-center gap-[0.25rem]
     flexDirection: 'row',
     alignItems: 'center',
-
-    marginBottom: 2,
   },
   menuName: {
     fontSize: 16,
@@ -183,12 +182,12 @@ const styles = StyleSheet.create({
   },
   priceText: {
     fontSize: 14,
-    color: '#6B7280', // tailwind gray-500
-    marginBottom: 4,
+    color: '#71717A', // tailwind gray-500
+    fontFamily: 'Sejong-hospital-Bold',
   },
   // Example bold text style (replace with your custom font if desired)
   boldText: {
-    fontWeight: 'bold',
+    fontFamily: 'Sejong-hospital-Bold',
   },
   // ID container (displayed if status === "ready")
   orderIdContainer: {
@@ -200,13 +199,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'flex-start',
     // px-2 py-[0.25rem]
-    paddingHorizontal: 8, // ~ 2 * 4px
-    paddingVertical: 4, // 0.25rem ~
+    paddingHorizontal: '4%', // ~ 2 * 4px
+    paddingVertical: '2%', // 0.25rem ~
   },
   orderIdText: {
     fontSize: 14,
     color: '#000',
-    fontWeight: 'bold',
+    fontFamily: 'Sejong-hospital-Bold',
   },
   // Status container on the right side
   statusContainer: {
@@ -218,7 +217,7 @@ const styles = StyleSheet.create({
   },
   statusText: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontFamily: 'Sejong-hospital-Bold',
   },
   // "View Ticket" button
   viewTicketButton: {
@@ -231,8 +230,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: 128,
     height: 32, // ~2rem
-    marginTop: 8,
-    gap: 4,
+    marginTop: '6%',
+    gap: '5%',
   },
   ticketIcon: {
     marginRight: 8,

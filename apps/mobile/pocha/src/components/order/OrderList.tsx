@@ -1,38 +1,20 @@
-// import React from "react";
-// import { sejongHospitalBold } from "@/utils/fonts/textFonts";
-import useUserOrders from '../../hooks/useUserOrders';
-// import { useSession } from "next-auth/react";
-
-// import { UserSession } from "@/lib/next-auth/types";
-// import PochaOrderItem from "./PochaOrderItem";
-// import { Tabs, Tab } from "@nextui-org/react"; // Using Tabs
 // import useUserOrderSocket from "../../hooks/useUserOrderSocket";
-import React, {useState} from 'react';
-import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
-import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import PochaOrderItem from './PochaOrderItem';
-import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
+import React from 'react';
+import {FlatList, Text, View, StyleSheet} from 'react-native';
+
+// hooks
+import useUserOrders from '@/hooks/useUserOrders';
 import {useUser} from '@/contexts/UserContext';
 import useUserToken from '@/hooks/useUserToken';
+
+// ui components
+import OrderListItem from '@/components/order/OrderListItem';
+import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
+import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
 
 // types
 import {OrderItem, OrderTabs} from '@/types/pocha';
 import {SimpleUser} from '@/types/user';
-
-// interface OrderListProps {
-//   pochaID: number;
-// }
-
-// menuID: number;
-// nameKor: string;
-// nameEng: string;
-// price: number;
-// stock: number;
-// isImmediatePrep: boolean;
-// parentPochaId: number;
-// ageCheckRequired: boolean;
-
-const tabs = ['all', 'pending', 'preparing', 'ready'];
 
 interface OrderListProps {
   pochaID: number;
@@ -113,7 +95,7 @@ export default function OrderList({
           style={styles.ordersList}
           data={ordersToRender}
           keyExtractor={item => item.orderItemID.toString()}
-          renderItem={({item}) => <PochaOrderItem orderItem={item} />}
+          renderItem={({item}) => <OrderListItem orderItem={item} />}
           contentContainerStyle={styles.ordersList}
         />
       )}
@@ -128,12 +110,12 @@ const styles = StyleSheet.create({
   },
   ordersList: {
     width: '100%',
-    paddingBottom: 16,
     paddingHorizontal: '2%',
+    rowGap: '1%',
   },
   noOrdersText: {
     textAlign: 'center',
-    marginTop: 16,
+    marginTop: '4%',
     fontSize: 16,
     fontFamily: 'Sejong-hospital-Bold',
   },
