@@ -40,7 +40,11 @@ const convertOrdersToMap = (orders: Orders & OrderHistory) => {
   @desc hook to fetch user orders (getUserOrders)
   @params email, token, pochaID
 */
-const useUserOrdersMap = (email: string, token: string, pochaID: number) => {
+const useUserOrdersMap = (
+  email: string,
+  token: string | null,
+  pochaID: number,
+) => {
   const [ordersMap, setOrdersMap] = useState<Map<number, OrderItem>>(new Map());
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
     'loading',
@@ -49,9 +53,13 @@ const useUserOrdersMap = (email: string, token: string, pochaID: number) => {
   useEffect(() => {
     const fetchUserOrders = async () => {
       try {
-        const res = await getUserOrders(email, pochaID, token);
+        const res = await getUserOrders(email, pochaID, token as string);
 
-        const closedRes = await getUserClosedOrders(email, pochaID, token);
+        const closedRes = await getUserClosedOrders(
+          email,
+          pochaID,
+          token as string,
+        );
 
         const orders = {
           pending: res?.pending,
@@ -81,7 +89,11 @@ const useUserOrdersMap = (email: string, token: string, pochaID: number) => {
  * @params email, token, pochaID
  */
 
-const useUserOrders = (email: string, token: string, pochaID: number) => {
+const useUserOrders = (
+  email: string,
+  token: string | null,
+  pochaID: number,
+) => {
   const {ordersMap, status, setOrdersMap, setStatus} = useUserOrdersMap(
     email,
     token,

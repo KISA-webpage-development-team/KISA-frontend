@@ -11,9 +11,13 @@ import React, {useState} from 'react';
 import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
 import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import PochaOrderItem from './PochaOrderItem';
-import {OrderStatus, OrderItem} from '@/types/pocha';
-import {UserCredentials} from 'react-native-keychain';
 import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
+import {useUser} from '@/contexts/UserContext';
+import useUserToken from '@/hooks/useUserToken';
+
+// types
+import {OrderItem, OrderTabs} from '@/types/pocha';
+import {SimpleUser} from '@/types/user';
 
 // interface OrderListProps {
 //   pochaID: number;
@@ -27,102 +31,24 @@ import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
 // isImmediatePrep: boolean;
 // parentPochaId: number;
 // ageCheckRequired: boolean;
-const pendingOrders: OrderItem[] = [
-  {
-    orderItemID: 1,
-    status: OrderStatus.PENDING,
-    menu: {
-      menuID: 101,
-      nameKor: '김치찌개',
-      nameEng: 'Kimchi Stew',
-      price: 10,
-      stock: 100,
-      isImmediatePrep: false,
-      parentPochaId: 20,
-      ageCheckRequired: false,
-    },
-    quantity: 1,
-    ordererName: 'Alice',
-    ordererEmail: 'alice@example.com',
-  },
-];
-
-const preparingOrders: OrderItem[] = [
-  {
-    orderItemID: 2,
-    status: OrderStatus.PREPARING,
-    menu: {
-      menuID: 102,
-      nameKor: '해물파전',
-      nameEng: 'Seafood Pancake',
-      price: 12,
-      stock: 100,
-      isImmediatePrep: false,
-      parentPochaId: 21,
-      ageCheckRequired: false,
-    },
-    quantity: 2,
-    ordererName: 'Bob',
-    ordererEmail: 'bob@example.com',
-  },
-];
-
-const readyOrders: OrderItem[] = [
-  {
-    orderItemID: 3,
-    status: OrderStatus.READY,
-    menu: {
-      menuID: 103,
-      nameKor: '육회',
-      nameEng: 'Beef Tartare',
-      price: 15,
-      stock: 100,
-      isImmediatePrep: false,
-      parentPochaId: 22,
-      ageCheckRequired: false,
-    },
-    quantity: 1,
-    ordererName: 'Charlie',
-    ordererEmail: 'charlie@example.com',
-  },
-];
-
-const closedOrders: OrderItem[] = [
-  {
-    orderItemID: 4,
-    status: OrderStatus.CLOSED,
-    menu: {
-      menuID: 104,
-      nameKor: '불고기',
-      nameEng: 'Bulgogi',
-      price: 20,
-      stock: 100,
-      isImmediatePrep: false,
-      parentPochaId: 23,
-      ageCheckRequired: false,
-    },
-    quantity: 1,
-    ordererName: 'Dave',
-    ordererEmail: 'dave@example.com',
-  },
-];
 
 const tabs = ['all', 'pending', 'preparing', 'ready'];
 
-// const mockEmail = 'dongeunk@umich.edu';
-// const mockToken = 'mockToken';
-// const mockPochaId = 1;
+interface OrderListProps {
+  pochaID: number;
+  activeTab: OrderTabs;
+  setActiveTab: (tab: OrderTabs) => void;
+}
 
 export default function OrderList({
   pochaID,
-  email,
-  token,
-}: {
-  pochaID: number;
-  email: string;
-  token: string;
-}) {
-  const [activeTab, setActiveTab] = useState<string>('all');
+  activeTab,
+  setActiveTab,
+}: OrderListProps) {
+  // Get user from firebase context
+  const {user} = useUser();
+  const loggedInUser = user as SimpleUser;
+  const {token, status: tokenStatus, error: tokenError} = useUserToken();
 
   const {
     updateOrder,
@@ -132,7 +58,7 @@ export default function OrderList({
     readyOrders,
     closedOrders,
     status: ordersStatus,
-  } = useUserOrders(email, token, pochaID);
+  } = useUserOrders(loggedInUser.email, token, pochaID);
 
   // useUserOrderSocket({
   //   token: session?.token,
@@ -178,31 +104,13 @@ export default function OrderList({
 
   return (
     <View style={styles.container}>
-      <View style={styles.tabBar}>
-        {tabs.map(tab => (
-          <TouchableOpacity
-            key={tab}
-            style={[
-              styles.tabButton,
-              activeTab === tab && styles.activeTabButton,
-            ]}
-            onPress={() => setActiveTab(tab)}>
-            <Text
-              style={[
-                styles.tabText,
-                activeTab === tab && styles.activeTabText,
-              ]}>
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      {ordersToRender.length === 0 ? (
+      {ordersToRender?.length === 0 ? (
         <Text style={styles.noOrdersText}>
           You haven't placed any orders yet.
         </Text>
       ) : (
         <FlatList
+          style={styles.ordersList}
           data={ordersToRender}
           keyExtractor={item => item.orderItemID.toString()}
           renderItem={({item}) => <PochaOrderItem orderItem={item} />}
@@ -216,35 +124,17 @@ export default function OrderList({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-  },
-  tabBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 16,
-  },
-  tabButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 4,
-    backgroundColor: '#E5E7EB', // gray background
-  },
-  activeTabButton: {
-    backgroundColor: '#DCFCE7', // light green for active tab
-  },
-  tabText: {
-    fontSize: 16,
-    color: '#000',
-  },
-  activeTabText: {
-    fontWeight: 'bold',
+    width: '100%',
   },
   ordersList: {
+    width: '100%',
     paddingBottom: 16,
+    paddingHorizontal: '2%',
   },
   noOrdersText: {
     textAlign: 'center',
     marginTop: 16,
     fontSize: 16,
+    fontFamily: 'Sejong-hospital-Bold',
   },
 });

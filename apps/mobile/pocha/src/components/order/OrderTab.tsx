@@ -8,27 +8,30 @@
 // import {sejongHospitalBold} from '@/utils/fonts/textFonts';
 // import TipModal from "@/features/pocha/components/pay/TipModal";
 
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import OrderList from '@/components/order/OrderList';
 import {HomeTabProps} from '@/navigations/HomeTabNavigator';
 import {useUser} from '@/contexts/UserContext';
-import {getToken} from '@/shared/lib/react-native-keychain/keychain';
-import {UserCredentials} from 'react-native-keychain';
-import useUserToken from '@/hooks/useUserToken';
+import OrderStatusSelector from '@/components/order/OrderStatusSelector';
+
+// types
+import {OrderTabs} from '@/types/pocha';
 
 export default function OrderTab({route}: HomeTabProps) {
   const {user} = useUser();
   const pochaID = route.params.pochaID;
-  const {token, status: tokenStatus, error: tokenError} = useUserToken();
 
-  if (!user || !token) {
-    return null;
-  }
+  const [activeTab, setActiveTab] = useState<OrderTabs>('all');
 
   return (
     <View style={styles.container}>
-      <OrderList pochaID={pochaID} email={user.email} token={token} />
+      <OrderStatusSelector activeTab={activeTab} setActiveTab={setActiveTab} />
+      <OrderList
+        pochaID={pochaID}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
     </View>
   );
 }
@@ -36,13 +39,10 @@ export default function OrderTab({route}: HomeTabProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 24,
-  },
-  text: {
-    textAlign: 'center',
-    color: 'black',
-    fontSize: 24,
+    paddingVertical: '4%',
+    rowGap: '2%',
   },
 });

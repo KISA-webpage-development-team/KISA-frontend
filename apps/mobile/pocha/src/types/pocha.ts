@@ -7,10 +7,10 @@ interface PochaInfo {
   ongoing: boolean;
 }
 
-type PochaTab = "menu" | "orders";
-type PochaDashboardTab = "orders" | "stock" | "history";
+type PochaTab = 'menu' | 'orders';
+type PochaDashboardTab = 'orders' | 'stock' | 'history';
 
-export type { PochaInfo, PochaTab, PochaDashboardTab };
+export type {PochaInfo, PochaTab, PochaDashboardTab};
 
 // MENU -----------------------------------------------------------------------
 
@@ -35,7 +35,7 @@ interface MenuByCategory {
   menusList: MenuItem[];
 }
 
-export type { MenuItem, MenuByCategory, MenuItemWithQuantity };
+export type {MenuItem, MenuByCategory, MenuItemWithQuantity};
 
 // CART -----------------------------------------------------------------------
 interface CartItem {
@@ -54,18 +54,20 @@ type Cart = Map<number, CartItem>;
 
 type PayInfo = {
   amount: number;
-  ageCheckRequired: "true" | "false";
+  ageCheckRequired: 'true' | 'false';
 };
 
-export type { Cart, CartItem, AddItemToCartBody, PayInfo };
+export type {Cart, CartItem, AddItemToCartBody, PayInfo};
 
 // ORDER ----------------------------------------------------------------------
 
+type OrderTabs = 'all' | OrderStatus;
+
 const enum OrderStatus {
-  PENDING = "pending",
-  PREPARING = "preparing",
-  READY = "ready",
-  CLOSED = "closed",
+  PENDING = 'pending',
+  PREPARING = 'preparing',
+  READY = 'ready',
+  CLOSED = 'closed',
 }
 
 interface OrderItem {
@@ -87,5 +89,5 @@ interface OrderHistory {
   closed: OrderItem[];
 }
 
-export { OrderStatus };
-export type { OrderItem, Orders, OrderHistory };
+export {OrderStatus};
+export type {OrderItem, Orders, OrderHistory, OrderTabs};

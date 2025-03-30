@@ -46,7 +46,7 @@ export default function PochaOrderItem({orderItem}: PochaOrderItemProps) {
 
         <View style={styles.imageContainer}>
           <Image
-            source={{uri: 'https://via.placeholder.com/64'}} // Replace with real image URL later
+            source={getMenuImageSrc(menu?.menuID)} // Replace with real image URL later
             style={styles.image}
           />
         </View>
@@ -111,6 +111,7 @@ export default function PochaOrderItem({orderItem}: PochaOrderItemProps) {
 
 const styles = StyleSheet.create({
   listItem: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#FFF',
