@@ -1,23 +1,15 @@
 import React, {useState, useEffect, useMemo} from 'react';
-
 import {
   SafeAreaView,
   ScrollView,
   View,
   Text,
   Alert,
-  Button,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-// https://github.com/farhoudshapouran/react-native-ui-datepicker
-import DateTimePicker from 'react-native-ui-datepicker';
-import dayjs from 'dayjs';
-import 'dayjs/locale/fr'; // or 'ko' for Korean
 
-import CustomInput from '@/shared/components/form/CustomInput';
-import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
-import CustomLabel from '@/shared/components/form/CustomLabel';
+// ui components
 import HorizontalDivider from '@/shared/components/divider/HorizontalDivider';
 import RequiredFields from '@/shared/components/signup/RequiredFields';
 import TermConditions from '@/shared/components/signup/TermConditions';
@@ -26,9 +18,22 @@ import {
   websiteInfoTerm,
 } from '@/shared/components/config/TermCondition';
 import OptionalFields from '@/shared/components/signup/OptionalFields';
+import BackIcon from '@/shared/components/icon/BackIcon';
+
+// apis
+import {getUserExists, createNewUser} from '@/apis/auth';
 
 // hooks
 import {useMainNavigation} from '@/navigations/useMainNavigation';
+import {useAuthNavigation} from '@/navigations/useAuthNavigation';
+import {decomposeDate} from '@/utils/data';
+import {useUser} from '@/contexts/UserContext';
+
+// types
+import {User} from '@/types/user';
+
+// date formatter
+import 'dayjs/locale/fr'; // or 'ko' for Korean
 
 function HeaderBackButton() {
   const navigation = useMainNavigation();
@@ -38,13 +43,17 @@ function HeaderBackButton() {
 
   return (
     <TouchableOpacity onPress={handleGoBack}>
-      <Text>Back</Text>
+      <BackIcon />
     </TouchableOpacity>
   );
 }
 
 export default function SignUpScreen({}) {
   // add "navigation" into the parameter here
+  const navigation_sign = useAuthNavigation();
+
+  const {signInWithGoogle} = useUser();
+
   // Form States
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -160,52 +169,65 @@ export default function SignUpScreen({}) {
     setDisabled(hasInvalidFields);
   }, [requiredFields, personTermChecked, websiteTermChecked]);
 
-  // BACKEND REQUIRED!
-  // const handleSubmit = async () => {
-  //   const userData = {
-  //     fullname: name,
-  //     email: email,
-  //     bornYear: bornDate.split('-')[0] ? Number(bornDate.split('-')[0]) : null,
-  //     bornMonth: bornDate.split('-')[1] ? Number(bornDate.split('-')[1]) : null,
-  //     bornDate: bornDate.split('-')[2] ? Number(bornDate.split('-')[2]) : null,
-  //     major: major || null,
-  //     gradYear: gradYear ? Number(gradYear) : null,
-  //     linkedin: linkedIn || null,
-  //   };
+  const handleSubmit = async () => {
+    const {year, month, day} = decomposeDate(birthDate);
 
-  //   const userConfirmed = Alert.alert(
-  //     '확인',
-  //     '한 번 생성된 로그인 정보 수정은 어렵습니다. 진행하시겠습니까?',
-  //     [
-  //       {text: '취소', style: 'cancel'},
-  //       {text: '확인', onPress: async () => registerUser(userData)},
-  //     ],
-  //   );
+    const userData: Omit<User, 'created'> = {
+      fullname: name,
+      email: email,
+      bornYear: year,
+      bornMonth: month,
+      bornDate: day,
+      major: major || '',
+      gradYear: gradYear ? Number(gradYear) : 0,
+      linkedin: linkedIn || '',
+    };
 
-  //   if (!userConfirmed) return;
-  // };
+    Alert.alert(
+      '확인',
+      '한 번 생성된 로그인 정보 수정은 어렵습니다. 진행하시겠습니까?',
+      [
+        {text: '취소', style: 'cancel'},
+        {text: '확인', onPress: async () => registerUser(userData)},
+      ],
+    );
+  };
 
-  // const registerUser = async userData => {
-  //   try {
-  //     const res = await axios.get(`${BACKEND_URL}/auth/userExists/${email}`);
-  //     if (res.status === 200) {
-  //       Alert.alert('알림', '이미 가입된 이메일입니다.');
-  //       navigation.navigate('Home');
-  //       return;
-  //     }
-  //   } catch {
-  //     try {
-  //       const res = await axios.post(`${BACKEND_URL}/auth/signup/`, userData);
-  //       if (res.status === 201) {
-  //         navigation.navigate(`SignUpSuccess`, {name});
-  //       } else {
-  //         Alert.alert('오류', '회원가입에 실패했습니다.');
-  //       }
-  //     } catch (err) {
-  //       Alert.alert('오류', '회원가입 중 문제가 발생했습니다.');
-  //     }
-  //   }
-  // };
+  const registerUser = async (userData: Omit<User, 'created'>) => {
+    try {
+      const res = await getUserExists(userData.email);
+
+      // if user already exists, navigate to landing screen
+      // let user to sign in again
+      if (res.status == 200) {
+        Alert.alert('알림', '이미 가입된 이메일입니다.');
+        navigation_sign.navigate('LandingScreen');
+        return;
+      }
+    } catch {
+      // [NOTE] userExists API returns 404 if user does not exist
+      // so the catch block will be executed
+      // if user does not exist, create new user
+
+      try {
+        const res = await createNewUser(userData);
+        if (res.status === 201) {
+          // success, instead of redirecting to landing screen
+          // let user to sign in with google
+          try {
+            await signInWithGoogle();
+            // pretty sure that the result is always success
+          } catch (err) {
+            Alert.alert('Error', 'Failed to sign in with Google');
+          }
+        } else {
+          Alert.alert('Error', 'Failed to sign up');
+        }
+      } catch (err) {
+        Alert.alert('Error', 'Something went wrong');
+      }
+    }
+  };
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
@@ -270,8 +292,7 @@ export default function SignUpScreen({}) {
             styles.submitButton,
             {backgroundColor: disabled ? 'gray' : 'blue'},
           ]}
-          // onPress={handleSubmit}
-          onPress={() => Alert.alert('앙 지오쨩 상랑행 뀨우~~ 잘해찌이이?')}
+          onPress={handleSubmit}
           disabled={disabled}>
           <Text style={[styles.submitButtonText]}>회원가입 제출</Text>
         </TouchableOpacity>

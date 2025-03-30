@@ -4,6 +4,7 @@ import {getUser} from '@/shared/apis/users/queries';
 
 // secret list of allowed underage users
 const UNDERAGE_WHITE_LIST = ['jiohin@umich.edu'];
+// const UNDERAGE_WHITE_LIST: string[] = [];
 
 const calculateAge = (birthday: string): number => {
   const birthDate = new Date(birthday);

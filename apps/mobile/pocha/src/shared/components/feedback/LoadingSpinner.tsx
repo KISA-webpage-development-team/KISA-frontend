@@ -26,7 +26,7 @@ export default function LoadingSpinner({
   if (fullScreen) {
     return (
       <SafeAreaView style={styles.fullScreenContainer}>
-        <ActivityIndicator size="large" color={michiganLightBlue} />
+        <ActivityIndicator size="large" color={michiganDarkMaize} />
         {label ? (
           <Text style={[styles.fullScreenLabel, {color: michiganBlue}]}>
             {label}
@@ -38,7 +38,7 @@ export default function LoadingSpinner({
   // Inline spinner
   return (
     <View style={styles.inlineContainer}>
-      <ActivityIndicator size="small" color={michiganLightBlue} />
+      <ActivityIndicator size="small" color={michiganDarkMaize} />
       {label ? (
         <Text style={[styles.inlineLabel, {color: michiganBlue}]}>{label}</Text>
       ) : null}

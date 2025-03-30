@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
   alert: {
-    color: 'blue',
+    color: 'red',
   },
 });

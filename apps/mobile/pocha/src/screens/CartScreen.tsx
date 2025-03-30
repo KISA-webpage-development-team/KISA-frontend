@@ -48,7 +48,7 @@ export default function CartScreen({route}: CartScreenProps) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.divider} />
-      {Object.keys(cart ?? {}).length === 0 ? (
+      {totalAmount === 0 ? (
         <EmptyCartAlert />
       ) : (
         <>

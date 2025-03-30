@@ -3,6 +3,8 @@ import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {CartItem} from '@/types/pocha';
 import {getMenuImageSrc} from '@/utils/getImageSrc';
 import TrashIcon from '@/shared/components/icon/TrashIcon';
+import PlusIcon from '@/shared/components/icon/PlusIcon';
+import MinusIcon from '@/shared/components/icon/MinusIcon';
 type CartListItemProps = {
   item: CartItem;
   menuid: number;
@@ -53,13 +55,12 @@ export default function CartListItem({
           <TouchableOpacity
             onPress={decrementQuantity}
             style={styles.counterButton}>
-            <Text style={styles.buttonText}>-</Text>
+            <MinusIcon />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             onPress={removeItemFromCart}
             style={styles.counterButton}>
-            {/* <Text style={styles.buttonText}>🗑</Text> */}
             <TrashIcon />
           </TouchableOpacity>
         )}
@@ -70,7 +71,7 @@ export default function CartListItem({
         <TouchableOpacity
           onPress={incrementQuantity}
           style={styles.counterButton}>
-          <Text style={styles.buttonText}>+</Text>
+          <PlusIcon />
         </TouchableOpacity>
       </View>
     </View>
@@ -82,6 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 12,
+    paddingHorizontal: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#CACACA',
   },
@@ -89,8 +91,8 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 15,
-    borderWidth: 1,
-    borderColor: '#CACACA',
+    // borderWidth: 1,
+    // borderColor: '#CACACA',
     resizeMode: 'cover',
   },
   textContainer: {
@@ -115,20 +117,16 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#CACACA',
     borderRadius: 50,
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3, // Android shadow
+    paddingVertical: 4,
+    paddingHorizontal: 4,
+    // shadowColor: '#000',
+    // shadowOffset: {width: 0, height: 2},
+    // shadowOpacity: 0.2,
+    // shadowRadius: 4,
+    // elevation: 3, // Android shadow
   },
   counterButton: {
-    paddingHorizontal: 10,
-  },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    paddingHorizontal: 5,
   },
   quantity: {
     fontSize: 16,

@@ -18,34 +18,10 @@ const useStripePayment = (
   underAge: boolean,
   ageCheckRequired: boolean,
 ) => {
-  const {confirmPayment} = useStripe();
   const navigation = useMainNavigation();
   const {initPaymentSheet, presentPaymentSheet} = useStripe();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-
-  useEffect(() => {
-    initializePaymentSheet();
-  }, []);
-
-  /** Step 1: Check User Age */
-  const checkUserUnderAge = () => {
-    if (ageCheckRequired && underAge) {
-      throw new Error('미성년자는 주류를 주문할 수 없습니다.');
-    }
-  };
-
-  /** Step 2: Check Inventory */
-  const checkCartInventory = async () => {
-    try {
-      const res = await checkCartStock(userEmail, pochaID);
-      if (!res?.isStocked) {
-        throw new Error('재고가 부족합니다.');
-      }
-    } catch (error) {
-      throw new Error('Error while checking inventory.');
-    }
-  };
 
   const initializePaymentSheet = async () => {
     // Create customer
@@ -76,6 +52,29 @@ const useStripePayment = (
 
     if (error) {
       throw new Error(`PaymentSheet 초기화 오류: ${error.message}`);
+    }
+  };
+
+  useEffect(() => {
+    initializePaymentSheet();
+  }, []);
+
+  /** Step 1: Check User Age */
+  const checkUserUnderAge = () => {
+    if (ageCheckRequired && underAge) {
+      throw new Error('미성년자는 주류를 주문할 수 없습니다.');
+    }
+  };
+
+  /** Step 2: Check Inventory */
+  const checkCartInventory = async () => {
+    try {
+      const res = await checkCartStock(userEmail, pochaID);
+      if (!res?.isStocked) {
+        throw new Error('재고가 부족합니다.');
+      }
+    } catch (error) {
+      throw new Error('Error while checking inventory.');
     }
   };
 

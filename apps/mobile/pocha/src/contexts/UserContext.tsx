@@ -81,7 +81,6 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
     const existingUser = await getUser(email, token);
 
     if (!existingUser) {
-      console.warn('User does not exist in the database');
       return {success: false, redirect: 'signup'};
     }
 

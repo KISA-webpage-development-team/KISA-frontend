@@ -140,6 +140,7 @@ export default function MenuList({pochaID, scrollY}: MenuListProps) {
         renderItem={({item: category}) => (
           <View style={styles.categoryContainer}>
             <Text style={styles.categoryTitle}>{category.category}</Text>
+            console.log('Token saved to keychain for user:', email);
             <FlatList
               data={category.menusList}
               keyExtractor={menu => `menu-${menu.menuID}`}

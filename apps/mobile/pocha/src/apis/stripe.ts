@@ -91,7 +91,7 @@ export const create_paymentIntent = async (
   amount: number,
   customerID: string,
 ) => {
-  const amountInCents = amount * 100;
+  const amountInCents = Math.round(amount * 100);
   const url = 'https://api.stripe.com/v1/payment_intents';
 
   const body = new URLSearchParams();
@@ -114,6 +114,7 @@ export const create_paymentIntent = async (
   const data = await response.json();
 
   if (!response.ok) {
+    console.error(data);
     throw new Error(data.error?.message || 'Error creating payment intent');
   }
 

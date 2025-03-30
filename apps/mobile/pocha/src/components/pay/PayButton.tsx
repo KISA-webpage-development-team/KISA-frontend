@@ -1,12 +1,7 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ActivityIndicator,
-  GestureResponderEvent,
-} from 'react-native';
 import React from 'react';
+import {View, ActivityIndicator, StyleSheet} from 'react-native';
+
+// ui components
 import PochaButton from '@/components/shared/PochaButton';
 
 interface PayButtonProps {
@@ -21,7 +16,7 @@ export default function PayButton({
   onPress,
 }: PayButtonProps) {
   return (
-    <View style={{padding: 16, alignItems: 'center'}}>
+    <View style={styles.container}>
       <PochaButton
         label={loading ? '' : `Pay $${totalPrice}`}
         onClick={onPress}
@@ -31,3 +26,10 @@ export default function PayButton({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 16,
+    alignItems: 'center',
+  },
+});

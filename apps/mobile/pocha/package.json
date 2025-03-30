@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android --no-packager",
     "ios": "react-native run-ios --no-packager",
+    "ios-16": "react-native run-ios --no-packager --simulator='iPhone 16 Pro'",
     "lint": "eslint .",
     "start": "react-native start",
     "start-local": "node args.ts -l && react-native start",

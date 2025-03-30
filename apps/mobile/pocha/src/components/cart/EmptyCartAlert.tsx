@@ -26,5 +26,8 @@ const styles = StyleSheet.create({
   alertText: {
     textAlign: 'center',
     marginTop: 16, // Equivalent to mt-4 in Tailwind
+    fontFamily: 'sejong-hospital-light',
+    fontWeight: '600',
+    fontSize: 20,
   },
 });

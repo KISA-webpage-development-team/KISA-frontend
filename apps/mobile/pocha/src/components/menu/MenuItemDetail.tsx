@@ -135,7 +135,6 @@ export default function MenuItemDetail({
       <SafeAreaView style={styles.safeArea}>
         <StatusBar barStyle="dark-content" />
         <ScrollView style={styles.container} bounces={false}>
-          {/* Header with Back Button */}
           <View style={styles.header}>
             <TouchableOpacity
               onPress={handleBackButton}
@@ -145,7 +144,6 @@ export default function MenuItemDetail({
             </TouchableOpacity>
           </View>
 
-          {/* Food Image */}
           <View style={styles.imageContainer}>
             <Image
               source={getMenuImageSrc(selectedMenu.menuID)}
@@ -154,17 +152,14 @@ export default function MenuItemDetail({
             />
           </View>
 
-          {/* Menu Details */}
           <View style={styles.card}>
             <Text style={styles.menuNameKor}>{selectedMenu.nameKor}</Text>
             <Text style={styles.menuNameEng}>{selectedMenu.nameEng}</Text>
 
             <View style={styles.divider} />
 
-            {/* Price */}
             <Text style={styles.price}>${selectedMenu.price * quantity}</Text>
 
-            {/* Quantity Selector */}
             <View style={styles.quantityContainer}>
               <Text style={styles.label}>수량</Text>
               <View style={styles.quantityControls}>
@@ -183,20 +178,8 @@ export default function MenuItemDetail({
               </View>
             </View>
 
-            {/* Error Message */}
             {error !== null && <PochaErrorMsg message={error} />}
 
-            {/* Add to Cart Button */}
-            {/* <TouchableOpacity
-              style={styles.addToCartButton}
-              onPress={handleAddToCart}
-              disabled={addingToCart}>
-              {addingToCart ? (
-                <LoadingSpinner label="Adding to Cart..." />
-              ) : (
-                <Text style={styles.addToCartText}>Add to Cart</Text>
-              )}
-            </TouchableOpacity> */}
             <View style={styles.addToCartButtonContainer}>
               <PochaButton
                 label={addingToCart ? 'Adding to Cart...' : 'Add to Cart'}
