@@ -1,5 +1,9 @@
 # Pocha App
 
+## TODO: Apply Kor/Eng Translation
+
+https://velog.io/@zlemzlem5656/react-i18next-typescript
+
 ## [UPDATE] Local Backend
 
 To run the app with the local backend, run the following command in the "pocha" directory
