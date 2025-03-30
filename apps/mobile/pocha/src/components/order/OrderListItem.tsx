@@ -4,7 +4,7 @@ import {getMenuImageSrc} from '@/utils/getImageSrc';
 import OrderTicketModal from '@/components/order/OrderTicketModal';
 //import OrderTicketModal from './OrderTicketModal';
 import {STATUS_COLORS, STATUS_TEXT_COLORS} from '@/utils/statusToColor';
-import {OrderStatus, MenuItem, OrderItem} from '@/types/pocha';
+import {OrderItem} from '@/types/pocha';
 import TicketIcon from '@/shared/components/icon/TicketIcon';
 
 interface OrderListItemProps {
@@ -46,25 +46,19 @@ export default function OrderListItem({orderItem}: OrderListItemProps) {
         />
 
         <View style={styles.imageContainer}>
-          <Image
-            source={getMenuImageSrc(menu?.menuID)} // Replace with real image URL later
-            style={styles.image}
-          />
+          <Image source={getMenuImageSrc(menu?.menuID)} style={styles.image} />
         </View>
 
         <View style={styles.infoContainer}>
-          {/* Menu name */}
           <View style={styles.nameRow}>
             <Text style={[styles.menuName, styles.boldText]} numberOfLines={2}>
               {menu?.nameKor} {menu?.nameEng}
             </Text>
           </View>
-          {/* Quantity and total price */}
           <Text style={styles.priceText}>
             {`x ${quantity}`} | {`$${menu?.price * quantity}`}
           </Text>
 
-          {/* Show orderItemID only if status === "ready" */}
           {status === 'ready' && (
             <View style={styles.orderIdContainer}>
               <Text style={styles.orderIdText}># {orderItem?.orderItemID}</Text>
@@ -72,7 +66,6 @@ export default function OrderListItem({orderItem}: OrderListItemProps) {
           )}
         </View>
 
-        {/* Status and ticket button on the right side */}
         <View style={styles.statusContainer}>
           {status === 'ready' ? (
             <View style={styles.statusReadyContainer}>
@@ -86,8 +79,6 @@ export default function OrderListItem({orderItem}: OrderListItemProps) {
               <TouchableOpacity
                 onPress={handleViewTicket}
                 style={styles.viewTicketButton}>
-                {/*should add a ticket icon here later */}
-                {/* <Text style={styles.ticketIcon}>t</Text> */}
                 <TicketIcon />
                 <Text
                   style={[
