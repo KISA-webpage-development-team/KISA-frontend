@@ -28,7 +28,7 @@
 		292B85D92D98E010001C6333 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 292B85BA2D98E010001C6333 /* FontAwesome.ttf */; };
 		292B85DA2D98E010001C6333 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 292B85BB2D98E010001C6333 /* FontAwesome5_Brands.ttf */; };
 		292B85DB2D98E010001C6333 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 292B85C22D98E010001C6333 /* Foundation.ttf */; };
-		2930F3E92D95F9C700BF6BBA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2930F3E82D95F9C700BF6BBA /* GoogleService-Info.plist */; };
+		296B96B82D9F319600E26606 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 296B96B72D9F319600E26606 /* GoogleService-Info.plist */; };
 		4C9AF5F736544591BD7C5C99 /* Sejong-hospital-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B909103F1C5648C7B24F2D9C /* Sejong-hospital-Bold.ttf */; };
 		73A3B7512CEF45B1BE65F66B /* Sejong-hospital-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57D37771627945C5B6216D13 /* Sejong-hospital-Light.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
@@ -60,8 +60,8 @@
 		292B85C62D98E010001C6333 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		292B85C72D98E010001C6333 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		292B85C82D98E010001C6333 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
-		2930F3E82D95F9C700BF6BBA /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		296B96B62D9F1B2800E26606 /* pocha.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = pocha.entitlements; path = pocha/pocha.entitlements; sourceTree = "<group>"; };
+		296B96B72D9F319600E26606 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		57D37771627945C5B6216D13 /* Sejong-hospital-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Sejong-hospital-Light.ttf"; path = "../src/assets/fonts/Sejong-hospital-Light.ttf"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = pocha/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = pocha/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				2930F3E82D95F9C700BF6BBA /* GoogleService-Info.plist */,
+				296B96B72D9F319600E26606 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* pocha */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -245,6 +245,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				296B96B82D9F319600E26606 /* GoogleService-Info.plist in Resources */,
 				18F4C41AE8BD3848A5B972E1 /* PrivacyInfo.xcprivacy in Resources */,
 				292B85C92D98E010001C6333 /* FontAwesome5_Regular.ttf in Resources */,
 				292B85CA2D98E010001C6333 /* Entypo.ttf in Resources */,
@@ -267,7 +268,6 @@
 				292B85DB2D98E010001C6333 /* Foundation.ttf in Resources */,
 				4C9AF5F736544591BD7C5C99 /* Sejong-hospital-Bold.ttf in Resources */,
 				73A3B7512CEF45B1BE65F66B /* Sejong-hospital-Light.ttf in Resources */,
-				2930F3E92D95F9C700BF6BBA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,7 +381,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = pocha/pocha.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = X6JCMM63Y9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = pocha/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -395,7 +395,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kisa.pocha;
 				PRODUCT_NAME = pocha;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -411,7 +411,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = pocha/pocha.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = X6JCMM63Y9;
 				INFOPLIST_FILE = pocha/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -424,7 +424,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kisa.pocha;
 				PRODUCT_NAME = pocha;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

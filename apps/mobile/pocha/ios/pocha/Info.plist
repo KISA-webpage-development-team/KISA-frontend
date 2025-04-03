@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>pocha</string>
+	<string>UMich KISA</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -26,10 +26,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>org.reactjs.native.example.pocha</string>
+			<string>com.kisa.pocha</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.602978160198-tsvut54bce28nvlvvd0cm8feho3gapdm</string>
+				<string>com.googleusercontent.apps.602978160198-jdkgt22teketdp32v325guhjfb3qttct</string>
 			</array>
 		</dict>
 	</array>

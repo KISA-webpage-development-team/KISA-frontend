@@ -1419,6 +1419,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-splash-screen (3.3.0):
+    - React-Core
   - React-NativeModulesApple (0.78.1):
     - glog
     - hermes-engine
@@ -1953,6 +1955,7 @@ DEPENDENCIES:
   - react-native-pager-view (from `../../../../node_modules/react-native-pager-view`)
   - react-native-pure-jwt (from `../../../../node_modules/react-native-pure-jwt`)
   - react-native-safe-area-context (from `../../../../node_modules/react-native-safe-area-context`)
+  - react-native-splash-screen (from `../../../../node_modules/react-native-splash-screen`)
   - React-NativeModulesApple (from `../../../../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../../../../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-performancetimeline (from `../../../../node_modules/react-native/ReactCommon/react/performance/timeline`)
@@ -2106,6 +2109,8 @@ EXTERNAL SOURCES:
     :path: "../../../../node_modules/react-native-pure-jwt"
   react-native-safe-area-context:
     :path: "../../../../node_modules/react-native-safe-area-context"
+  react-native-splash-screen:
+    :path: "../../../../node_modules/react-native-splash-screen"
   React-NativeModulesApple:
     :path: "../../../../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios"
   React-perflogger:
@@ -2243,6 +2248,7 @@ SPEC CHECKSUMS:
   react-native-pager-view: f7f13e312fd72e7b800f76ff54b2bfe736cfb366
   react-native-pure-jwt: ddc75cb6ec8fe40c8efa6b5ca2cd41eadc914056
   react-native-safe-area-context: 33fadf89988c8813cfac57797a3bc53708863dd1
+  react-native-splash-screen: 95994222cc95c236bd3cdc59fe45ed5f27969594
   React-NativeModulesApple: ce75ed8f1188483be3620bf9dbb3b1286dd39bab
   React-perflogger: 26d07766b033f84559bd520e949453dba8bf1cd8
   React-performancetimeline: 24eb0a6a341a1b0d48bc75a961ee480db0bad47e
