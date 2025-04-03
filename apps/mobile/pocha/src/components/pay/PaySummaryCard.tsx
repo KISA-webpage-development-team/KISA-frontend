@@ -34,8 +34,8 @@ export default function PaySummaryCard({
       </View>
 
       <Text style={styles.disclaimer}>
-        *수수료는 Stripe 결제 서비스 비용이며, 고정 ($0.3)와 결제 금액의 3.1%를
-        합산하여 계산됩니다.
+        *The fee is the cost of the Stripe payment service, which includes a
+        fixed fee of $0.3 and 3.1% of the payment amount.
       </Text>
     </View>
   );
@@ -52,25 +52,24 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
     marginBottom: 16,
-    fontFamily: 'sejong-hospital-light',
+    fontFamily: 'sejong-hospital-Bold',
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 8,
-    fontFamily: 'sejong-hospital-light',
+    fontFamily: 'sejong-hospital-Light',
   },
 
   label: {
     fontSize: 16,
     color: 'black',
-    fontFamily: 'sejong-hospital-light',
+    fontFamily: 'sejong-hospital-Light',
   },
   value: {
     fontSize: 16,
-    fontFamily: 'sejong-hospital-light',
+    fontFamily: 'sejong-hospital-Light',
   },
   divider: {
     height: 2,
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   disclaimer: {
-    fontSize: 12,
+    fontSize: 10,
     color: 'gray',
     marginTop: 8,
     fontFamily: 'sejong-Hospital-Bold',

@@ -1762,6 +1762,27 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNLocalize (3.4.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNScreens (4.9.2):
     - DoubleConversion
     - glog
@@ -1965,6 +1986,7 @@ DEPENDENCIES:
   - "RNFBMessaging (from `../../../../node_modules/@react-native-firebase/messaging`)"
   - "RNGoogleSignin (from `../../../../node_modules/@react-native-google-signin/google-signin`)"
   - RNKeychain (from `../../../../node_modules/react-native-keychain`)
+  - RNLocalize (from `../../../../node_modules/react-native-localize`)
   - RNScreens (from `../../../../node_modules/react-native-screens`)
   - RNSVG (from `../../../../node_modules/react-native-svg`)
   - "stripe-react-native (from `../../../../node_modules/@stripe/stripe-react-native`)"
@@ -2150,6 +2172,8 @@ EXTERNAL SOURCES:
     :path: "../../../../node_modules/@react-native-google-signin/google-signin"
   RNKeychain:
     :path: "../../../../node_modules/react-native-keychain"
+  RNLocalize:
+    :path: "../../../../node_modules/react-native-localize"
   RNScreens:
     :path: "../../../../node_modules/react-native-screens"
   RNSVG:
@@ -2253,6 +2277,7 @@ SPEC CHECKSUMS:
   RNFBMessaging: b8590d742b98883cc1d18394e87276b23cf30f12
   RNGoogleSignin: 1a215139c537bb0430abdb9ff9a8e437578e515d
   RNKeychain: 35beaa17938f7d8e4990d8a38fad5f8a748fc47c
+  RNLocalize: 759649ec888d632e6d3ac50fb7756c2af777e1ae
   RNScreens: 2e4870e8f9cb4a77e5a51530729f2762868316df
   RNSVG: 71e35e78add645b84b52b0c6f203f91028e1ab5e
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748

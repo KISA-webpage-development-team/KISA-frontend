@@ -130,13 +130,13 @@ export const websiteInfoText = () => `
 ② 회원은 학생회가 제공하는 서비스를 이용함으로써 얻은 정보를 학생회의 사전승낙 없이 복제, 전송, 출판, 배포, 방송, 기타 방법에 의하여 영리목적으로 이용하거나 제3자에게 이용하게 하여서는 안됩니다.`;
 
 export const personalInfoTerm = {
-  label: '개인 정보 수집 약관',
+  label: 'Personal Information Processing Policy',
   text: personalInfoText(),
-  checkboxLabel: '개인 정보 수집 약관에 동의합니다.',
+  checkboxLabel: 'I agree to the Personal Information Processing Policy.',
 };
 
 export const websiteInfoTerm = {
-  label: '웹사이트 이용 약관',
+  label: 'Website Terms of Use',
   text: websiteInfoText(),
-  checkboxLabel: '웹사이트 이용 약관에 동의합니다.',
+  checkboxLabel: 'I agree to the Website Terms of Use.',
 };
