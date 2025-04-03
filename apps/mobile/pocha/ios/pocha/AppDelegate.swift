@@ -22,7 +22,7 @@ class AppDelegate: RCTAppDelegate {
             print("   Font: \(name)")
           }
         }
-
+        
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 
