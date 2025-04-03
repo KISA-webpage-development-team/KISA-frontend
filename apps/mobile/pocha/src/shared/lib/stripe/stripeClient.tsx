@@ -13,10 +13,10 @@ type StripeProviderWrapperProps = {
 export default function StripeProviderWrapper({
   children,
 }: StripeProviderWrapperProps) {
-  // TODO: add merchantIdentifier for Apple Pay
-  // https://docs.stripe.com/apple-pay?platform=react-native
   return (
-    <StripeProvider publishableKey={STRIPE_PUBLIC_KEY}>
+    <StripeProvider
+      publishableKey={STRIPE_PUBLIC_KEY}
+      merchantIdentifier="merchant.com.pocha">
       {children}
     </StripeProvider>
   );
