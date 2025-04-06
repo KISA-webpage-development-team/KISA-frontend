@@ -25,13 +25,13 @@ class AppDelegate: RCTAppDelegate {
     application.registerForRemoteNotifications()
     
     // Log all font families and names
-    for family in UIFont.familyNames.sorted() {
-      print("Font Family: \(family)")
-      for name in UIFont.fontNames(forFamilyName: family).sorted() {
-        print("   Font: \(name)")
-      }
-    }
-
+        for family in UIFont.familyNames.sorted() {
+          print("Font Family: \(family)")
+          for name in UIFont.fontNames(forFamilyName: family).sorted() {
+            print("   Font: \(name)")
+          }
+        }
+        
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 

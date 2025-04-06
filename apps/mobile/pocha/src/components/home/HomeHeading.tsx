@@ -9,11 +9,12 @@ interface HomeHeadingProps {
 
 export default function HomeHeading({pochaInfo}: HomeHeadingProps) {
   const {signOut} = useUser();
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => signOut()}>
+      {/* <TouchableOpacity onPress={() => signOut()}>
         <Text>Sign Out</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <Text style={styles.title}>{pochaInfo?.title}</Text>
 
       <Text style={styles.description}>{pochaInfo?.description}</Text>

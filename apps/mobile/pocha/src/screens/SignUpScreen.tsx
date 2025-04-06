@@ -13,10 +13,7 @@ import {
 import HorizontalDivider from '@/shared/components/divider/HorizontalDivider';
 import RequiredFields from '@/shared/components/signup/RequiredFields';
 import TermConditions from '@/shared/components/signup/TermConditions';
-import {
-  personalInfoTerm,
-  websiteInfoTerm,
-} from '@/shared/components/config/TermCondition';
+import {personalInfoTerm, websiteInfoTerm} from '@/shared/config/TermCondition';
 import OptionalFields from '@/shared/components/signup/OptionalFields';
 import BackIcon from '@/shared/components/icon/BackIcon';
 
@@ -28,7 +25,7 @@ import {useMainNavigation} from '@/navigations/useMainNavigation';
 import {useAuthNavigation} from '@/navigations/useAuthNavigation';
 import {decomposeDate} from '@/utils/data';
 import {useUser} from '@/contexts/UserContext';
-
+import {useTranslation} from 'react-i18next';
 // types
 import {User} from '@/types/user';
 
@@ -49,6 +46,7 @@ function HeaderBackButton() {
 }
 
 export default function SignUpScreen({}) {
+  const {t} = useTranslation();
   // add "navigation" into the parameter here
   const navigation_sign = useAuthNavigation();
 
@@ -80,9 +78,9 @@ export default function SignUpScreen({}) {
       {
         value: name,
         setValue: setName,
-        label: '이름 (본명)',
+        label: '이름 (name)',
         type: 'text',
-        placeholder: '예) 홍길동',
+        placeholder: 'ex) John Doe',
         validationRules: [
           (value: string) =>
             !value.trim()
@@ -93,9 +91,9 @@ export default function SignUpScreen({}) {
       {
         value: email,
         setValue: setEmail,
-        label: 'umich 이메일',
+        label: 'umich email',
         type: 'email',
-        placeholder: '예) example@umich.edu',
+        placeholder: 'ex) example@umich.edu',
         validationRules: [
           (value: string) =>
             !value.endsWith('@umich.edu')
@@ -108,7 +106,7 @@ export default function SignUpScreen({}) {
         setValue: setMajor,
         label: '전공 (major)',
         type: 'text',
-        placeholder: '예) Computer Science',
+        placeholder: 'ex) Computer Science',
         validationRules: [
           (value: string) => (!value.trim() ? '전공을 입력해주세요.' : null),
         ],
@@ -116,19 +114,21 @@ export default function SignUpScreen({}) {
       {
         value: birthDate,
         setValue: setBirthDate,
-        label: '생년월일',
+        label: 'Birth Date',
         type: 'date',
-        placeholder: '예) 2000-01-01',
+        placeholder: 'ex) 2000-01-01',
       },
       {
         value: gradYear,
         setValue: setGradYear,
-        label: '졸업년도 (YYYY)',
+        label: 'Graduation Year (YYYY)',
         type: 'number',
-        placeholder: '예) 2026',
+        placeholder: 'ex) 2026',
         validationRules: [
           (value: string) =>
-            value.length !== 4 ? '정확한 졸업년도를 입력해주세요.' : null,
+            value.length !== 4
+              ? 'Please enter the correct graduation year.'
+              : null,
         ],
       },
     ],
@@ -238,11 +238,9 @@ export default function SignUpScreen({}) {
             <HeaderBackButton />
           </View>
 
-          <Text style={styles.headerLargeText}>
-            키사에 처음 오신걸 환영합니다!
-          </Text>
+          <Text style={styles.headerLargeText}>Welcome to UMich KISA</Text>
           <Text style={styles.headerSmallText}>
-            회원가입을 위해 아래 정보를 입력해주세요.
+            Please fill out the following information to sign up.
           </Text>
         </View>
 
@@ -294,7 +292,7 @@ export default function SignUpScreen({}) {
           ]}
           onPress={handleSubmit}
           disabled={disabled}>
-          <Text style={[styles.submitButtonText]}>회원가입 제출</Text>
+          <Text style={[styles.submitButtonText]}>Sign Up</Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
@@ -309,7 +307,7 @@ const styles = StyleSheet.create({
   },
   // Header
   headerContainer: {
-    rowGap: 8,
+    rowGap: 10,
   },
   headerBackButtonContainer: {
     position: 'absolute',

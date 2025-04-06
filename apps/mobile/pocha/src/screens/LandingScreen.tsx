@@ -41,8 +41,6 @@ export default function LandingScreen() {
           resizeMode="contain"
         />
       </View>
-      {/* FIX ME From here */}
-      {/* <Text style={styles.logo}>Developed by ...</Text> */}
       <View style={styles.bottomSection}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>UMich KISA</Text>

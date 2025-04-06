@@ -2,9 +2,8 @@
 
 // import {useSearchParams, useRouter} from 'next/navigation';
 // import {sejongHospitalBold} from '@/utils/fonts/textFonts';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Image} from 'react-native';
-import {useState} from 'react';
 import PochaButton from '../components/shared/PochaButton';
 import {View, Text, StyleSheet} from 'react-native';
 import {useMainNavigation} from '@/navigations/useMainNavigation';
@@ -140,7 +139,7 @@ export default function PaySuccessPage() {
       <Text style={styles.text}>결제가 완료되었습니다</Text>
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../assets/images/all_purpose/check_circle.png')}
+          source={require('@/assets/images/check_circle.png')}
           style={{width: 192, height: 192}}
         />
       </View>

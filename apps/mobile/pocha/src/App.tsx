@@ -1,9 +1,11 @@
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {NavigationContainer} from '@react-navigation/native';
-import {UserProvider, useUser} from './contexts/UserContext';
+import {UserProvider, useUser} from '@/contexts/UserContext';
 
-import MainNavigator from './navigations/MainNavigator';
-import AuthNavigator from './navigations/AuthNavigator';
+import MainNavigator from '@/navigations/MainNavigator';
+import AuthNavigator from '@/navigations/AuthNavigator';
+
+import SplashScreen from 'react-native-splash-screen';
 
 import React, {useEffect, useState} from 'react';
 import {View, ActivityIndicator} from 'react-native';
@@ -51,14 +53,20 @@ export default function PochaApp() {
     checkFirebaseReady();
   }, []);
 
-  if (isInitializing) {
-    // [TODO] this should be a splash screen
-    return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
+  useEffect(() => {
+    if (!isInitializing) {
+      SplashScreen.hide();
+    }
+  }, [isInitializing]);
+
+  // if (isInitializing) {
+  //   // [TODO] this should be a splash screen
+  //   return (
+  //     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+  //       <ActivityIndicator size="large" />
+  //     </View>
+  //   );
+  // }
 
   return (
     <UserProvider>

@@ -29,7 +29,7 @@ export default function HomeScreen({route}: HomeScreenProps) {
 
   const headerHeight = scrollY.interpolate({
     inputRange: [0, 100],
-    outputRange: [95, 0], // Adjust 80 to match your header height
+    outputRange: [75, 0], // Adjust 80 to match your header height
     extrapolate: 'clamp',
   });
 
@@ -40,7 +40,7 @@ export default function HomeScreen({route}: HomeScreenProps) {
   });
 
   if (status === 'loading') {
-    return <LoadingSpinner fullScreen label="로딩 중입니다..." />;
+    return <LoadingSpinner fullScreen label="Loading..." />;
   }
 
   if (status === 'error') {

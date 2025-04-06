@@ -1419,6 +1419,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - react-native-splash-screen (3.3.0):
+    - React-Core
   - React-NativeModulesApple (0.78.1):
     - glog
     - hermes-engine
@@ -1764,6 +1766,27 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNLocalize (3.4.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNScreens (4.9.2):
     - DoubleConversion
     - glog
@@ -1934,6 +1957,7 @@ DEPENDENCIES:
   - react-native-pager-view (from `../../../../node_modules/react-native-pager-view`)
   - react-native-pure-jwt (from `../../../../node_modules/react-native-pure-jwt`)
   - react-native-safe-area-context (from `../../../../node_modules/react-native-safe-area-context`)
+  - react-native-splash-screen (from `../../../../node_modules/react-native-splash-screen`)
   - React-NativeModulesApple (from `../../../../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../../../../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-performancetimeline (from `../../../../node_modules/react-native/ReactCommon/react/performance/timeline`)
@@ -1968,6 +1992,7 @@ DEPENDENCIES:
   - "RNFBMessaging (from `../../../../node_modules/@react-native-firebase/messaging`)"
   - "RNGoogleSignin (from `../../../../node_modules/@react-native-google-signin/google-signin`)"
   - RNKeychain (from `../../../../node_modules/react-native-keychain`)
+  - RNLocalize (from `../../../../node_modules/react-native-localize`)
   - RNScreens (from `../../../../node_modules/react-native-screens`)
   - RNSVG (from `../../../../node_modules/react-native-svg`)
   - "stripe-react-native (from `../../../../node_modules/@stripe/stripe-react-native`)"
@@ -2087,6 +2112,8 @@ EXTERNAL SOURCES:
     :path: "../../../../node_modules/react-native-pure-jwt"
   react-native-safe-area-context:
     :path: "../../../../node_modules/react-native-safe-area-context"
+  react-native-splash-screen:
+    :path: "../../../../node_modules/react-native-splash-screen"
   React-NativeModulesApple:
     :path: "../../../../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios"
   React-perflogger:
@@ -2155,6 +2182,8 @@ EXTERNAL SOURCES:
     :path: "../../../../node_modules/@react-native-google-signin/google-signin"
   RNKeychain:
     :path: "../../../../node_modules/react-native-keychain"
+  RNLocalize:
+    :path: "../../../../node_modules/react-native-localize"
   RNScreens:
     :path: "../../../../node_modules/react-native-screens"
   RNSVG:
@@ -2207,26 +2236,27 @@ SPEC CHECKSUMS:
   React-FabricComponents: 0134bdb1f35f7f8357c7648d49671e176f5151d9
   React-FabricImage: dc15141d01afa465de904652a3b57e10e58cdf56
   React-featureflags: d9f1c9549c740be588405cf32f46815dde40da68
-  React-featureflagsnativemodule: f67095fbb9b0387b1089f699fb8cddc1880d5344
-  React-graphics: 78850ac1948cdf389b87901114b649a24fed8002
-  React-hermes: d61c104904d2c5a2cb9390267085c17f284f149e
-  React-idlecallbacksnativemodule: 689e3d9e15583df257baa3511b4c3a2de5143f12
-  React-ImageManager: f0ac3380c7cb1dd511d43548b9d7fbce6df00dde
-  React-jserrorhandler: f1c13545ca63cf25586eaf115f97a9f3f1996664
-  React-jsi: 183f5f851fee72238c1ac807bbca39f9930d22cf
-  React-jsiexecutor: afee0663c97f2d32188e1b91fe16fc09377b5ce7
-  React-jsinspector: 38f63d8b58d49ecb873d153ab897173baf6e48a8
-  React-jsinspectortracing: 1e3427c3119901a5c2a3acdaa5891d1cd96cebaa
-  React-jsitracing: c158c22d2ae0b666e00588e7d08ae28200c4289a
-  React-logger: 88de26ac2b4ae3ebf55108f4be299f967151d0ec
-  React-Mapbuffer: 8b09f543e16b4b46f014113e90dfa7a8d75892b6
-  React-microtasksnativemodule: c552278ee39f89a9fc4ffbe0bf9316d1cf3c8729
-  react-native-pager-view: ef618f2cecf1888f7a49cac59a6dd59fcb8270b1
-  react-native-pure-jwt: 0d332f378799316e6e7a79a7e262a246d907cdfb
-  react-native-safe-area-context: d2bad4bfc00dcefabbdccefa9544933bd36756f8
-  React-NativeModulesApple: 1e30b3e42b7632af111ae8e1e29d7f212a68ab0f
-  React-perflogger: e1c8cc9ba55dfabb670966d73622eabcfa0ac29e
-  React-performancetimeline: c02e4180f8e815a0423d109849493c4bb643cc06
+  React-featureflagsnativemodule: 5133d429178fee252bd0b5fcb204c75c496b88a5
+  React-graphics: 53b9fa98a8cbe838e80d20a2cb242d2f1e9db249
+  React-hermes: 809429058aa7610601c552556a132df2f446fe0c
+  React-idlecallbacksnativemodule: 3b39fcbd2535ba43f05ae599666b532cc6d25154
+  React-ImageManager: 5ceb67a153ec8f25e0ff56bc40d2172b2d3e57d9
+  React-jserrorhandler: 1843c869e47d73e152f209bf5fd06ebd40ee9aaa
+  React-jsi: 0be2628a04b7ab6b60565ccc0e11069c6a3e5a91
+  React-jsiexecutor: cb431019ea945006b0ad62ba34dba8475926eda9
+  React-jsinspector: dabe35a99fa7fb088e1dad0f1cc97f2fa398f4c6
+  React-jsinspectortracing: 1d274806cfafd5c3133d7aaab354caf0dc0f3cb7
+  React-jsitracing: ed46156c5ad71f7736894d1387a54cf1b39c6df7
+  React-logger: 74ddb793d36b48bba176328c7af75e5e656fd405
+  React-Mapbuffer: 9089a8ef738526aa31bb993debfaff214c2bef5d
+  React-microtasksnativemodule: d4fd1d752f04965cd989beb8d28e896fa7f58605
+  react-native-pager-view: f7f13e312fd72e7b800f76ff54b2bfe736cfb366
+  react-native-pure-jwt: ddc75cb6ec8fe40c8efa6b5ca2cd41eadc914056
+  react-native-safe-area-context: 33fadf89988c8813cfac57797a3bc53708863dd1
+  react-native-splash-screen: 95994222cc95c236bd3cdc59fe45ed5f27969594
+  React-NativeModulesApple: ce75ed8f1188483be3620bf9dbb3b1286dd39bab
+  React-perflogger: 26d07766b033f84559bd520e949453dba8bf1cd8
+  React-performancetimeline: 24eb0a6a341a1b0d48bc75a961ee480db0bad47e
   React-RCTActionSheet: 9488eac05a056a124f500beaecf0a5bd722b2916
   React-RCTAnimation: 25cab7e810ceffcbecaf80d481e8da88458fe16d
   React-RCTAppDelegate: bc7081822fadf0ef7b0103ad7a1906d2872b1f4e
@@ -2253,14 +2283,14 @@ SPEC CHECKSUMS:
   ReactCodegen: 55be2aac77d30fdf1082156858218156720a0090
   ReactCommon: 646c9fb7fd3db3f1c4fdef21c045363cbd15aa2d
   RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
-  RNCPushNotificationIOS: 64218f3c776c03d7408284a819b2abfda1834bc8
-  RNFBApp: 39a59291d2dbda0d963b9c262d902fd2b56a858e
-  RNFBAuth: 15fe8ed9db1222bdcc81032666f05c893f9ac7dc
-  RNFBMessaging: 2c6a2fb00c6d4a09760b7b54bc4d549ab37c419a
-  RNGoogleSignin: e548e9a67bb94980df514f71e107a13d6ebe40d3
-  RNKeychain: 774184659ed098fd715a4976d44e2003c829934f
-  RNScreens: f49acd952ee8e2fac659bf74166271654a20172b
-  RNSVG: 05776cf3f0d52d3f8e7ebee34b2189da7b8638ff
+  RNFBApp: 9297acf6e0fbc398a0b1df684cf41a849f3f521b
+  RNFBAuth: d8af04c95f86a16c592c9a49f16cf0b0bf0b6fd3
+  RNFBMessaging: b8590d742b98883cc1d18394e87276b23cf30f12
+  RNGoogleSignin: 1a215139c537bb0430abdb9ff9a8e437578e515d
+  RNKeychain: 35beaa17938f7d8e4990d8a38fad5f8a748fc47c
+  RNLocalize: 759649ec888d632e6d3ac50fb7756c2af777e1ae
+  RNScreens: 2e4870e8f9cb4a77e5a51530729f2762868316df
+  RNSVG: 71e35e78add645b84b52b0c6f203f91028e1ab5e
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Stripe: 8a03a78bfa16b197f9fac51e42670ac563b34388
   stripe-react-native: 103ae16ea3d68a1825840fbcafcd7fab1a278c9c

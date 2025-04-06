@@ -76,6 +76,10 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
       throw new Error('Google Sign-In failed: No Email returned');
     }
 
+    if (!email.endsWith('@umich.edu')) {
+      throw new Error('Only UMich email is allowed');
+    }
+
     const token = await signToken(email);
     // Check if user already exists in the database
     const existingUser = await getUser(email, token);
