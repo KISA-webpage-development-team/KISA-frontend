@@ -49,6 +49,7 @@
     "react-native-svg": "15.11.2",
     "react-native-ui-datepicker": "^3.1.2",
     "react-native-vector-icons": "10.2.0",
+    "socket.io-client": "^4.8.1",
     "stripe": "17.7.0"
   },
   "devDependencies": {

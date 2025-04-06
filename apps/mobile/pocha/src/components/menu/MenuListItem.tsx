@@ -23,10 +23,12 @@ interface MenuItemCardProps {
 }
 
 // Renders the age restriction overlay for underage users (drinks)
-const AGE_RESTRICTION_MESSAGE = 'Only for 21+';
-
 function AgeRestrictionOverlay() {
-  return <View style={styles.overlay} />;
+  return (
+    <View style={styles.overlay}>
+      <Text style={styles.overlayText}>Only for 21+</Text>
+    </View>
+  );
 }
 
 export default function MenuListItem({
@@ -60,18 +62,13 @@ export default function MenuListItem({
           <Text style={[styles.menuName, stock === 0 && styles.outOfStock]}>
             {nameKor} {nameEng}
           </Text>
+
           <Text
             style={[styles.menuPrice, stock === 0 && styles.outOfStockPrice]}>
             {stock === 0 ? 'Out of Stock' : `$${price}`}
           </Text>
         </View>
       </TouchableOpacity>
-
-      {notForUnderAge && (
-        <View style={styles.overlay}>
-          <Text style={styles.overlayText}>{AGE_RESTRICTION_MESSAGE}</Text>
-        </View>
-      )}
     </View>
   );
 }

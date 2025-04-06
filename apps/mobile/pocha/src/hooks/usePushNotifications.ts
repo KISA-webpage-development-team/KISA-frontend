@@ -40,12 +40,13 @@ export const usePushNotifications = () => {
       console.error('[PushNotifications] Registration error:', error);
     });
 
-    // Notification handler
-    PushNotificationIOS.addEventListener('notification', notification => {
-      const {title, body} = notification.getData().aps?.alert || {};
-      Alert.alert(title || 'Notification', body || 'You have a new message');
-      notification.finish(PushNotificationIOS.FetchResult.NoData);
-    });
+    // Fallback notification handler
+    // PushNotificationIOS.addEventListener('notification', notification => {
+    //   const {title, body} = notification.getData().aps?.alert || {};
+    //   Alert.alert(title || 'Notification', body || 'You have a new message');
+    //   console.log('[PushNotifications] Received notification:', notification);
+    //   notification.finish(PushNotificationIOS.FetchResult.NoData);
+    // });
   };
 
   // Setup all notification logic

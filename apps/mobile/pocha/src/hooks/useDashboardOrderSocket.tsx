@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
-import { io, Socket } from "socket.io-client";
-import { OrderItem } from "@/types/pocha";
-import { WEBSOCKET_URL } from "@/constants/env";
+import {useEffect, useRef} from 'react';
+import {io, Socket} from 'socket.io-client';
+import {OrderItem} from '@/types/pocha';
+import {WEBSOCKET_URL} from '@env';
 
 interface useDashboardOrderSocketProps {
   token: string;
@@ -23,25 +23,25 @@ const useDashboardOrderSocket = ({
 
     // Initialize socket connection
     socketRef.current = io(WEBSOCKET_URL, {
-      transports: ["websocket"],
-      auth: { token },
-      query: { email, pochaId: pochaID },
+      transports: ['websocket'],
+      auth: {token},
+      query: {email, pochaId: pochaID},
     });
 
     // Connection event handlers
-    socketRef.current.on("connect", () =>
-      console.log("Connected to WebSocket server")
+    socketRef.current.on('connect', () =>
+      console.log('Connected to WebSocket server'),
     );
-    socketRef.current.on("connect_error", (error) =>
-      console.error("WebSocket connection error:", error)
+    socketRef.current.on('connect_error', (error: string) =>
+      console.error('WebSocket connection error:', error),
     );
 
     // Listen for order-created event
     socketRef.current.on(
-      "order-created",
-      ({ newOrderItems }: { newOrderItems: OrderItem[] }) => {
+      'order-created',
+      ({newOrderItems}: {newOrderItems: OrderItem[]}) => {
         newOrderItems.forEach(addNewOrderItem);
-      }
+      },
     );
 
     // Cleanup on unmount

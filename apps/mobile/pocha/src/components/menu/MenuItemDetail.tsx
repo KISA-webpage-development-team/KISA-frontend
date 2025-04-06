@@ -226,7 +226,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: '100%',
     aspectRatio: 1 / 1,
-    backgroundColor: 'red',
   },
   image: {
     width: '100%',

@@ -1,5 +1,5 @@
-// import useUserOrderSocket from "../../hooks/useUserOrderSocket";
-import React from 'react';
+import useUserOrderSocket from '@/hooks/useUserOrderSocket';
+import React, {useCallback} from 'react';
 import {FlatList, Text, View, StyleSheet, Animated} from 'react-native';
 
 // hooks
@@ -13,7 +13,7 @@ import ErrorDisplay from '@/shared/components/feedback/ErrorDisplay';
 import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
 
 // types
-import {OrderItem, OrderTabs} from '@/types/pocha';
+import {OrderItem, OrderStatus, OrderTabs} from '@/types/pocha';
 import {SimpleUser} from '@/types/user';
 
 interface OrderListProps {
@@ -35,8 +35,8 @@ export default function OrderList({
   const {token, status: tokenStatus, error: tokenError} = useUserToken();
 
   const {
-    updateOrder,
-    addNewOrderItem,
+    updateOrder: baseUpdateOrder,
+    addNewOrderItem: baseAddNewOrderItem,
     pendingOrders,
     preparingOrders,
     readyOrders,
@@ -44,12 +44,28 @@ export default function OrderList({
     status: ordersStatus,
   } = useUserOrders(loggedInUser.email, token, pochaID);
 
-  // useUserOrderSocket({
-  //   token: session?.token,
-  //   email: session?.user?.email,
-  //   pochaID,
-  //   updateOrder,
-  //   addNewOrderItem,
+  // Memoize the callback functions
+  const updateOrder = useCallback(
+    (orderItemID: number, status: OrderStatus) => {
+      baseUpdateOrder(orderItemID, status);
+    },
+    [baseUpdateOrder],
+  );
+
+  const addNewOrderItem = useCallback(
+    (orderItem: OrderItem) => {
+      baseAddNewOrderItem(orderItem);
+    },
+    [baseAddNewOrderItem],
+  );
+
+  useUserOrderSocket({
+    token: token,
+    email: loggedInUser.email,
+    pochaID,
+    updateOrder,
+    addNewOrderItem,
+  });
 
   // UI Rendering ----------------------------------------------
   // if (sessionStatus === "loading" || ordersStatus === "loading") {
