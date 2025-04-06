@@ -26,10 +26,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>org.reactjs.native.example.pocha</string>
+			<string>com.kisa.pocha</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.602978160198-tsvut54bce28nvlvvd0cm8feho3gapdm</string>
+				<string>com.googleusercontent.apps.602978160198-jdkgt22teketdp32v325guhjfb3qttct</string>
 			</array>
 		</dict>
 	</array>
@@ -80,6 +80,13 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
 </dict>
 </plist>

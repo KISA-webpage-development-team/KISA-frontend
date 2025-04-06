@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android --no-packager",
     "ios": "react-native run-ios --no-packager",
+    "clear-ios": "rm -rf ios/build && cd ios && pod deintegrate && pod cache clean --all && pod install && cd ..",
     "ios-16": "react-native run-ios --no-packager --simulator='iPhone 16 Pro'",
     "lint": "eslint .",
     "start": "react-native start",
@@ -17,6 +18,7 @@
   },
   "dependencies": {
     "@babel/runtime": "7.26.10",
+    "@react-native-community/push-notification-ios": "^1.11.0",
     "@react-native-firebase/app": "^19.0.0",
     "@react-native-firebase/auth": "^19.0.0",
     "@react-native-firebase/messaging": "21.12.3",

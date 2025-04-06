@@ -112,3 +112,17 @@ export async function changeStock(body: ChangeStockBody) {
     return undefined;
   }
 }
+
+/**
+ * @desc register or renew FCM token of a user
+ * @route POST /pocha/dashboard/change-stock/
+ */
+export async function registerToken(body: {token: string; email: string}) {
+  const url = `/pocha/notification/register-token/`;
+  try {
+    const response = await client.post(url, body);
+    return response?.data;
+  } catch (error) {
+    return undefined;
+  }
+}

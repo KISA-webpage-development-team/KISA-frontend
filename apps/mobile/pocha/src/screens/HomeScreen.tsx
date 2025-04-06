@@ -13,6 +13,7 @@ import HomeTabNavigator from '@/navigations/HomeTabNavigator';
 
 // hooks
 import usePocha from '../hooks/usePocha';
+import {usePushNotifications} from '@/hooks/usePushNotifications';
 
 interface HomeScreenProps {
   route: {params: {currentTab: 'MenuTab' | 'OrderTab'}};
@@ -20,6 +21,7 @@ interface HomeScreenProps {
 
 export default function HomeScreen({route}: HomeScreenProps) {
   const {pochaInfo, status, error} = usePocha();
+  usePushNotifications();
 
   const scrollY = useRef(new Animated.Value(0)).current;
 
