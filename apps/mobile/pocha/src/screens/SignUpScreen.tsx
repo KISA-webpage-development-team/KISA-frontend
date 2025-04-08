@@ -46,7 +46,6 @@ function HeaderBackButton() {
 }
 
 export default function SignUpScreen({}) {
-  const {t} = useTranslation();
   // add "navigation" into the parameter here
   const navigation_sign = useAuthNavigation();
 
@@ -184,11 +183,11 @@ export default function SignUpScreen({}) {
     };
 
     Alert.alert(
-      '확인',
-      '한 번 생성된 로그인 정보 수정은 어렵습니다. 진행하시겠습니까?',
+      'Confirm',
+      'Once created, login information cannot be modified. Proceed?',
       [
-        {text: '취소', style: 'cancel'},
-        {text: '확인', onPress: async () => registerUser(userData)},
+        {text: 'Cancel', style: 'cancel'},
+        {text: 'Confirm', onPress: async () => registerUser(userData)},
       ],
     );
   };
@@ -200,7 +199,7 @@ export default function SignUpScreen({}) {
       // if user already exists, navigate to landing screen
       // let user to sign in again
       if (res.status == 200) {
-        Alert.alert('알림', '이미 가입된 이메일입니다.');
+        Alert.alert('Alert', 'Already registered email');
         navigation_sign.navigate('LandingScreen');
         return;
       }
@@ -288,7 +287,7 @@ export default function SignUpScreen({}) {
         <TouchableOpacity
           style={[
             styles.submitButton,
-            {backgroundColor: disabled ? 'gray' : 'blue'},
+            {backgroundColor: disabled ? 'gray' : '#4B90E2'},
           ]}
           onPress={handleSubmit}
           disabled={disabled}>

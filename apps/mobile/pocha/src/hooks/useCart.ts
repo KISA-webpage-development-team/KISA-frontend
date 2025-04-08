@@ -28,6 +28,8 @@ const useCart = (email: string, pochaID: number) => {
   const [status, setStatus] = useState<HookStatus>('loading');
   const [error, setError] = useState<string>();
 
+  const [isChangingQuantity, setIsChangingQuantity] = useState<boolean>(false);
+
   const fetchCart = useCallback(async () => {
     setStatus('loading');
     try {
@@ -78,10 +80,12 @@ const useCart = (email: string, pochaID: number) => {
           menuID: menuid,
           quantity: newQuantity,
         });
+        setIsChangingQuantity(false);
       } catch (error) {
         console.error('Error updating cart item', error);
         setError('Failed to update cart');
         fetchCart(); // Revert the cart state on failure
+        setIsChangingQuantity(false);
       }
     },
     1000,
@@ -92,6 +96,7 @@ const useCart = (email: string, pochaID: number) => {
     // [NOTE] UI is updated here first
     // API call is made in the debouncedChangeItemInCart function,
     // so most of the time, UI and database will be synced
+    setIsChangingQuantity(true);
     updateQuantityUI(menuid, newQuantity);
 
     debouncedChangeItemInCart(menuid, newQuantity);
@@ -103,6 +108,7 @@ const useCart = (email: string, pochaID: number) => {
     error,
     totalAmount,
     handleQuantityChange,
+    isChangingQuantity,
     fetchCart,
   };
 };

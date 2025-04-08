@@ -39,6 +39,7 @@ export default function CartScreen({route}: CartScreenProps) {
     error: cartError,
     totalAmount,
     handleQuantityChange,
+    isChangingQuantity,
   } = useCart(user.email, pochaID);
 
   if (cartStatus === 'loading') {
@@ -59,7 +60,10 @@ export default function CartScreen({route}: CartScreenProps) {
             <View style={styles.divider}></View>
             <View style={styles.infoView}>
               <CartTotalSummary totalAmount={totalAmount} />
-              <ProceedToPaymentButton pochaID={pochaID} />
+              <ProceedToPaymentButton
+                pochaID={pochaID}
+                isLoading={isChangingQuantity}
+              />
             </View>
           </View>
         </>

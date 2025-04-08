@@ -5,9 +5,13 @@ import {useMainNavigation} from '@/navigations/useMainNavigation';
 
 type PaymentProps = {
   pochaID: number;
+  isLoading: boolean;
 };
 
-export default function ProceedToPaymentButton({pochaID}: PaymentProps) {
+export default function ProceedToPaymentButton({
+  pochaID,
+  isLoading,
+}: PaymentProps) {
   const navigation = useMainNavigation();
 
   const handlePaymentClick = () => {
@@ -16,7 +20,11 @@ export default function ProceedToPaymentButton({pochaID}: PaymentProps) {
 
   return (
     <View style={{width: '100%', alignItems: 'center'}}>
-      <PochaButton label="Checkout" onClick={handlePaymentClick} />
+      <PochaButton
+        label="Checkout"
+        onClick={handlePaymentClick}
+        disabled={isLoading}
+      />
     </View>
   );
 }
