@@ -48,6 +48,9 @@ const useStripePayment = (
       defaultBillingDetails: {
         name: fullname,
       },
+      applePay: {
+        merchantCountryCode: 'US',
+      }
     });
 
     if (error) {
