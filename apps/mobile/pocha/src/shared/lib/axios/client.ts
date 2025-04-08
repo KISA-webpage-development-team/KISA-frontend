@@ -3,8 +3,7 @@ import axios from 'axios';
 import {BACKEND_URL, LOCAL_BACKEND_URL, USE_LOCAL_BACKEND} from '@env';
 
 const client = axios.create({
-  // baseURL: USE_LOCAL_BACKEND ? LOCAL_BACKEND_URL : BACKEND_URL,
-  baseURL: 'https://6fb0-67-194-25-84.ngrok-free.app/api/v2',
+  baseURL: USE_LOCAL_BACKEND ? LOCAL_BACKEND_URL : BACKEND_URL,
   headers: {
     'Content-Type': 'application/json',
   },
