@@ -9,7 +9,7 @@
 // import TipModal from "@/features/pocha/components/pay/TipModal";
 
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import OrderList from '@/components/order/OrderList';
 import {HomeTabProps} from '@/navigations/HomeTabNavigator';
 import {useUser} from '@/contexts/UserContext';
@@ -19,7 +19,7 @@ import OrderStatusSelector from '@/components/order/OrderStatusSelector';
 import {OrderTabs} from '@/types/pocha';
 
 export default function OrderTab({route}: HomeTabProps) {
-  const {user} = useUser();
+  const {signOut} = useUser();
   const pochaID = route.params.pochaID;
 
   const scrollY = route.params.scrollY;
@@ -35,6 +35,9 @@ export default function OrderTab({route}: HomeTabProps) {
         setActiveTab={setActiveTab}
         scrollY={scrollY}
       />
+      <TouchableOpacity onPress={signOut}>
+        <Text style={styles.buttonText}>Sign Out</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -47,5 +50,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: '4%',
     rowGap: '2%',
+  },
+  buttonText: {
+    fontSize: 12,
+    textDecorationLine: 'underline',
   },
 });

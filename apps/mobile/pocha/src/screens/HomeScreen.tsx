@@ -29,7 +29,7 @@ export default function HomeScreen({route}: HomeScreenProps) {
 
   const headerHeight = scrollY.interpolate({
     inputRange: [0, 100],
-    outputRange: [75, 0], // Adjust 80 to match your header height
+    outputRange: [65, 0], // Adjust 80 to match your header height
     extrapolate: 'clamp',
   });
 
