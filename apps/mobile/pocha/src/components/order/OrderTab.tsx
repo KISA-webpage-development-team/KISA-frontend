@@ -17,9 +17,13 @@ import OrderStatusSelector from '@/components/order/OrderStatusSelector';
 
 // types
 import {OrderTabs} from '@/types/pocha';
+import {deleteUser} from '@/apis/auth';
+import {SimpleUser} from '@/types/user';
 
 export default function OrderTab({route}: HomeTabProps) {
-  const {signOut} = useUser();
+  const {signOut, user} = useUser();
+  const loggedInUser = user as SimpleUser;
+
   const pochaID = route.params.pochaID;
 
   const scrollY = route.params.scrollY;
@@ -35,9 +39,14 @@ export default function OrderTab({route}: HomeTabProps) {
         setActiveTab={setActiveTab}
         scrollY={scrollY}
       />
-      <TouchableOpacity onPress={signOut}>
-        <Text style={styles.buttonText}>Sign Out</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={signOut}>
+          <Text style={styles.buttonText}>Sign Out</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => deleteUser(loggedInUser.email)}>
+          <Text style={styles.buttonText}>Delete User</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -54,5 +63,9 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 12,
     textDecorationLine: 'underline',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    gap: 10,
   },
 });

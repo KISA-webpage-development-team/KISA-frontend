@@ -27,3 +27,15 @@ export async function createNewUser(
     throw new Error();
   }
 }
+
+export async function deleteUser(email: string): Promise<AxiosResponse> {
+  const url = `/users/${email}`;
+
+  try {
+    const result = await client.delete(url);
+    return result;
+  } catch (error) {
+    console.log(error);
+    throw new Error();
+  }
+}
