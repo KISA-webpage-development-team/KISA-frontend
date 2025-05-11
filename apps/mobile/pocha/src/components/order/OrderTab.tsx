@@ -19,16 +19,24 @@ import OrderStatusSelector from '@/components/order/OrderStatusSelector';
 import {OrderTabs} from '@/types/pocha';
 import {deleteUser} from '@/apis/auth';
 import {SimpleUser} from '@/types/user';
+import useUserToken from '@/hooks/useUserToken';
+import LoadingSpinner from '@/shared/components/feedback/LoadingSpinner';
 
 export default function OrderTab({route}: HomeTabProps) {
   const {signOut, user} = useUser();
   const loggedInUser = user as SimpleUser;
+
+  const {token, status, error} = useUserToken();
 
   const pochaID = route.params.pochaID;
 
   const scrollY = route.params.scrollY;
 
   const [activeTab, setActiveTab] = useState<OrderTabs>('all');
+
+  if (status === 'loading' || !token) {
+    return <></>;
+  }
 
   return (
     <View style={styles.container}>
@@ -43,7 +51,7 @@ export default function OrderTab({route}: HomeTabProps) {
         <TouchableOpacity onPress={signOut}>
           <Text style={styles.buttonText}>Sign Out</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => deleteUser(loggedInUser.email)}>
+        <TouchableOpacity onPress={() => deleteUser(loggedInUser.email, token)}>
           <Text style={styles.buttonText}>Delete User</Text>
         </TouchableOpacity>
       </View>
