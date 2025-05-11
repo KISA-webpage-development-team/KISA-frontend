@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "declaration": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "target": "ES2017"
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/app/template.tsx",
+    "src/app/page.tsx",
+    "src/app/layout.tsx",
+    "build/types/**/*.ts",
+    "src/components/Posts/post-edit/ImageUploader.js",
+    "src/components/Posts/post-edit/ImageUploader.js",
+    "src/app/about/members/page.js",
+    "src/components/Posts/post-edit/quill.imageUploader.js"
+  ],
+  "exclude": ["node_modules"]
+}

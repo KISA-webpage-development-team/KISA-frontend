@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.input {
+  @apply self-stretch
+  border border-gray-300
+  p-3 rounded-lg 
+  text-sm md:text-base;
+
+  &:focus {
+    @apply outline-michigan-blue;
+  }
+}
+.invalid_input {
+  @apply !outline-red-500 !border-red-500;
+}
+
+.label {
+  @apply flex items-start gap-1 text-sm md:text-base;
+}

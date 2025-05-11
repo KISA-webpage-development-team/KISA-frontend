@@ -1,0 +1,80 @@
+/* board.css */
+/* this applies to all the /boards pages */
+
+/* PAGE LAYOUT ---------------------- */
+section {
+  @apply w-full flex flex-col gap-2 md:gap-4;
+}
+
+.board_table_wrapper {
+  @apply md:mt-0 
+  left-0 md:relative 
+  w-full;
+}
+/* ---------------------- PAGE LAYOUT */
+
+/* TABLE */
+/* Board Table --------------------- */
+/* .board_table {
+  @apply border border-gray-300 w-full
+  text-base text-black;
+
+  thead {
+    @apply w-full;
+  }
+
+  th,
+  td {
+    &:first-child {
+      @apply pl-2;
+    }
+    &:last-child {
+      @apply pr-2;
+    }
+  } */
+
+/* thead::tr */
+/* .board_table_header {
+    @apply border-b border-gray-500; */
+
+/* thead::tr::th */
+/* th {
+      @apply py-2 font-semibold text-gray-800;
+    }
+  } */
+
+/* tbody */
+/* tbody {
+    @apply w-full; */
+
+/* tbody::tr */
+/* tr {
+      @apply border-b border-gray-200 hover:bg-gray-100; */
+
+/* tbody::tr::td */
+/* td {
+        @apply text-center py-2;
+      }
+    }
+  }
+} */
+
+/* --------------------- Board Table */
+
+/* LIST */
+/* Board List ------------ */
+/* .board_list {
+  @apply sm:w-full sm:translate-x-0
+  w-screen -translate-x-4
+  border-t border-b border-gray-400;
+
+  li {
+    @apply flex flex-col items-start justify-center 
+    border-b border-gray-200 py-2 px-2;
+
+    &:last-child {
+      @apply border-b-0;
+    }
+  }
+} */
+/* ------------ Board List */

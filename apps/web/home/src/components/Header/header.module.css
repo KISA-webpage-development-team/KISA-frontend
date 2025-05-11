@@ -1,0 +1,34 @@
+.menuContainer {
+  position: absolute;
+  width: 100%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.menuContainerEnter {
+  opacity: 0;
+  transform: translateY(-100%); /* Start off-screen at the bottom */
+}
+
+.menuContainerEnterActive {
+  opacity: 1;
+  transform: translateY(0); /* Final position */
+  transition: all 0.5s ease-in-out;
+}
+
+.menuContainerExit {
+  opacity: 1; /* Maintain opacity during exit */
+}
+
+.menuContainerExitActive {
+  transform: translateY(-100%); /* Slide up to hide */
+  transition: transform 0.5s ease-in-out;
+}
+
+/* mobile menu list */
+.mobileMenuList {
+  position: relative;
+  width: 100%;
+  outline: none;
+}

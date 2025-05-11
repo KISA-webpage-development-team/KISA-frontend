@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* primary: blue - maize */
+.primary_button {
+  @apply inline-flex items-center justify-center self-center
+  px-4 py-2 
+  bg-[#00274c] border border-[#00274c] 
+  text-[#ffcb05] text-sm md:text-base
+  rounded-md cursor-pointer;
+}
+.primary_button:hover {
+  @apply font-bold bg-[#00274c] border border-[#ffcb05] text-[#ffcb05];
+}
+.primary_button_disabled {
+  @apply primary_button !bg-gray-300 border !border-gray-300 !text-white !cursor-not-allowed;
+}
+
+/* secondary : slate - black */
+.secondary_button {
+  @apply inline-flex items-center justify-center self-center
+  px-2 md:px-3 py-1 md:py-2 
+  bg-slate-100 border border-slate-100 
+  text-black text-sm md:text-base
+  rounded-md cursor-pointer;
+}
+.secondary_button:hover {
+  @apply font-bold bg-slate-200  text-black;
+}
+.secondary_button_disabled {
+  @apply secondary_button !bg-gray-300 border !border-gray-300 !text-white !cursor-not-allowed;
+}

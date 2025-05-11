@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.toggle_bar {
+  @apply flex items-center gap-2 p-2 border-t-2 border-transparent hover:underline cursor-pointer;
+}
+.toggle_bar_selected {
+  @apply font-bold text-michigan-blue !border-michigan-maize;
+}
